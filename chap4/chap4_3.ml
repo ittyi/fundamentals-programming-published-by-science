@@ -5,3 +5,4 @@ let hyojun_taiju_z shincho =
 
   hyojun_taiju 100;;
   hyojun_taiju_z 100.;;
+  
