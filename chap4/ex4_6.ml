@@ -1,6 +1,6 @@
 (* 目的: 鶴の数から足の数を算出する *)
 (* tsuru_no_ashi: int -> int *)
-let tsuru_no_ashi ashi = 0
+let tsuru_no_ashi how_many_birds = 0
 
 (* test *)
 let test_normal1 = tsuru_no_ashi 2 = 16
