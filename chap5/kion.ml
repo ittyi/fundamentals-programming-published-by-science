@@ -10,3 +10,7 @@ let test2 = kion 15 = "快適"
 let test3 = kion 20 = "快適"
 let test4 = kion 25 = "快適"
 let test5 = kion 28 = "普通"
+
+(* 目的: 現在の気温 t が 15 以上 25 以下かどうかをチェックする *)
+(* kaiteki : int -> bool *)
+let kaiteki t = false
