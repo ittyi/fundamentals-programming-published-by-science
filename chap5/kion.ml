@@ -1,11 +1,11 @@
 (* 目的: 現在の気温 t から快適度を表す文字列を計算する *)
 (* kion : int -> string *)
 let kion t = 
-  if t < 15 then ""
-  else if t <= 25 then ""
-  else ""
+  if t < 15 then "普通"
+  else if t <= 25 then "快適"
+  else "普通"
 
-(* #use "kion.ml";; *)
+(* test: #use "kion.ml";; *)
 let test1 = kion 7 = "普通"
 let test2 = kion 15 = "快適"
 let test3 = kion 20 = "快適"
