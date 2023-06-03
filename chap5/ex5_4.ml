@@ -1,7 +1,7 @@
 (* 目的: 二次方程式のの係数を与えられたら判別式を返す関数 *)
 (* 判別式とは *)
 (* 二次の多項式 a * x ** 2 + b * x + cに対して， b ** 2 − 4 * a * c のこと *)
-(* hanbetsushiki : int -> int -> int -> int *)
+(* hanbetsushiki : float -> float -> float -> float *)
 let hanbetsushiki a b c = 
   (b *. b) -. 4. *. a *. c 
 
