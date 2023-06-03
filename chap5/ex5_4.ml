@@ -3,9 +3,9 @@
 (* 二次の多項式 a * x ** 2 + b * x + cに対して， b ** 2 − 4 * a * c のこと *)
 (* hanbetsushiki : int -> int -> int -> int *)
 let hanbetsushiki a b c = 
-  (b * b) - 4 * a * c 
+  (b *. b) -. 4. *. a *. c 
 
 (* test: #use "ex5_4.ml";; *)
-let test1 = hanbetsushiki 2 3 (-1) = 17
-let test2 = hanbetsushiki 3 6 2 = 12
-let test3 = hanbetsushiki 1 3 1 = 5
+let test1 = hanbetsushiki 2. 3. (-1.) = 17.
+let test2 = hanbetsushiki 3. 6. 2. = 12.
+let test3 = hanbetsushiki 1. 3. 1. = 5.
