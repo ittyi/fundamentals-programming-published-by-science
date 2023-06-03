@@ -7,7 +7,7 @@ let hanbetsushiki a b c =
 (* b ** 2 − 4 * a * c < 0 の時は会の個数は0 *)
 (* b ** 2 − 4 * a * c = 0 の時は会の個数は1 *)
 (* b ** 2 − 4 * a * c < 0 の時は会の個数は2 *)
-(* kai_no_kosuu : float -> float -> float -> float *)
+(* kai_no_kosuu : float -> float -> float -> int *)
 let kai_no_kosuu a b c = 
   if hanbetsushiki a b c < 0. then 0
   else if hanbetsushiki a b c = 0. then 1
