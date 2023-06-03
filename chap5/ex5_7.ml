@@ -1,7 +1,7 @@
 let bmi height weight = weight /. (height *. height) 
 
 (* 目的: bmiの数値によって体型を返す *)
-(* taikei : float -> float  -> float *)
+(* taikei : float -> float  -> string *)
 let taikei height weight = 
   if bmi height weight < 18.5 then "やせ"
   else if bmi height weight  < 25. then "標準"
