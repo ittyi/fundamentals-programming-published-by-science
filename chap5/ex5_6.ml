@@ -8,7 +8,9 @@ let hanbetsushiki a b c =
 ・D＜0のとき　異なる２つの虚数解をもつ
 ・D＝0のとき　ただ１つの実数解をもつ *)
 (* kyosuukai: float -> float -> float -> bool *)
-let kyosuukai a b c = false
+let kyosuukai a b c = 
+  if hanbetsushiki a b c < 0. then true
+  else false
 
 (* test: #use "ex5_6.ml";; *)
 let test1 = kyosuukai 2. 3. (-1.) = false
