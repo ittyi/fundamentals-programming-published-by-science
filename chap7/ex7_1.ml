@@ -8,5 +8,6 @@ let goukei_to_heikin national_language math science society english =
 
 (* test: #use "ex7_1.ml";; *)
 let test1 = goukei_to_heikin 10 10 10 10 10 = (50, 10)
-let test1 = goukei_to_heikin 10 10 90 10 10 = (130, 26)
-let test1 = goukei_to_heikin 0 0 0 0 0 = (0, 0)
+let test2 = goukei_to_heikin 10 10 90 10 10 = (130, 26)
+let test3 = goukei_to_heikin 0 0 0 0 0 = (0, 0)
+let test4 = goukei_to_heikin 10 10 90 10 16 = (136, 27)
