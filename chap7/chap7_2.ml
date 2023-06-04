@@ -26,3 +26,13 @@ Error: This pattern matches values of type 'a * 'b * 'c
 エラー: このパターンは、タイプ 'a * 'b * 'c の値と一致します
        しかし、型 int * int の値に一致するパターンが予期されていました
 *)
+
+(* 目的: 別の場所で作られた組を取ってきて、その要素を取り出して加える関数 *)
+(* add: (int, int) -> int *)
+let add pair = match pair with
+  (a, b) -> a + b ;;
+
+(* 結果
+# add (1,2);;
+- : int = 3
+*)
