@@ -36,3 +36,10 @@ let add pair = match pair with
 # add (1,2);;
 - : int = 3
 *)
+
+(* 以下のようにも書ける *)
+let add_z (a, b) = a + b ;;
+(* 結果
+# add_z (1, 2);;
+- : int = 3   
+*)
