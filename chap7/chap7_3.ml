@@ -1,7 +1,7 @@
 (* 目的: 二つの整数の組 pair を受け取りその要素の和を返す *)
 (* add: int * int -> inr *)
 let add pair = match pair with
-| (a, b) -> 0
+| (a, b) -> a + b
 
 (* test *)
 let test1 = add (0, 0) = 0
