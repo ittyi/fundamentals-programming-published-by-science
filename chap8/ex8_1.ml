@@ -1,3 +1,4 @@
+(* #use "ex8_1.ml";; *)
 type book_t = {
   title: string;
   author_name: string;

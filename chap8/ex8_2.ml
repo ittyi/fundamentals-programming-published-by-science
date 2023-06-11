@@ -1,3 +1,4 @@
+(* #use "ex8_2.ml";; *)
 type okozukai_t = {
   name: string;
   price: int;
