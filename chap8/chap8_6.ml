@@ -8,8 +8,11 @@ type gakusei_t = {
 (* 目的: 学生のデータ gakusei を受け取り成績のついたデータを返す *)
 (* hyouka : gakusei_t -> gakusei_t *)
 let hyouka gakusei = match gakusei with
-| {namae = n; tensuu = t; seiseki = s} 
-  -> {namae = ""; tensuu = 0; seiseki = ""}
+| {namae = n; tensuu = t; seiseki = s} -> 
+  if t >= 80 then {namae = n; tensuu = t; seiseki = "A"}
+  else if t >= 70 then {namae = n; tensuu = t; seiseki = "B"}
+  else if t >= 60 then {namae = n; tensuu = t; seiseki = "C"}
+  else                 {namae = n; tensuu = t; seiseki = "D"}
 
 (* test: #use "chap8_6.ml";; *)
 let test1 = hyouka {namae = "asai"; tensuu = 90; seiseki = ""}
