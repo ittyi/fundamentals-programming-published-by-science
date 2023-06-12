@@ -4,3 +4,7 @@ type gakusei_t = {
   tensuu: int;      (*点数*)
   seiseki: string;  (*成績*)
 }
+
+(* 目的: 学生のデータ gakusei を受け取り成績のついたデータを返す *)
+(* hyouka : gakusei_t -> gakusei_t *)
+let hyouka gakusei = {namae = ""; tensuu = 0; seiseki = ""}
