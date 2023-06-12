@@ -7,7 +7,9 @@ type gakusei_t = {
 
 (* 目的: 学生のデータ gakusei を受け取り成績のついたデータを返す *)
 (* hyouka : gakusei_t -> gakusei_t *)
-let hyouka gakusei = {namae = ""; tensuu = 0; seiseki = ""}
+let hyouka gakusei = match gakusei with
+| {namae = n; tensuu = t; seiseki = s} 
+  -> {namae = ""; tensuu = 0; seiseki = ""}
 
 (* test: #use "chap8_6.ml";; *)
 let test1 = hyouka {namae = "asai"; tensuu = 90; seiseki = ""}
