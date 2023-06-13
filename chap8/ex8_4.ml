@@ -7,6 +7,8 @@ type parson_t = {
   blood_type: string;
 }
 
+(* 目的: 受け取った情報をもとに血液型を文字列で返す *)
+(* ketsueki_hyouji : parson_t -> string = <fun> *)
 let ketsueki_hyouji person_info = {
   name = "";
   height = 0;
