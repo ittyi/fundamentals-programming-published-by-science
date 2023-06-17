@@ -6,8 +6,8 @@
 (* contain_zero : int list -> bool *)
 let contain_zero lst = match lst with
 | [] -> false
-| first :: rest -> if first = 0 then false
-  else false 
+| first :: rest -> if first = 0 then true
+  else contain_zero rest 
 
 (* test: #use "chap9_4.ml";; *)
 let test1 = contain_zero [] = false
