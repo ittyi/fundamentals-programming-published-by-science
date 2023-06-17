@@ -23,8 +23,8 @@ Error: This expression has type int list
 match [1; 2; 3] with
 [] -> 0
 | first :: second :: rest -> second ;;
-File "chap9_3.ml", lines 23-25, characters 0-35:
 (* お、警告は出るけど2は取得できた。
+File "chap9_3.ml", lines 23-25, characters 0-35:
 23 | match [1; 2; 3] with
 24 | [] -> 0
 25 | | first :: second :: rest -> second...
