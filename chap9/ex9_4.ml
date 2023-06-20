@@ -13,3 +13,5 @@ let rec length lst = match lst with
 let test1 = length [] = 0
 let test2 = length [2; 1; 6; 4; 7] = 5
 let test3 = length [2] = 1
+
+(* 以後は標準で存在する lst.length を使用する *)
