@@ -6,9 +6,9 @@
 
 (* 目的: 受け取ったリスト lst の各要素の和を求める *)
 (* sum : int list -> int *)
-let sum lst = match lst with
+let rec sum lst = match lst with
 | [] -> 0
-| first :: rest -> 0 (* sum rest *)
+| first :: rest -> first + sum rest 
 
 (* test: #use "chap9_5.ml";; *)
 let test1 = sum [] = 0
