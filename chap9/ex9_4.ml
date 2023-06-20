@@ -5,8 +5,9 @@
 
 (* 目的: リストの長さを返す関数 *)
 (* length : int list -> int *)
-let length lst = match lst with
-| first :: rest -> 0 (* length rest *)
+let rec length lst = match lst with
+| [] -> 0
+| first :: rest -> 1 + length rest 
 
 (* test: #use "ex9_4.ml";; *)
 let test1 = length [] = 0
