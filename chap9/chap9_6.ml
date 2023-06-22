@@ -28,8 +28,11 @@ let lst4 = [{namae = "yoshida"; tensuu = 80; seiseki = "A"};
 (* count_A : gakusei_t list -> int *) 
 let rec count_A lst = match lst with
   [] -> 0
-| first :: rest -> 0
- 
+| first :: rest -> (
+  match first with 
+    {namae = n; tensuu = t; seiseki = s} -> 0 (* count_A rest *)
+)
+
 (* test: #use "chap9_6.ml";; *) 
 let test1 = count_A lst1 = 0 
 let test2 = count_A lst2 = 0 
