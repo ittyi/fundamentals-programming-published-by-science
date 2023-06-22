@@ -37,7 +37,9 @@ let rec count_A lst = match lst with
 let rec count_A lst = match lst with
   [] -> 0
 | {namae = n; tensuu = t; seiseki = s} :: rest 
-    -> 0 (* count_A rest *)
+    -> if s = "A"
+        then 0
+        else 0
 
 (* 
 二つの書き方の違いは、 first というパターン変数でレコード全体を指せるかどうか。
