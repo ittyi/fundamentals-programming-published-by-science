@@ -14,3 +14,12 @@ type gakusei_t = {
                          rest が自己参照のケース） 
    という形 *) 
 
+
+(* gakusei_t list 型のデータの例 *) 
+let lst1 = [] 
+let lst2 = [{namae = "asai"; tensuu = 70; seiseki = "B"}] 
+let lst3 = [{namae = "asai"; tensuu = 70; seiseki = "B"}; 
+            {namae = "kaneko"; tensuu = 85; seiseki = "A"}] 
+let lst4 = [{namae = "yoshida"; tensuu = 80; seiseki = "A"}; 
+            {namae = "asai"; tensuu = 70; seiseki = "B"}; 
+            {namae = "kaneko"; tensuu = 85; seiseki = "A"}] 
