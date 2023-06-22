@@ -39,6 +39,17 @@ let rec count_A lst = match lst with
 | {namae = n; tensuu = t; seiseki = s} :: rest 
     -> 0 (* count_A rest *)
 
+(* 
+二つの書き方の違いは、 first というパターン変数でレコード全体を指せるかどうか。
+しかし、レコードの中身と全体の両方が必要になることはあまりないので、二つ目の書き方で事足りることが多い。
+
+レコード中身と同時に全体を指す方法
+let rec count_A lst = match lst with
+  [] -> 0
+| ({namae = n; tensuu = t; seiseki = s} as first) :: rest 
+    -> 0 (* count_A rest *)
+*)
+
 (* test: #use "chap9_6.ml";; *) 
 let test1 = count_A lst1 = 0 
 let test2 = count_A lst2 = 0 
