@@ -7,7 +7,10 @@
 (* even : int list -> int list *)
 let rec even lst = match lst with
 | [] -> []
-| first :: rest -> first :: even rest
+| first :: rest -> 
+  if first mod 2 == 0 
+    then first :: even rest
+    else even rest
 
 (* test: #use "ex9_5.ml";; *)
 let test1 = even [] = []
@@ -17,4 +20,11 @@ let test2 = even [2; 6; 4] = [2; 6; 4]
 
 (* で、たぶん調べないといけないのが list への追加の仕方。
 step1: まずは list をそのまま返そう。
-step2: 次に、再帰を組み込もう。 *)
+step2: 次に、偶数を判定しよう。 *)
+
+(* いえーい
+val even : int list -> int list = <fun>
+val test1 : bool = true
+val test2 : bool = true
+val test3 : bool = true
+val test2 : bool = true *)
