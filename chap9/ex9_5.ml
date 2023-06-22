@@ -5,7 +5,9 @@
 
 (* 目的: 整数のリストのうち、偶数の要素をリスト化して返す *)
 (* even : int list -> int list *)
-let even lst = lst
+let even lst = match lst with
+| [] -> []
+| first :: rest -> []
 
 (* test: #use "ex9_5.ml";; *)
 let test1 = even [] = []
