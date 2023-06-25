@@ -16,8 +16,9 @@ parson_t list は
 
 (* 目的: 人の情報リストを受け取り、血液型Aの人間をレコードとして返す *)
 (* count_ketsueki_A : parson_t list -> parson_t list *)
-let count_ketsueki_A lst = lst
-(* val count_ketsueki_A : 'a -> 'a = <fun> *)
+let count_ketsueki_A lst = match lst with
+| [] -> []
+| first :: rest -> [] (* count_ketsueki_A rest *)
 
 (* test: #use "ex9_7.ml";; *)
 let test1 = count_ketsueki_A [] = []
