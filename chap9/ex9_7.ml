@@ -20,3 +20,42 @@ let count_ketsueki_A lst = lst
 (* val count_ketsueki_A : 'a -> 'a = <fun> *)
 
 (* test: #use "ex9_7.ml";; *)
+let test1 = count_ketsueki_A [] = []
+let test2 = count_ketsueki_A [
+  {
+    name = "Aの人1";
+    height = 150;
+    body_weight = 40;
+    birthday = "12/24";
+    blood_type = "A";
+  };
+  {
+    name = "Aじゃない人";
+    height = 160;
+    body_weight = 50;
+    birthday = "12/24";
+    blood_type = "A";
+  };
+  {
+    name = "Aの人2";
+    height = 170;
+    body_weight = 60;
+    birthday = "12/24";
+    blood_type = "A";
+  }
+] = [
+  {
+    name = "Aの人1";
+    height = 150;
+    body_weight = 40;
+    birthday = "12/24";
+    blood_type = "A";
+  };
+  {
+    name = "Aの人2";
+    height = 170;
+    body_weight = 60;
+    birthday = "12/24";
+    blood_type = "A";
+  }
+]
