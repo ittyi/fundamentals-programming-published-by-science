@@ -18,7 +18,15 @@ parson_t list は
 (* count_ketsueki_A : parson_t list -> parson_t list *)
 let count_ketsueki_A lst = match lst with
 | [] -> []
-| first :: rest -> [] (* count_ketsueki_A rest *)
+| {
+    name = n;
+    height = h;
+    body_weight = bw;
+    birthday = b;
+    blood_type = bt;
+  } :: rest -> []
+  (* then [] (* count_ketsueki_A rest *)
+  else  *)
 
 (* test: #use "ex9_7.ml";; *)
 let test1 = count_ketsueki_A [] = []
