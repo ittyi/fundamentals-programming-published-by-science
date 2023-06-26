@@ -17,7 +17,7 @@ parson_t list は
 
 (* 目的: 乙女座の人だけで名前のリストを返す *)
 (* otomeza : parson_t list -> string list *)
-let rec count_ketsueki_A lst = match lst with
+let rec otomeza lst = match lst with
 | [] -> []
 | {
     name = n;
@@ -26,11 +26,13 @@ let rec count_ketsueki_A lst = match lst with
     birthday = b;
     blood_type = bt;
     seiza = s;
-  } :: rest -> []
+  } :: rest -> if s = "乙女座"
+      then n :: otomeza rest
+      else otomeza rest
 
 (* test: #use "ex9_8.ml";; *)
-let test1 = count_ketsueki_A [] = []
-let test2 = count_ketsueki_A [
+let test1 = otomeza [] = []
+let test2 = otomeza [
   {
     name = "Aの人1";
     height = 150;
