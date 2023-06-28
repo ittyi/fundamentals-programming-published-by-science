@@ -11,6 +11,12 @@ let test3 = add_to_each 1 [[2]; [2; 3]] = [[1; 2]; [1; 2; 3]]
 let test4 = add_to_each 1 [[2]; [2; 3]; [2; 3; 4]] 
                           = [[1; 2]; [1; 2; 3]; [1; 2; 3; 4]] 
  
+(* 目的：受け取った lst の接頭語のリストを返す *) 
+(* prefix : int list -> int list list *) 
+let rec prefix lst = match lst with 
+[] -> [] 
+| first :: rest -> [first] :: add_to_each first (prefix rest) 
+
 (* test: #use "chap10_1.ml";; *) 
 let test5 = prefix [] = [] 
 let test6 = prefix [1] = [[1]] 
