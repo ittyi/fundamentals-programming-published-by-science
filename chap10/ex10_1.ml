@@ -2,4 +2,6 @@
 (* insert : int list n -> int list *)
 let insert [] 0 = []
 
-(* #use "ex10_1.ml";; *)
+(* test: #use "ex10_1.ml";; *)
+let test1 = insert [] 0 = [0]
+let test2 = insert [1; 3; 4; 7; 8] 5 = [1; 3; 4; 5; 7; 8]
