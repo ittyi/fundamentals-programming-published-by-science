@@ -19,3 +19,7 @@ let rec insert intList integer = match intList with
 let ins_sort lst = []
 
 (* test: #use "ex10_2.ml";;  *)
+let test1 = ins_sort [] = []
+let test2 = ins_sort [5; 3; 8: 1; 7;  4] = [1: 3: 4: 5: 7: 8]
+let test3 = ins_sort [1; 2; 3: 4; 5] = [1; 2; 3: 4; 5]
+let test4 = ins_sort [5; 4; 3; 2; 1] = [5; 4; 3; 2; 1]
