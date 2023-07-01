@@ -6,6 +6,14 @@ let rec insert intList integer = match intList with
     then integer :: first :: rest
     else first :: (insert rest integer)
 
+(* データ定義 *)
+(* int list は 
+     - []              空リスト
+     - first :: rest   最初の要素が first で残りのリストが rest 
+                       （first は int 型、 
+                         rest が自己参照のケース） 
+*) 
+
 (* 目的: 与えられた整数リストを昇順に整列する関数 *)
 (* ins_sort : inr list -> int list *)
 let ins_sort lst = []
