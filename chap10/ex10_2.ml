@@ -16,7 +16,9 @@ let rec insert intList integer = match intList with
 
 (* 目的: 与えられた整数リストを昇順に整列する関数 *)
 (* ins_sort : inr list -> int list *)
-let ins_sort lst = []
+let ins_sort lst = match lst with
+| [] -> []
+| first :: rest -> []
 
 (* test: #use "ex10_2.ml";;  *)
 let test1 = ins_sort [] = []
