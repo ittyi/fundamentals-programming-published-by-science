@@ -35,3 +35,30 @@ let test1 = ins_sort [] = []
 let test2 = ins_sort [1; 2; 3; 4; 5] = [1; 2; 3; 4; 5]
 let test3 = ins_sort [5; 3; 8; 1; 7; 4] = [1; 3; 4; 5; 7; 8]
 let test4 = ins_sort [5; 4] = [4; 5]
+
+
+
+(* 模範解答: 
+  ins_sortは一応あっていましたか。ってか、まぁこれが一番シンプルなんだろなぁ 
+  insertは模範の方が綺麗。
+*)
+(* 目的：昇順に並んでいる lst の正しい位置に n を挿入する *) 
+(* insert : int list -> int -> int list *) 
+let rec insert lst n = match lst with 
+    [] -> [n] 
+  | first :: rest -> 
+      if first < n then first :: insert rest n 
+      else n :: lst 
+
+(* 目的：受け取った整数のリスト lst を昇順に並べる *) 
+(* example_ins_sort : int list -> int list *) 
+let rec example_ins_sort lst = match lst with 
+    [] -> [] 
+  | first :: rest -> insert (ins_sort rest) first 
+ 
+(* テスト *) 
+let example_test1 = ins_sort [] = [] 
+let example_test2 = ins_sort [1] = [1] 
+let example_test3 = ins_sort [3; 1] = [1; 3] 
+let example_test4 = ins_sort [1; 3] = [1; 3] 
+let example_test5 = ins_sort [5; 3; 8; 1; 7; 4] = [1; 3; 4; 5; 7; 8] 
