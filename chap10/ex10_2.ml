@@ -18,11 +18,20 @@ let rec insert intList integer = match intList with
 (* ins_sort : inr list -> int list *)
 let rec ins_sort lst = match lst with
 | [] -> []
-| first :: rest -> rest (*ins_sort (insert rest first)*)
+| first :: rest -> insert (ins_sort rest) first
+  (* [List.length rest] *)
+  (* then []
+  else if  *)
+  (* match rest1 with
+  | [] -> []
+  | first :: rest -> ins_sort (insert rest first) *)
+  
+  (* ins_sort (insert rest first) 
+  ↑苦戦の面影w   
+  *)
 
 (* test: #use "ex10_2.ml";;  *)
 let test1 = ins_sort [] = []
-let test2 = ins_sort [1; 2; 3; 4; 5] 
-(* = [1; 2; 3; 4; 5] *)
+let test2 = ins_sort [1; 2; 3; 4; 5] = [1; 2; 3; 4; 5]
 let test3 = ins_sort [5; 3; 8; 1; 7; 4] = [1; 3; 4; 5; 7; 8]
-let test4 = ins_sort [5; 4; 3; 2; 1] = [5; 4; 3; 2; 1]
+let test4 = ins_sort [5; 4] = [4; 5]
