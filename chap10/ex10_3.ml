@@ -15,7 +15,9 @@ type gakusei_t = {
 
 (* 目的: gakusei_t 型を受け取り、tensuu フィールドの順に整列する関数 *)
 (* gakusei_sort : gakusei_t list -> gakusei_t list *)
-let gakusei_sort gakusei = []
+let gakusei_sort gakusei = match gakusei with
+| [] -> []
+| first :: rest -> []
 
 (* test: #use "ex10_3.ml";; *)
 let test1 = gakusei_sort [
@@ -65,3 +67,5 @@ let test2 = gakusei_sort [
     seiseki = "B";  (*成績*)
   };
 ] 
+
+let test3 = gakusei_sort [] = [] 
