@@ -85,3 +85,40 @@ let test2 = gakusei_sort [
 ] 
 
 let test3 = gakusei_sort [] = [] 
+
+(* 模範解答の差分は データ例の明示とgakusei_insert*)
+(* 
+んー、matchのネストは好かんなぁ。一つくらいのネストならドット.参照が好み。 
+でも as を使うアイデアがあってたのは嬉しい  
+*)
+(* 学生のデータの例 *) 
+let gakusei1 = {namae="nakamura"; tensuu=90; seiseki="A"} 
+let gakusei2 = {namae="miyahara"; tensuu=80; seiseki="A"} 
+let gakusei3 = {namae="sato"; tensuu=75; seiseki="B"} 
+let gakusei4 = {namae="idehara"; tensuu=70; seiseki="B"} 
+let gakusei5 = {namae="tsubata"; tensuu=65; seiseki="C"} 
+let gakusei6 = {namae="asai"; tensuu=60; seiseki="C"} 
+ 
+(* 学生のリストの例 *) 
+let lst1 = [] 
+let lst2 = [gakusei2] 
+let lst3 = [gakusei3; gakusei4] 
+let lst4 = [gakusei4; gakusei3] 
+let lst5 = [gakusei4; gakusei1; gakusei6; gakusei5; gakusei2; gakusei3] 
+
+(* 目的：昇順に並んでいる lst の正しい位置に gakusei を挿入する *) 
+(* gakusei_insert : gakusei_t list -> gakusei_t -> gakusei_t list *) 
+let rec example_gakusei_insert lst gakusei0 = match lst with 
+    [] -> [gakusei0] 
+  | ({namae = n; tensuu = t; seiseki = s} as gakusei) :: rest -> 
+      match gakusei0 with {namae = n0; tensuu = t0; seiseki = s0} -> 
+	if t < t0 then gakusei :: gakusei_insert rest gakusei0 
+	else gakusei0 :: lst 
+ 
+(* テスト *) 
+let example_test1 = example_gakusei_insert [] gakusei2 = [gakusei2] 
+let example_test2 = example_gakusei_insert [gakusei4] gakusei3 = [gakusei4; gakusei3] 
+let example_test3 = example_gakusei_insert [gakusei3] gakusei4 = [gakusei4; gakusei3] 
+let example_test4 = example_gakusei_insert [gakusei6; gakusei5; gakusei3; gakusei2; gakusei1] 
+			   gakusei4 
+	    = [gakusei6; gakusei5; gakusei4; gakusei3; gakusei2; gakusei1] 
