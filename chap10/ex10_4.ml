@@ -54,16 +54,14 @@ val stringCampTest2 : bool = true
 
 (* 目的: 名前の順で整列 *)
 (* parson_sort : parson_t list -> parson_t list *)
-let parson_sort lst = match lst with
+let rec parson_sort lst = match lst with
 | [] -> []
-| first :: rest -> [first]
+| first :: rest -> (parson_insert (parson_sort rest) first)
 
 (* test *)
 (* #use "ex10_4.ml";; *)
 let test1 = parson_sort [] = []
-let test2 = parson_sort lst2 
-(* = lst2 *)
-let test3 = parson_sort lst3
- (* = lst3 *)
-let test3 = parson_sort lst4 
-(* = lst3 *)
+let test2 = parson_sort lst2 = lst2
+let test3 = parson_sort lst4 = lst3
+let test4 = parson_sort lst5 = lst6
+
