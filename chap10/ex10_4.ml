@@ -1,5 +1,3 @@
-(* #use "ex10_4.ml";; *)
-
 (* データ定義 *)
 type parson_t = {
   name: string;
@@ -32,13 +30,25 @@ let lst4 = [parson4; parson3]
 let lst5 = [parson4; parson1; parson6; parson5; parson2; parson3] 
 let lst6 = [parson1; parson2; parson3; parson4; parson5; parson6] 
 
+(* insert helper *)
+let parson_insert parson_lst parson_item = []
+
+let parson_insert_test1 [] parson1 = [parson1]
+let parson_insert_test2 [parson1] parson2 = [parson1; parson2]
+let parson_insert_test3 [parson1; parson3] parson2 = [parson1; parson2; parson3]
 
 (* 目的: 名前の順で整列 *)
 (* parson_sort : parson_t list -> parson_t list *)
-let parson_sort lst = []
+let parson_sort lst = match lst with
+| [] -> []
+| first :: rest -> [first]
 
 (* test *)
+(* #use "ex10_4.ml";; *)
 let test1 = parson_sort [] = []
-let test2 = parson_sort lst2 = lst2
-let test3 = parson_sort lst3 = lst3
-let test3 = parson_sort lst4 = lst3
+let test2 = parson_sort lst2 
+(* = lst2 *)
+let test3 = parson_sort lst3
+ (* = lst3 *)
+let test3 = parson_sort lst4 
+(* = lst3 *)
