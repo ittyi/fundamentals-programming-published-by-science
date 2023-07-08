@@ -33,13 +33,17 @@ let lst6 = [parson1; parson2; parson3; parson4; parson5; parson6]
 (* insert helper *)
 let rec parson_insert parson_lst parson_item = match parson_lst with
 | [] -> [parson_item]
-
+| first :: rest -> if first.name < parson_item.name
+  then first :: (parson_insert rest parson_item)
+  else parson_item :: first :: rest
 
 let parson_insert_test1 = parson_insert [] parson1 = [parson1]
 let parson_insert_test2 = parson_insert [parson1] parson2 
 = [parson1; parson2]
 let parson_insert_test3 = parson_insert [parson1; parson3] parson2
  = [parson1; parson2; parson3]
+let parson_insert_test4 = parson_insert [parson3; parson4; parson5; parson6] parson2
+ = [parson2; parson3; parson4; parson5; parson6]
 
 let stringCampTest1 = parson1.name > parson2.name
 let stringCampTest2 = parson1.name < parson2.name
