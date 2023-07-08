@@ -31,11 +31,22 @@ let lst5 = [parson4; parson1; parson6; parson5; parson2; parson3]
 let lst6 = [parson1; parson2; parson3; parson4; parson5; parson6] 
 
 (* insert helper *)
-let parson_insert parson_lst parson_item = []
+let rec parson_insert parson_lst parson_item = match parson_lst with
+| [] -> [parson_item]
 
-let parson_insert_test1 [] parson1 = [parson1]
-let parson_insert_test2 [parson1] parson2 = [parson1; parson2]
-let parson_insert_test3 [parson1; parson3] parson2 = [parson1; parson2; parson3]
+
+let parson_insert_test1 = parson_insert [] parson1 = [parson1]
+let parson_insert_test2 = parson_insert [parson1] parson2 
+= [parson1; parson2]
+let parson_insert_test3 = parson_insert [parson1; parson3] parson2
+ = [parson1; parson2; parson3]
+
+let stringCampTest1 = parson1.name > parson2.name
+let stringCampTest2 = parson1.name < parson2.name
+(* 上記の動作memo
+val stringCampTest1 : bool = false
+val stringCampTest2 : bool = true 
+*)
 
 (* 目的: 名前の順で整列 *)
 (* parson_sort : parson_t list -> parson_t list *)
