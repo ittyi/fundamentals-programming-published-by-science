@@ -29,9 +29,11 @@ let lst5 = [gakusei1; gakusei2; gakusei3; gakusei4; gakusei5; gakusei6]
 
 (* 目的: 最高点数をとった学生のレコードを返す *)
 (* gakusei_max : gakusei_t list -> gakusei_t *)
-let gakusei_max lst = match lst with
-| [] -> gakusei6
-| first :: rest -> gakusei6
+let rec gakusei_max lst = match lst with
+| [] -> gakusei1
+| first :: rest -> if first < (gakusei_max rest)
+  then gakusei_max rest
+  else first
   
   (* {
   name = "name";
