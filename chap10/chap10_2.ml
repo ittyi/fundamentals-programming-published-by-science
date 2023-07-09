@@ -17,4 +17,6 @@ let test4 = minimum [3; 2; 6; 4; 1; 8] = 1
 let max_int_test = max_int
 (* 
 val max_int_test : int = 4611686018427387903 
+→ 上記は 64bit の場合の max値
+min_int もある。
 *)
