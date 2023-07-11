@@ -31,9 +31,11 @@ let lst5 = [gakusei1; gakusei2; gakusei3; gakusei4; gakusei5; gakusei6]
 (* gakusei_max : gakusei_t list -> gakusei_t *)
 let rec gakusei_max lst = match lst with
 | [] -> gakusei1
-| first :: rest -> if first < (gakusei_max rest)
-  then gakusei_max rest
-  else first
+| first :: rest -> 
+  let max_rest = gakusei_max rest in
+    if first < max_rest
+      then max_rest
+      else first
   
   (* {
   name = "name";
