@@ -27,10 +27,10 @@ let rec shukei lst = match lst with
 | first :: rest -> 
   match shukei rest with
   | (a, b, c, d) -> 
-    if first.seiseki = "A" then let a = a + 1 in (a, b, c, d)
-    else if first.seiseki = "B" then let b = b + 1 in (a, b, c, d)
-    else if first.seiseki = "C" then let c = c + 1 in (a, b, c, d)
-    else if first.seiseki = "D" then let d = d + 1 in (a, b, c, d)
+    if first.seiseki = "A" then (a + 1, b, c, d)
+    else if first.seiseki = "B" then (a, b + 1, c, d)
+    else if first.seiseki = "C" then (a, b, c + 1, d)
+    else if first.seiseki = "D" then (a, b, c, d + 1)
     else (a, b, c, d)
 
 (* test: #use "chap10_4.ml";; *)
