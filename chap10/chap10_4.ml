@@ -4,3 +4,9 @@ type gakusei_t = {
   tensuu: int;      (*点数*)
   seiseki: string;  (*成績*)
 }
+
+(* 目的: 学生リスト lst のうち各成績の人数を集計する *)
+(* shukei : gakusei_t list -> int * int * int * int *)
+let rec shukei lst = (0, 0, 0, 0)
+
+(* test: #use "chap10_4.ml";; *)
