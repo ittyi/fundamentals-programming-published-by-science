@@ -32,10 +32,11 @@ let rec shukei lst = match lst with
     else if first.seiseki = "C" then let c = c + 1 in (a, b, c, d)
     else if first.seiseki = "D" then let d = d + 1 in (a, b, c, d)
     else (a, b, c, d)
-  (* (first.tensuu, first.tensuu, first.tensuu, first.tensuu) *)
 
 (* test: #use "chap10_4.ml";; *)
-let tset1 = shukei [
+let tset1 = shukei [] = (0, 0, 0, 0)
+
+let tset2 = shukei [
   {
   namae = "name1";
   tensuu = 1;
@@ -48,7 +49,7 @@ let tset1 = shukei [
   };
 ] = (1, 1, 0, 0)
 
-let tset2 = shukei [
+let tset3 = shukei [
   {
   namae = "name1";
   tensuu = 1;
