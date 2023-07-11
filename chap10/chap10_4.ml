@@ -14,8 +14,10 @@ type gakusei_t = {
 
 (* 目的: 学生リスト lst のうち各成績の人数を集計する *)
 (* shukei : gakusei_t list -> int * int * int * int *)
-let rec shukei lst = match lst with
+let rec shukei lst = (0),(0), (0), (0)
+  (* match lst with
 | [] -> ()
-| farst :: rest -> ()
+| farst :: rest ->  *)
 
 (* test: #use "chap10_4.ml";; *)
+let tset1 = shukei []
