@@ -25,8 +25,7 @@ let test_exc = (0, 0, 0, 0)
 let rec shukei lst = match lst with
 | [] -> (0, 0, 0, 0)
 | first :: rest -> 
-  match shukei rest with
-  | (a, b, c, d) -> 
+  let (a, b, c, d) = shukei rest in
     if first.seiseki = "A" then (a + 1, b, c, d)
     else if first.seiseki = "B" then (a, b + 1, c, d)
     else if first.seiseki = "C" then (a, b, c + 1, d)
@@ -126,3 +125,8 @@ let test2 = example_shukei lst2 = (1, 0, 0, 0)
 let test3 = example_shukei lst3 = (0, 2, 0, 0) 
 let test4 = example_shukei lst4 = (1, 1, 1, 0) 
 let test5 = example_shukei lst5 = (2, 2, 2, 0) 
+let test6 = shukei lst1 = (0, 0, 0, 0) 
+let test7 = shukei lst2 = (1, 0, 0, 0) 
+let test8 = shukei lst3 = (0, 2, 0, 0) 
+let test9 = shukei lst4 = (1, 1, 1, 0) 
+let test10 = shukei lst5 = (2, 2, 2, 0) 
