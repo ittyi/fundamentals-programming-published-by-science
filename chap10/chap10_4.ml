@@ -46,4 +46,32 @@ let tset1 = shukei [
     tensuu = 1;
     seiseki = "B";
   };
-]
+] = (1, 1, 0, 0)
+
+let tset2 = shukei [
+  {
+  namae = "name1";
+  tensuu = 1;
+  seiseki = "A";
+  };
+  {
+    namae = "name2";
+    tensuu = 1;
+    seiseki = "B";
+  };
+  {
+    namae = "name3";
+    tensuu = 1;
+    seiseki = "C";
+  };
+  {
+    namae = "name4";
+    tensuu = 1;
+    seiseki = "D";
+  };
+  {
+    namae = "name5";
+    tensuu = 1;
+    seiseki = "A";
+  };
+] = (2, 1, 1, 1)
