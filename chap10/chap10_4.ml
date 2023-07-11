@@ -62,7 +62,7 @@ let tset3 = shukei [
   {
     namae = "name3";
     tensuu = 1;
-    seiseki = "C";
+    seiseki = "";
   };
   {
     namae = "name4";
@@ -74,7 +74,7 @@ let tset3 = shukei [
     tensuu = 1;
     seiseki = "A";
   };
-] = (2, 1, 1, 1)
+] = (2, 1, 0, 1)
 
 
 (* 以下模範回答 *)
