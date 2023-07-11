@@ -5,8 +5,17 @@ type gakusei_t = {
   seiseki: string;  (*成績*)
 }
 
+(* gakusei_t list は 
+     - []              空リスト
+     - first :: rest   最初の要素が first で残りのリストが rest 
+                       （first は gakusei_t 型、 
+                         rest が自己参照のケース） 
+*) 
+
 (* 目的: 学生リスト lst のうち各成績の人数を集計する *)
 (* shukei : gakusei_t list -> int * int * int * int *)
-let rec shukei lst = (0, 0, 0, 0)
+let rec shukei lst = match lst with
+| [] -> ()
+| farst :: rest -> ()
 
 (* test: #use "chap10_4.ml";; *)
