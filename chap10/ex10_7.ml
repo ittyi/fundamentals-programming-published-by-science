@@ -31,7 +31,9 @@ let lst5 = [parson4; parson1; parson6; parson5; parson2; parson3]
 
 (* 目的: 各血液型の人が何人いるかを汲みにして返す *)
 (* ketsueki_shukei : parson_t list => int * int * int * int *)
-let ketsueki_shukei lst = (0, 0, 0, 0)
+let ketsueki_shukei lst = match lst with
+| [] -> (0, 0, 0, 0)
+| first :: rest -> (0, 0, 0, 0)
 
 (* test: #use "ex10_7.ml";; *)
 let test1 = ketsueki_shukei lst1 = (0, 0, 0, 0)
