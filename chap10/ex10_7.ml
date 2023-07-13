@@ -31,12 +31,18 @@ let lst5 = [parson4; parson1; parson6; parson5; parson2; parson3]
 
 (* 目的: 各血液型の人が何人いるかを汲みにして返す *)
 (* ketsueki_shukei : parson_t list => int * int * int * int *)
-let ketsueki_shukei lst = match lst with
+let rec ketsueki_shukei lst = match lst with
 | [] -> (0, 0, 0, 0)
-| first :: rest -> (0, 0, 0, 0)
+| first :: rest -> let (a, b, o, ab) = (ketsueki_shukei rest) in
+  if first.blood_type = "A" then (a+1, b, o, ab)
+  else if first.blood_type = "B" then (a, b+1, o, ab)
+  else if first.blood_type = "O" then (a, b, o+1, ab)
+  else if first.blood_type = "AB" then (a, b, o, ab+1)
+  else  (a, b, o, ab)
 
 (* test: #use "ex10_7.ml";; *)
 let test1 = ketsueki_shukei lst1 = (0, 0, 0, 0)
 let test2 = ketsueki_shukei lst2 = (0, 1, 0, 0)
 let test3 = ketsueki_shukei lst3 = (0, 0, 1, 1)
-let test4 = ketsueki_shukei lst4 = (2, 2, 1, 1)
+let test4 = ketsueki_shukei lst4 = (2, 0, 0, 1)
+let test5 = ketsueki_shukei lst5 = (2, 2, 1, 1)
