@@ -46,3 +46,52 @@ let test2 = ketsueki_shukei lst2 = (0, 1, 0, 0)
 let test3 = ketsueki_shukei lst3 = (0, 0, 1, 1)
 let test4 = ketsueki_shukei lst4 = (2, 0, 0, 1)
 let test5 = ketsueki_shukei lst5 = (2, 2, 1, 1)
+
+(* 模範解答 *)
+(* ちょっとだけ名前いじった *)
+let exsample_person1 = 
+  {name = "浅井"; 
+   height = 172; 
+   body_weight = 58; 
+   birthday = "9/17"; 
+   blood_type = "A" 
+} 
+ 
+let exsample_person2 = { 
+  name = "宮原"; 
+  height = 163; 
+  body_weight = 55; 
+  birthday = "6/30"; 
+  blood_type = "B" 
+} 
+ 
+let exsample_person3 = { 
+  name = "中村"; 
+  height = 168; 
+  body_weight = 63; 
+  birthday = "6/6"; 
+  blood_type = "O" 
+} 
+
+(* person_t list 型のデータの例 *) 
+let exsample_plst1 = [] 
+let exsample_plst2 = [exsample_person1] 
+let exsample_plst3 = [exsample_person2] 
+let exsample_plst4 = [exsample_person1; exsample_person2; exsample_person3] 
+let exsample_plst5 = [exsample_person2; exsample_person1; exsample_person1] 
+
+let rec exsample_ketsueki_shukei lst = match lst with 
+    [] -> (0, 0, 0, 0) 
+  | {name = n; height = h; body_weight = bw; birthday = b; blood_type = bt; } :: rest -> 
+      let (a, o, b, ab) = exsample_ketsueki_shukei rest in 
+      if bt = "A" then (a + 1, o, b, ab) 
+      else if bt = "O" then (a, o + 1, b, ab) 
+      else if bt = "B" then (a, o, b + 1, ab) 
+      else (a, o, b, ab + 1) 
+ 
+(* テスト *) 
+let exsample_test1 = exsample_ketsueki_shukei exsample_plst1 = (0, 0, 0, 0) 
+let exsample_test2 = exsample_ketsueki_shukei exsample_plst2 = (1, 0, 0, 0) 
+let exsample_test3 = exsample_ketsueki_shukei exsample_plst3 = (0, 0, 1, 0) 
+let exsample_test4 = exsample_ketsueki_shukei exsample_plst4 = (1, 1, 1, 0) 
+let exsample_test5 = exsample_ketsueki_shukei exsample_plst5 = (2, 0, 1, 0) 
