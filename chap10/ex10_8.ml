@@ -49,7 +49,7 @@ type bloodtype_t = {
 
 (* 目的: 組を配列に直す関数 *)
 let convertSetToAry numSet = match numSet with
-| (a, b, o, ab) -> [{a=a; b=b; o=o; ab=ab}]
+| (a, b, o, ab) -> [a; b; o; ab]
 
 (* 目的: 最も人数の多い血液型を返す *)
 (* saita_ketsueki : parson_t list -> string list *)
@@ -57,10 +57,23 @@ let convertSetToAry numSet = match numSet with
 (* 
   必要1: それぞれの血液型の数を返す関数 組で良さそう 
   必要2: 組を配列に直す関数
+  必要3: 配列で最多の数字を返す関数
+  必要4: その最多の数字を同じものを返す！これだ。
 *)
-let rec saita_ketsueki lst = match lst with
+
+let rec max typeBloodtype_t = match typeBloodtype_t with
+| [] -> 0
+| first :: rest -> let num = max rest in
+    if first < num then num
+    else first
+
+let saita_ketsueki lst = match lst with
 | [] -> []
-| lst -> convertSetToAry (ketsueki_shukei lst)
+| lst -> let ary = convertSetToAry (ketsueki_shukei lst) in
+  [(max ary)]
+  (* let max_num = max ary in
+  saita_ketsueki_helper lst max_num *)
+  
   (* let (a, b, o, ab) = (ketsueki_shukei lst) in
 |  if  *)
 
