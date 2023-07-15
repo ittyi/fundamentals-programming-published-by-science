@@ -61,27 +61,39 @@ let convertSetToAry numSet = match numSet with
   必要4: その最多の数字を同じものを返す！これだ。
 *)
 
-let rec max typeBloodtype_t = match typeBloodtype_t with
+let rec max ary = match ary with
 | [] -> 0
 | first :: rest -> let num = max rest in
     if first < num then num
     else first
 
+(* 目的: 配列にレコードに直す関数 *)
+let convertSetToBloodtype_t numSet = match numSet with
+| (a, b, o, ab) -> {a=a; b=b; o=o; ab=ab}
+
+let saita_ketsueki_helper lst max_num num bloodtype = 
+  if max_num = num then bloodtype :: lst
+  else lst
+
 let saita_ketsueki lst = match lst with
 | [] -> []
-| lst -> let ary = convertSetToAry (ketsueki_shukei lst) in
-  [(max ary)]
-  (* let max_num = max ary in
-  saita_ketsueki_helper lst max_num *)
-  
-  (* let (a, b, o, ab) = (ketsueki_shukei lst) in
-|  if  *)
+| lst -> let setNum = (ketsueki_shukei lst) in
+  let ary = convertSetToAry setNum in
+  let max_num = max ary in
+  let {a=a; b=b; o=o; ab=ab} = convertSetToBloodtype_t setNum in
+  saita_ketsueki_helper
+    (saita_ketsueki_helper
+      (saita_ketsueki_helper 
+        (saita_ketsueki_helper [] max_num ab "AB")
+        max_num o "O"
+      )
+      max_num b "B"
+    )
+    max_num a "A"
 
 (* test: #use "ex10_8.ml";; *)
-let test1 = saita_ketsueki lst1 
-(* = [] *)
-let test2 = saita_ketsueki lst2 
-(* = ["B"] *)
-let test3 = saita_ketsueki lst3 = ["O", "AB"]
+let test1 = saita_ketsueki lst1 = []
+let test2 = saita_ketsueki lst2 = ["B"]
+let test3 = saita_ketsueki lst3 = ["O"; "AB"]
 let test4 = saita_ketsueki lst4 = ["A"]
-let test5 = saita_ketsueki lst5 = ["A", "B"]
+let test5 = saita_ketsueki lst5 = ["A"; "B"]
