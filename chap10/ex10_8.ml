@@ -88,3 +88,26 @@ let test2 = saita_ketsueki lst2 = ["B"]
 let test3 = saita_ketsueki lst3 = ["O"; "AB"]
 let test4 = saita_ketsueki lst4 = ["A"]
 let test5 = saita_ketsueki lst5 = ["A"; "B"]
+
+
+(* 
+shukeiとmaxを使うのは大正解！
+模範解答は同数だった場合は考えないみたいね。
+max 関数の挙動が以前作った引数二つの比較でやっているけど、これは私のやつのがいいかも？
+   (* 目的：人のリスト lst のうち最多の血液型を返す *) 
+  (* saita_ketsueki : person_t list -> string *) 
+  let saita_ketsueki lst = 
+    let (a, o, b, ab) = ketsueki_shukei lst in 
+    let saidai = max (max a o) (max b ab) in 
+    if saidai = a then "A" 
+    else if saidai = o then "O" 
+    else if saidai = b then "B" 
+    else "AB" 
+  
+  (* テスト *) 
+  let test1 = saita_ketsueki lst1 = "A" 
+  let test2 = saita_ketsueki lst2 = "B" 
+  let test3 = saita_ketsueki lst3 = "A" 
+    (* 同点のときは A, O, B, AB の順に見つかったものが返されてしまう *) 
+  let test4 = saita_ketsueki lst4 = "A" 
+*)
