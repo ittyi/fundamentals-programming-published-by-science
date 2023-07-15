@@ -39,17 +39,36 @@ let rec ketsueki_shukei lst = match lst with
   else if first.blood_type = "AB" then (a, b, o, ab+1)
   else  (a, b, o, ab)
 
+
+type bloodtype_t = {
+  a: int;
+  b: int;
+  o: int;
+  ab: int;
+}
+
+(* 目的: 組を配列に直す関数 *)
+let convertSetToAry numSet = match numSet with
+| (a, b, o, ab) -> [{a=a; b=b; o=o; ab=ab}]
+
 (* 目的: 最も人数の多い血液型を返す *)
 (* saita_ketsueki : parson_t list -> string list *)
 (* 人数が多いとはいえ、同じ人数の時がありそうなので一旦listで返すことにする。 *)
 (* 
-  必要: それぞれの血液型の数を返す関数 組で良さそう 
+  必要1: それぞれの血液型の数を返す関数 組で良さそう 
+  必要2: 組を配列に直す関数
 *)
-let rec saita_ketsueki lst = []
+let rec saita_ketsueki lst = match lst with
+| [] -> []
+| lst -> convertSetToAry (ketsueki_shukei lst)
+  (* let (a, b, o, ab) = (ketsueki_shukei lst) in
+|  if  *)
 
 (* test: #use "ex10_8.ml";; *)
-let test1 = saita_ketsueki lst1 = []
-let test2 = saita_ketsueki lst2 = ["B"]
+let test1 = saita_ketsueki lst1 
+(* = [] *)
+let test2 = saita_ketsueki lst2 
+(* = ["B"] *)
 let test3 = saita_ketsueki lst3 = ["O", "AB"]
 let test4 = saita_ketsueki lst4 = ["A"]
 let test5 = saita_ketsueki lst5 = ["A", "B"]
