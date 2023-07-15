@@ -28,9 +28,28 @@ let lst3 = [parson3; parson4]
 let lst4 = [parson4; parson5; parson1] 
 let lst5 = [parson4; parson1; parson6; parson5; parson2; parson3] 
 
+(* 目的: saita_ketsueki で利用するため、それぞれの血液型の数を返す関数を関数を ex10.7より移植 *)
+(* ketsueki_shukei : parson_t list => int * int * int * int *)
+let rec ketsueki_shukei lst = match lst with
+| [] -> (0, 0, 0, 0)
+| first :: rest -> let (a, b, o, ab) = (ketsueki_shukei rest) in
+  if first.blood_type = "A" then (a+1, b, o, ab)
+  else if first.blood_type = "B" then (a, b+1, o, ab)
+  else if first.blood_type = "O" then (a, b, o+1, ab)
+  else if first.blood_type = "AB" then (a, b, o, ab+1)
+  else  (a, b, o, ab)
+
 (* 目的: 最も人数の多い血液型を返す *)
 (* saita_ketsueki : parson_t list -> string list *)
-(* 人数が多いとはいえ、同じ人数の時がありそうなので一旦listで返します。 *)
+(* 人数が多いとはいえ、同じ人数の時がありそうなので一旦listで返すことにする。 *)
+(* 
+  必要: それぞれの血液型の数を返す関数 組で良さそう 
+*)
 let rec saita_ketsueki lst = []
 
 (* test: #use "ex10_8.ml";; *)
+let test1 = saita_ketsueki lst1 = []
+let test2 = saita_ketsueki lst2 = ["B"]
+let test3 = saita_ketsueki lst3 = ["O", "AB"]
+let test4 = saita_ketsueki lst4 = ["A"]
+let test5 = saita_ketsueki lst5 = ["A", "B"]
