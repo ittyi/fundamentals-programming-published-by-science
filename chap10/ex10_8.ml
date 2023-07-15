@@ -39,14 +39,6 @@ let rec ketsueki_shukei lst = match lst with
   else if first.blood_type = "AB" then (a, b, o, ab+1)
   else  (a, b, o, ab)
 
-
-type bloodtype_t = {
-  a: int;
-  b: int;
-  o: int;
-  ab: int;
-}
-
 (* 目的: 組を配列に直す関数 *)
 let convertSetToAry numSet = match numSet with
 | (a, b, o, ab) -> [a; b; o; ab]
@@ -67,10 +59,6 @@ let rec max ary = match ary with
     if first < num then num
     else first
 
-(* 目的: 配列にレコードに直す関数 *)
-let convertSetToBloodtype_t numSet = match numSet with
-| (a, b, o, ab) -> {a=a; b=b; o=o; ab=ab}
-
 let saita_ketsueki_helper lst max_num num bloodtype = 
   if max_num = num then bloodtype :: lst
   else lst
@@ -80,7 +68,7 @@ let saita_ketsueki lst = match lst with
 | lst -> let setNum = (ketsueki_shukei lst) in
   let ary = convertSetToAry setNum in
   let max_num = max ary in
-  let {a=a; b=b; o=o; ab=ab} = convertSetToBloodtype_t setNum in
+  let (a, b, o, ab) = setNum in
   saita_ketsueki_helper
     (saita_ketsueki_helper
       (saita_ketsueki_helper 
