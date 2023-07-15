@@ -66,13 +66,16 @@ let saita_ketsueki_helper lst max_num num bloodtype =
 let saita_ketsueki lst = match lst with
 | [] -> []
 | lst -> let setNum = (ketsueki_shukei lst) in
-  let ary = convertSetToAry setNum in
-  let max_num = max ary in
+  let max_num = max (convertSetToAry setNum) in
   let (a, b, o, ab) = setNum in
   saita_ketsueki_helper
-    (saita_ketsueki_helper
-      (saita_ketsueki_helper 
-        (saita_ketsueki_helper [] max_num ab "AB")
+    (
+      saita_ketsueki_helper
+      (
+        saita_ketsueki_helper 
+        (
+          saita_ketsueki_helper [] max_num ab "AB"
+        )
         max_num o "O"
       )
       max_num b "B"
