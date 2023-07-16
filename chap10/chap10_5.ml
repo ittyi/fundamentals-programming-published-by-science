@@ -5,7 +5,10 @@
 | first :: rest -> first :: (append rest lst2) *)
 
 (* @を利用した版 *)
-let append lst1 lst2 = lst1 @ lst2
+(* let append lst1 lst2 = lst1 @ lst2 *)
+
+(* @関数を利用した版 *)
+let append lst1 lst2 = (@) lst1 lst2
 
 (* test: #use "chap10_5.ml";; *)
 let test1 = append [] [] = []
