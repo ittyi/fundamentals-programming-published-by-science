@@ -2,12 +2,12 @@
 (* merge : int list -> int list -> int list *)
 let rec merge lst1 lst2 = match (lst1, lst2) with
 | ([], []) -> []
-| ([], first2 :: rest2) -> []
-| (first1 :: rest1, []) -> []
+| ([], first2 :: rest2) -> first2 :: rest2
+| (first1 :: rest1, []) -> first1 :: rest1
 | (first1 :: rest1, first2 :: rest2) -> 
   if first1 < first2
-    then []
-    else []
+    then first1 :: merge rest1 (first2 :: rest2)
+    else first2 :: merge (first1 :: rest1) rest2
 
 (* test: #use "chap10_6.ml";; *)
 let test1 = merge [] [] = []
