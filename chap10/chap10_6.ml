@@ -1,6 +1,13 @@
 (* 目的: 昇順に並んでいるリスト二つをマージする *)
 (* merge : int list -> int list -> int list *)
-let rec merge lst1 lst2 = []
+let rec merge lst1 lst2 = match (lst1, lst2) with
+| ([], []) -> []
+| ([], first2 :: rest2) -> []
+| (first1 :: rest1, []) -> []
+| (first1 :: rest1, first2 :: rest2) -> 
+  if first1 < first2
+    then []
+    else []
 
 (* test: #use "chap10_6.ml";; *)
 let test1 = merge [] [] = []
