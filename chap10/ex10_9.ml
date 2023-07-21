@@ -17,6 +17,10 @@ let test2 = leng ["a"; "b"; "c"] = 3
 
 (* 目的: 二つのリストの長さが同じかどうかを判定する *)
 (* equal_length : a' list -> a'list -> bool *)
-let equal_length = false
+let equal_length lst1 lst2 = (leng lst1) = (leng lst2)
 
 (* test: #use "ex10_9.ml";; *)
+let test3 = equal_length [] [] = true
+let test4 = equal_length [1; 2; 3] [1; 2; 3] = true
+let test5 = equal_length ["a"; "b"; "c"] [1; 2; 3] = true
+let test6 = equal_length ["a"; "b"; "c"] [1; 2] = false
