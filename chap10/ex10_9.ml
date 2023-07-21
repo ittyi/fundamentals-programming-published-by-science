@@ -1,6 +1,16 @@
+(* a' list は 
+     - []              空リスト
+     - first :: rest   最初の要素が first で残りのリストが rest 
+                       （first は a' 型、 
+                         rest が自己参照のケース） 
+*) 
+
 (* 目的: listの長さを計測する *)
-(* leng : a7 list -> int *)
+(* leng : a' list -> int *)
 let rec leng lst = 0
+  (* match lst with
+| [] -> 0
+|  *)
 
 let test1 = leng [1, 2, 3] = 3
 let test2 = leng ["a", "b", "c"] = 3
