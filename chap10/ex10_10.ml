@@ -186,3 +186,6 @@ let global_ekimei_list = [
 let romaji_to_kanji romaji_name lst = ""
 
 (* test: #use "ex10_10.ml";; *)
+let test1 = romaji_to_kanji "" global_ekimei_list = ""
+let test1 = romaji_to_kanji "test" global_ekimei_list = ""
+let test1 = romaji_to_kanji "myogadani" global_ekimei_list = "茗荷谷"
