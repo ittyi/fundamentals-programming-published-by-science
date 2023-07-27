@@ -169,16 +169,18 @@ let global_ekikan_list = [
 {kiten="営団成増"; shuten="和光市"; keiyu="有楽町線"; kyori=2.1; jikan=3}; 
 ] 
 
-(* ekimei_t list は 
+(* ekikan_t list は 
      - []              空リスト
      - first :: rest   最初の要素が first で残りのリストが rest 
-                       （first は ekimei_t 型、 
+                       （first は ekikan_t 型、 
                          rest が自己参照のケース） 
 *) 
 
 (* 目的: 漢字の駅名を二つと駅間リストを受け取ったら、その2駅の距離を返す関数 *)
-(* get_ekikan_kyori : string -> string -> ekimei_t list -> int *)
+(* get_ekikan_kyori : string -> string -> ekikan_t list -> int *)
 let get_ekikan_kyori station1 station2 ekimei_list = 0
 
 (* test: #use "ex10_11.ml";; *)
-let test1 = get_ekikan_kyori "" ""  global_ekimei_list
+let test1 = get_ekikan_kyori "" ""  global_ekimei_list = 0
+let test2 = get_ekikan_kyori "営団赤塚" "営団成増"  global_ekimei_list = 1.5
+let test3 = get_ekikan_kyori "営団成増" "営団赤塚"  global_ekimei_list = 1.5
