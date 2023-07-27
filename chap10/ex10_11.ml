@@ -178,9 +178,31 @@ let global_ekikan_list = [
 
 (* 目的: 漢字の駅名を二つと駅間リストを受け取ったら、その2駅の距離を返す関数 *)
 (* get_ekikan_kyori : string -> string -> ekikan_t list -> int *)
-let get_ekikan_kyori station1 station2 ekimei_list = 0
+(* 
+  ロジック考察
+  ①まず、入力に合った ekikan_t を配列で受け取る
+  ②次に、 ekimei_list を上から舐めていき、先に該当したもののkyoriを出力する
+*)
+let rec get_ekikan_kyori station1 station2 ekikan_list = match ekikan_list with
+| [] -> infinity
+| first :: rest -> 
+    if first.kiten = station1
+      then 
+        if first.shuten = station2 
+          then first.kyori
+        else 
+          get_ekikan_kyori station1 station2 rest
+    else if first.kiten = station2
+      then 
+        if first.shuten = station1 
+          then first.kyori
+        else 
+          get_ekikan_kyori station1 station2 rest
+    else 
+      get_ekikan_kyori station1 station2 rest
 
 (* test: #use "ex10_11.ml";; *)
-let test1 = get_ekikan_kyori "" ""  global_ekimei_list = 0
-let test2 = get_ekikan_kyori "営団赤塚" "営団成増"  global_ekimei_list = 1.5
-let test3 = get_ekikan_kyori "営団成増" "営団赤塚"  global_ekimei_list = 1.5
+let test1 = get_ekikan_kyori "" ""  global_ekikan_list = infinity
+let test2 = get_ekikan_kyori "営団赤塚" "営団成増"  global_ekikan_list = 1.5
+let test3 = get_ekikan_kyori "営団成増" "営団赤塚"  global_ekikan_list = 1.5
+let test4 = get_ekikan_kyori "平和台" "営団成増"  global_ekikan_list = infinity
