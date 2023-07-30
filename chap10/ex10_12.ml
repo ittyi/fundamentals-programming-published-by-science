@@ -178,6 +178,17 @@ let global_ekimei_list = [
 {kanji="和光市"; kana="わこうし"; romaji="wakousi"; shozoku="有楽町線"}; 
 ] 
 
+(* 
+ローマ字の駅名(文字列)と駅名リスト(ekimei_t list 型)を受け取ったら、
+その駅の漢字表記を文字列で返す関数
+*)
+(* romaji_to_kanji : string -> ekimei_t list -> string *)
+let rec romaji_to_kanji romaji_name lst = match lst with
+| [] -> ""
+| first :: rest -> if first.romaji = romaji_name
+  then first.kanji
+  else romaji_to_kanji romaji_name rest
+
 type ekikan_t = {
   kiten: string; 
   shuten: string; 
@@ -348,6 +359,24 @@ let global_ekikan_list = [
 {kiten="営団赤塚"; shuten="営団成増"; keiyu="有楽町線"; kyori=1.5; jikan=2}; 
 {kiten="営団成増"; shuten="和光市"; keiyu="有楽町線"; kyori=2.1; jikan=3}; 
 ] 
+
+let rec get_ekikan_kyori station1 station2 ekikan_list = match ekikan_list with
+| [] -> infinity
+| first :: rest -> 
+    if first.kiten = station1
+      then 
+        if first.shuten = station2 
+          then first.kyori
+        else 
+          get_ekikan_kyori station1 station2 rest
+    else if first.kiten = station2
+      then 
+        if first.shuten = station1 
+          then first.kyori
+        else 
+          get_ekikan_kyori station1 station2 rest
+    else 
+      get_ekikan_kyori station1 station2 rest
 
 (* 目的: ローマ字の駅名二つから距離を算出 *)
 (* kyori_wo_hyoji : string -> string -> ekikan_t list -> string *)
