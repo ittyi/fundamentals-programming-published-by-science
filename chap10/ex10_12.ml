@@ -382,23 +382,32 @@ let kyori_wo_hyoji str1 str2 =
   let station1 = romaji_to_kanji str1 global_ekimei_list in
     if station1 = ""
       then
-        str1 ^ "という駅は存在しません"
+        str1 ^ " という駅は存在しません"
       else 
         let station2 = romaji_to_kanji str2 global_ekimei_list in
           if station2 = ""
             then
-              str2 ^ "という駅は存在しません"
+              str2 ^ " という駅は存在しません"
             else 
               let station2 = romaji_to_kanji str2 global_ekimei_list in
   let tmp = get_ekikan_kyori station1 station2 global_ekikan_list in
   let kyori = string_of_float tmp in
   if tmp = infinity
     then station1 ^ "駅と" ^ station2 ^ "駅は繋がっていません"
-    else station1 ^ "駅から" ^ station2 ^ "駅までは" ^ kyori ^ "kmです"
-
+    else station1 ^ "駅から" ^ station2 ^ "駅までは " ^ kyori ^ " kmです"
 
 (* #use "ex10_12.ml";; *)
-let test1 = kyori_wo_hyoji "eidannarimasu" "wakousi" = "営団成増駅から和光市駅までは2.1kmです"
+let test1 = kyori_wo_hyoji "eidannarimasu" "wakousi" = "営団成増駅から和光市駅までは 2.1 kmです"
 let test2 = kyori_wo_hyoji "eidanakakuka" "wakousi" = "営団赤塚駅と和光市駅は繋がっていません"
-let test3 = kyori_wo_hyoji "hghjgh" "wakousi" = "hghjghという駅は存在しません"
-let test4 = kyori_wo_hyoji "eidanakakuka" "cgvhbjnk" = "cgvhbjnkという駅は存在しません"
+let test3 = kyori_wo_hyoji "hghjgh" "wakousi" = "hghjgh という駅は存在しません"
+let test4 = kyori_wo_hyoji "eidanakakuka" "cgvhbjnk" = "cgvhbjnk という駅は存在しません"
+let test5 = kyori_wo_hyoji "myougadani" "shinotsuka" 
+	    = "myougadani という駅は存在しません" 
+let test6 = kyori_wo_hyoji "myogadani" "shinotsuka" 
+	    = "茗荷谷駅から新大塚駅までは 1.2 kmです" 
+let test7 = kyori_wo_hyoji "myogadani" "ikebukuro" 
+	    = "茗荷谷駅と池袋駅は繋がっていません" 
+let test8 = kyori_wo_hyoji "tokyo" "ootemachi" 
+	    = "ootemachi という駅は存在しません" 
+let test9 = kyori_wo_hyoji "tokyo" "otemachi" 
+	    = "東京駅から大手町駅までは 0.6 kmです" 
