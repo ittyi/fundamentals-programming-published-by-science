@@ -1,5 +1,3 @@
-
-(* #use "ex9_9.ml";; *)
 type ekimei_t = {
   kanji: string;
   kana: string;
@@ -380,4 +378,16 @@ let rec get_ekikan_kyori station1 station2 ekikan_list = match ekikan_list with
 
 (* 目的: ローマ字の駅名二つから距離を算出 *)
 (* kyori_wo_hyoji : string -> string -> ekikan_t list -> string *)
-let kyori_wo_hyoji str1 str2 lst = "fggg"
+let kyori_wo_hyoji str1 str2 = 
+  let station1 = romaji_to_kanji str1 global_ekimei_list in
+  let station2 = romaji_to_kanji str2 global_ekimei_list in
+  let tmp = get_ekikan_kyori station1 station2 global_ekikan_list in
+  let kyori = string_of_float tmp in
+  if tmp = infinity
+    then station1 ^ "駅と" ^ station2 ^ "駅は繋がっていません"
+    else station1 ^ "駅から" ^ station2 ^ "駅までは" ^ kyori ^ "kmです"
+
+
+(* #use "ex10_12.ml";; *)
+let test1 = kyori_wo_hyoji "eidannarimasu" "wakousi"
+let test2 = kyori_wo_hyoji "eidanakakuka" "wakousi"
