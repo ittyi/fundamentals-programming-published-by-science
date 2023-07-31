@@ -380,7 +380,16 @@ let rec get_ekikan_kyori station1 station2 ekikan_list = match ekikan_list with
 (* kyori_wo_hyoji : string -> string -> ekikan_t list -> string *)
 let kyori_wo_hyoji str1 str2 = 
   let station1 = romaji_to_kanji str1 global_ekimei_list in
-  let station2 = romaji_to_kanji str2 global_ekimei_list in
+    if station1 = ""
+      then
+        str1 ^ "という駅は存在しません"
+      else 
+        let station2 = romaji_to_kanji str2 global_ekimei_list in
+          if station2 = ""
+            then
+              str2 ^ "という駅は存在しません"
+            else 
+              let station2 = romaji_to_kanji str2 global_ekimei_list in
   let tmp = get_ekikan_kyori station1 station2 global_ekikan_list in
   let kyori = string_of_float tmp in
   if tmp = infinity
@@ -389,5 +398,7 @@ let kyori_wo_hyoji str1 str2 =
 
 
 (* #use "ex10_12.ml";; *)
-let test1 = kyori_wo_hyoji "eidannarimasu" "wakousi"
-let test2 = kyori_wo_hyoji "eidanakakuka" "wakousi"
+let test1 = kyori_wo_hyoji "eidannarimasu" "wakousi" = "営団成増駅から和光市駅までは2.1kmです"
+let test2 = kyori_wo_hyoji "eidanakakuka" "wakousi" = "営団赤塚駅と和光市駅は繋がっていません"
+let test3 = kyori_wo_hyoji "hghjgh" "wakousi" = "hghjghという駅は存在しません"
+let test4 = kyori_wo_hyoji "eidanakakuka" "cgvhbjnk" = "cgvhbjnkという駅は存在しません"
