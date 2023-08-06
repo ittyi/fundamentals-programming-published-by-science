@@ -1,6 +1,9 @@
 (* 目的: 自然数 m と n を受け取ったら m の n 乗を求める *)
 (* power : int -> int -> int *)
-let rec power m n = 0
+let rec power m n = 
+  if n = 0
+    then 1
+    else m * power m (n-1)
 
 (* test: #use "chap11_3.ml";; *)
 let test1 = power 3 0 = 1
