@@ -1,6 +1,8 @@
 (* 目的: 0 から受け取った自然数までの 2 乗の和を求める関数 *)
 (* sum_of_square : int -> int *)
-let rec sum_of_square 0 = 0
+let rec sum_of_square num =
+  if num = 0 then 0
+  else num * num + sum_of_square (num - 1)
 
 (* test: #use "ex11_1.ml";; *)
 let test1 = sum_of_square 0 = 0
