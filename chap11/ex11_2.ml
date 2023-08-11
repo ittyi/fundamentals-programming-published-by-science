@@ -3,7 +3,9 @@
    an = 2a(n-1) - 1
 *)
 (* a : int -> int *)
-let a n = 0
+let a n = 
+  if n = 0 then 3
+  else 2 * (a (n-1)) - 1
 
 (* test: #use "ex11_2.ml";; *)
 let test1 = a 0 = 3
