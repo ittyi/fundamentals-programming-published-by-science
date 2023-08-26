@@ -31,7 +31,7 @@ let rec make_eki_list lst = match lst with
 | first :: rest -> {
   namae=first.kanji;
   saitan_kyori=infinity;
-  temae_list=[""]
+  temae_list=[]
   } :: make_eki_list rest
 
 (* test: #use "ex12_2.ml";; *)
@@ -42,9 +42,9 @@ let test1 = make_eki_list [
   {kanji="表参道"; kana="おもてさんどう"; romaji="omotesandou"; shozoku="千代田線"}; 
   {kanji="乃木坂"; kana="のぎざか"; romaji="nogizaka"; shozoku="千代田線"}; 
 ] = [
-  {namae="代々木上原"; saitan_kyori=infinity; temae_list=[""]};
-  {namae="代々木公園"; saitan_kyori=infinity; temae_list=[""]};
-  {namae="明治神宮前"; saitan_kyori=infinity; temae_list=[""]};
-  {namae="表参道"; saitan_kyori=infinity; temae_list=[""]};
-  {namae="乃木坂"; saitan_kyori=infinity; temae_list=[""]}; 
+  {namae="代々木上原"; saitan_kyori=infinity; temae_list=[]};
+  {namae="代々木公園"; saitan_kyori=infinity; temae_list=[]};
+  {namae="明治神宮前"; saitan_kyori=infinity; temae_list=[]};
+  {namae="表参道"; saitan_kyori=infinity; temae_list=[]};
+  {namae="乃木坂"; saitan_kyori=infinity; temae_list=[]}; 
 ]
