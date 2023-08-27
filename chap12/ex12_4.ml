@@ -190,10 +190,18 @@ let rec ins_sort lst = match lst with
 | [] -> []
 | first :: rest -> insert (ins_sort rest) first
 
+
+let rec double_check lst ekimei_t = match lst with
+| [] -> []
+| first :: rest -> if ekimei_t.kanji = first.kanji
+    then double_check rest first
+    else ekimei_t :: double_check rest first
+
 (* 目的: ekimei_t list を受け取ったら、ひらがなの順に整列し、駅の重複を取り除いた ekimei_t list を返す *)
 (* seiretsu : ekimei_t list -> ekimei_t list *)
-
-
+let seiretsu lst = match (ins_sort lst) with
+| [] -> []
+| first :: rest -> double_check rest first
 
 (* test: #use "ex12_4.ml";; *)
 let test1 = "a" < "b"
@@ -208,5 +216,7 @@ val test2 : bool = false
 普通に比較はできる。
 *)
 
-let test5 = ins_sort global_ekimei_list 
+(* let test5 = ins_sort global_ekimei_list  *)
 (* OK！あいうえお順になった。 *)
+
+let test6 = seiretsu global_ekimei_list
