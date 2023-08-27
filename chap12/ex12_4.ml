@@ -195,4 +195,18 @@ let rec make_eki_list lst = match lst with
   temae_list=[]
   } :: make_eki_list rest
 
-  
+
+(* 目的: 整数の昇順リストと整数 n を受け取ったら、前から順に見ていき昇順を崩さずに n をリストに挿入する関数 *)
+(* insert : int list n -> int list *)
+let rec insert intList integer = match intList with
+| [] -> [integer]
+| first :: rest -> if first > integer 
+    then integer :: first :: rest
+    else first :: (insert rest integer)
+
+(* 目的: 与えられた整数リストを昇順に整列する関数 *)
+(* ins_sort : inr list -> int list *)
+let rec ins_sort lst = match lst with
+| [] -> []
+| first :: rest -> insert (ins_sort rest) first
+
