@@ -176,26 +176,6 @@ let global_ekimei_list = [
 {kanji="和光市"; kana="わこうし"; romaji="wakousi"; shozoku="有楽町線"}; 
 ] 
 
-(*  現在の最短距離や最短経路を保持するレコード *)
-(* 頂点の集合はこのデータのリストになる *)
-type eki_t = {
-  namae : string; (* 駅名 *)
-  saitan_kyori : float; (* 最短距離 *)
-  temae_list : string list; (* 駅名のリスト *)
-}
-
-(* 目的: ekimei_t list を受け取り、 eki_t の list を作成する関数 *)
-(* 仕様: saitan_kyori は無限大、 temae_list は空のリスト *)
-(* make_eki_list : ekimei_t list -> eki_t list *)
-let rec make_eki_list lst = match lst with
-| [] -> []
-| first :: rest -> {
-  namae=first.kanji;
-  saitan_kyori=infinity;
-  temae_list=[]
-  } :: make_eki_list rest
-
-
 (* 目的: 整数の昇順リストと整数 n を受け取ったら、前から順に見ていき昇順を崩さずに n をリストに挿入する関数 *)
 (* insert : int list n -> int list *)
 let rec insert intList integer = match intList with
@@ -204,16 +184,14 @@ let rec insert intList integer = match intList with
     then integer :: first :: rest
     else first :: (insert rest integer)
 
-(* 目的: 与えられた整数リストを昇順に整列する関数 *)
-(* ins_sort : inr list -> int list *)
+(* 目的: 与えられた ekimei_t list を kana の昇順に整列する関数 *)
+(* ins_sort : ekimei_t list -> ekimei_t list *)
 let rec ins_sort lst = match lst with
 | [] -> []
 | first :: rest -> insert (ins_sort rest) first
 
 (* 目的: ekimei_t list を受け取ったら、ひらがなの順に整列し、駅の重複を取り除いた ekimei_t list を返す *)
 (* seiretsu : ekimei_t list -> ekimei_t list *)
-
-
 
 
 
