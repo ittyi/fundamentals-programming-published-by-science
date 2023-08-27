@@ -14,4 +14,8 @@ let test_data1 = [
   {namae="乃木坂"; saitan_kyori=infinity; temae_list=[]}; 
 ]
 
+(* 目的: リストの始点のみに対し、 saitan_kyori を 0 、temae_list を 始点の駅名のみからなるリストにする *)
+(* shokika : eki_t list -> eki_t list *)
+let shokika lst = lst
+
 (* test: #use "ex12_3.ml";; *)
