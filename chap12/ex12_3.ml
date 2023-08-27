@@ -16,6 +16,15 @@ let test_data1 = [
 
 (* 目的: リストの始点のみに対し、 saitan_kyori を 0 、temae_list を 始点の駅名のみからなるリストにする *)
 (* shokika : eki_t list -> eki_t list *)
-let shokika lst = lst
+let shokika lst = match lst with
+| [] -> []
+| first :: rest -> {namae=first.namae; saitan_kyori=0.0; temae_list=( first.namae :: [])} :: rest
 
 (* test: #use "ex12_3.ml";; *)
+let test1 = shokika test_data1 = [
+  {namae="代々木上原"; saitan_kyori=0.0; temae_list=["代々木上原"]};
+  {namae="代々木公園"; saitan_kyori=infinity; temae_list=[]};
+  {namae="明治神宮前"; saitan_kyori=infinity; temae_list=[]};
+  {namae="表参道"; saitan_kyori=infinity; temae_list=[]};
+  {namae="乃木坂"; saitan_kyori=infinity; temae_list=[]}; 
+]
