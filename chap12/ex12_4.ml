@@ -176,13 +176,13 @@ let global_ekimei_list = [
 {kanji="和光市"; kana="わこうし"; romaji="wakousi"; shozoku="有楽町線"}; 
 ] 
 
-(* 目的: 整数の昇順リストと整数 n を受け取ったら、前から順に見ていき昇順を崩さずに n をリストに挿入する関数 *)
-(* insert : int list n -> int list *)
-let rec insert intList integer = match intList with
-| [] -> [integer]
-| first :: rest -> if first > integer 
-    then integer :: first :: rest
-    else first :: (insert rest integer)
+(* 目的: ekimei_t list とひらがなの名前 kana を受け取ったら、前から順に見ていき昇順を崩さずに kana をリストに挿入する関数 *)
+(* insert : ekimei_t list kana -> ekimei_t list *)
+let rec insert lst ekimei = match lst with
+| [] -> [ekimei]
+| first :: rest -> if first.kana > ekimei.kana
+    then ekimei :: first :: rest
+    else first :: (insert rest ekimei)
 
 (* 目的: 与えられた ekimei_t list を kana の昇順に整列する関数 *)
 (* ins_sort : ekimei_t list -> ekimei_t list *)
@@ -198,8 +198,8 @@ let rec ins_sort lst = match lst with
 (* test: #use "ex12_4.ml";; *)
 let test1 = "a" < "b"
 let test2 = "a" > "b"
-let test1 = "あ" < "い"
-let test2 = "あ" > "い"
+let test3 = "あ" < "い"
+let test4 = "あ" > "い"
 (* 
 val test1 : bool = true
 val test2 : bool = false
@@ -207,3 +207,6 @@ val test1 : bool = true
 val test2 : bool = false
 普通に比較はできる。
 *)
+
+let test5 = ins_sort global_ekimei_list 
+(* OK！あいうえお順になった。 *)
