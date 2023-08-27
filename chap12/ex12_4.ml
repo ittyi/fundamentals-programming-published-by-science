@@ -210,3 +210,22 @@ let rec ins_sort lst = match lst with
 | [] -> []
 | first :: rest -> insert (ins_sort rest) first
 
+(* 目的: ekimei_t list を受け取ったら、ひらがなの順に整列し、駅の重複を取り除いた ekimei_t list を返す *)
+(* seiretsu : ekimei_t list -> ekimei_t list *)
+
+
+
+
+
+(* test: #use "ex12_4.ml";; *)
+let test1 = "a" < "b"
+let test2 = "a" > "b"
+let test1 = "あ" < "い"
+let test2 = "あ" > "い"
+(* 
+val test1 : bool = true
+val test2 : bool = false
+val test1 : bool = true
+val test2 : bool = false
+普通に比較はできる。
+*)
