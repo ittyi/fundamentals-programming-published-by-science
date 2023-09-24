@@ -24,3 +24,5 @@ let add3 x = x + 3
 
 let test1 = twice add3 7
 (* val test1 : int = 13 *)
+let test2 = twice add3 8 = 14
+let test3 = twice add3 9 = 15
