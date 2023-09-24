@@ -26,3 +26,8 @@ let test1 = twice add3 7
 (* val test1 : int = 13 *)
 let test2 = twice add3 8 = 14
 let test3 = twice add3 9 = 15
+
+let times2 x = x * 2
+
+let test4 = twice times2 7 = 28
+let test5 = twice times2 9 = 36
