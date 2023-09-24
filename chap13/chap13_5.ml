@@ -31,3 +31,9 @@ let times2 x = x * 2
 
 let test4 = twice times2 7 = 28
 let test5 = twice times2 9 = 36
+
+let add6 = twice add3
+(* val add6 : int -> int = <fun> *)
+
+let test6 = add6 2 = 8
+let test6 = add6 8 = 14
