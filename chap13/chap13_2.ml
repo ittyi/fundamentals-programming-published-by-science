@@ -30,9 +30,19 @@ let rec map_hyoka lst = match lst with
 | [] -> []
 | first :: rest -> hyouka first :: map_hyoka rest
 
-(* test: #use "chap13_2.ml";; *)
 let testdata1 = {namae = "asai"; tensuu = 90; seiseki = ""}
 let testdata2 = {namae = "asai"; tensuu = 80; seiseki = ""}
 let test2 = map_hyoka [testdata1; testdata2]
   = [{namae = "asai"; tensuu = 90; seiseki = "A"};
   {namae = "asai"; tensuu = 80; seiseki = "A"}]
+
+
+(* 目的: 関数 f とリスト lst を受け取り f を施したリストを返す *)
+(* map : (a' -> b') -> 'a list -> 'b list *)
+let rec map f lst = match lst with
+| [] -> []
+| first :: rest -> f first :: map f rest
+
+(* test: #use "chap13_2.ml";; *)
+let test3 = map sqrt [2.0; 3.0] = [1.41421356237309515; 1.73205080756887719]
+let test4 = map sin [2.0; 3.0] = [0.909297426825681709; 0.141120008059867214]
