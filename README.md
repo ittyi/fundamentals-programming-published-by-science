@@ -14,3 +14,10 @@ ocaml
 ```
 utop
 ```
+
+## 実行
+実行自体はこれで十分
+```
+% ocaml hello.ml
+Hello, World!
+```
