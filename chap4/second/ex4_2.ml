@@ -1,6 +1,6 @@
 print_endline "Hello, World!";;
 
-let jikoshokai s = s;;
+let jikoshokai s = "Hello, " ^ s;;
 
 let test1 = jikoshokai "test" = "Hello, test";;
 print_endline (string_of_bool test1);;
