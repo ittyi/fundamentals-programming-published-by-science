@@ -1,8 +1,8 @@
 print_endline "Hello, World!";;
 
-let hyojun_taiju_for_float m = m *. m *. 22.0;;
+let hyojun_taiju_for_float weight = weight *. weight *. 22.0;;
 
-let hyojun_taiju_for_int m = m * m * 22;;
+let hyojun_taiju_for_int weight = weight * weight * 22;;
 
 let test1 = hyojun_taiju_for_int 1 = 22;;
 print_endline (string_of_bool test1);;
