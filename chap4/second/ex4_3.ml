@@ -8,6 +8,5 @@ print_endline (string_of_bool test1);;
 let test2 = hyojun_taiju 170 = 635800;;
 print_endline (string_of_bool test2);; *)
 
-let test3 = hyojun_taiju 1.7 = 63.58;;
-print_endline (string_of_float (hyojun_taiju 1.7));;
+let test3 = string_of_float (hyojun_taiju 1.7) = "63.58";;
 print_endline (string_of_bool test3);;
