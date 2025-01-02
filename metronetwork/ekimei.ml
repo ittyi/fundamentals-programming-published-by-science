@@ -8,7 +8,7 @@ type ekimei_t = {
 
 (* 目的：ekimei_tを受け取ったら「路線名, 駅名（かな）」で返す *)
 let hyoji ekimei = match ekimei with
-| {kanji=kan; kana=ka; romaji=r; shozoku=s;} -> "" ;;
+| {kanji=kan; kana=ka; romaji=r; shozoku=s;} -> s ^ ", " ^ kan ^ "（" ^ ka ^ "）" ;;
 
 print_endline "func hyouji";;
 let test1 = hyoji {kanji="駅名"; kana="かな"; romaji="test"; shozoku="路線名"};;
