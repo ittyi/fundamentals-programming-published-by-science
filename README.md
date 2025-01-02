@@ -2,7 +2,7 @@
 サポートページ: http://pllab.is.ocha.ac.jp/~asai/book/Top.html
 
 ## （旧）実行
-```
+```sh
 ocaml
 >#use "ファイル名.ml";;
 ```
@@ -11,13 +11,18 @@ ocaml
 ![公式のインタプリタを使ってみた](image.png)
 
 ## 起動
-```
+```sh
 utop
 ```
 
 ## 実行
 実行自体はこれで十分
-```
+```sh
 % ocaml hello.ml
 Hello, World!
+```
+
+ocaml コマンドが使えなくなった時、以下を打つと良いかも
+```sh
+eval $(opam env)
 ```
