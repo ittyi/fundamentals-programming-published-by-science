@@ -18,3 +18,13 @@ print_endline (string_of_bool (test1 = "路線名, 駅名（かな）"));;
 let  test2 = hyoji {kanji="茗荷谷"; kana="みょうがだに"; romaji="myogadani"; shozoku="丸の内線"};;
 let () = Printf.printf "駅: %s\n" test2;;
 print_endline (string_of_bool (test2 = "丸の内線, 茗荷谷（みょうがだに）"));;
+
+
+type ekikan_t = {
+  kiten: string; 
+  shuten: string; 
+  keiyu: string; 
+  kyori: float; 
+  jikan: int;
+}
+(* {kiten="茗荷谷"; shuten="後楽園"; keiyu="丸ノ内線"; kyori=1.8; jikan=2};  *)
