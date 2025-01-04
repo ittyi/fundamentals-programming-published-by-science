@@ -392,4 +392,11 @@ print_endline (string_of_bool (test3 = "和光市"));;
 
 (* get_ekikan_kyori : 起点と終点を受け取ったら、その距離を返す。繋がってなかったら infinity を返す *)
 (* string -> string -> ekikan_t list -> float *)
-let get_ekikan_kyori kiten shuten global_ekikan_list = 0.0 ;;
+let get_ekikan_kyori kiten shuten global_ekikan_list = match global_ekikan_list with
+| [] -> infinity
+| first :: rest -> first.kyori;;
+
+print_endline "func get_ekikan_kyori";;
+let test1 = get_ekikan_kyori "" "" [];;
+let () = Printf.printf "駅名（漢字表記）: %f\n" test1;;
+print_endline (string_of_bool (test1 = infinity));;
