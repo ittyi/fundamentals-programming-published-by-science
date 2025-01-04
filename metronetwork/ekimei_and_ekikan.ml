@@ -361,3 +361,7 @@ let global_ekikan_list = [
 {kiten="営団赤塚"; shuten="営団成増"; keiyu="有楽町線"; kyori=1.5; jikan=2}; 
 {kiten="営団成増"; shuten="和光市"; keiyu="有楽町線"; kyori=2.1; jikan=3}; 
 ] 
+
+(* romaji_to_kanji : ローマ字の駅名から、漢字表記を取り出す *)
+(* string -> ekimei_t list -> string *)
+let romaji_to_kanji ekimei global_ekimei_list = ""
