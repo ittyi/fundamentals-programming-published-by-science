@@ -392,9 +392,17 @@ print_endline (string_of_bool (test3 = "和光市"));;
 
 (* get_ekikan_kyori : 起点と終点を受け取ったら、その距離を返す。繋がってなかったら infinity を返す *)
 (* string -> string -> ekikan_t list -> float *)
-let get_ekikan_kyori kiten shuten global_ekikan_list = match global_ekikan_list with
+let rec get_ekikan_kyori kiten shuten global_ekikan_list = match global_ekikan_list with
 | [] -> infinity
-| first :: rest -> first.kyori;;
+| {
+  kiten  = k; (* 起点 *) 
+  shuten = s; (* 終点 *) 
+  keiyu  = ke; (* 経由線名 *) 
+  kyori  = ky;  (* 距離 *) 
+  jikan  = j;    (* 時間 *) 
+} :: rest -> if k = kiten && s = shuten
+  then 0.0
+  else get_ekikan_kyori kiten shuten rest ;;
 
 print_endline "func get_ekikan_kyori";;
 let test1 = get_ekikan_kyori "営団成増" "和光市" [];;
