@@ -397,6 +397,18 @@ let get_ekikan_kyori kiten shuten global_ekikan_list = match global_ekikan_list 
 | first :: rest -> first.kyori;;
 
 print_endline "func get_ekikan_kyori";;
-let test1 = get_ekikan_kyori "" "" [];;
-let () = Printf.printf "駅名（漢字表記）: %f\n" test1;;
+let test1 = get_ekikan_kyori "営団成増" "和光市" [];;
+let () = Printf.printf "空配列: %f\n" test1;;
 print_endline (string_of_bool (test1 = infinity));;
+
+let test2 = get_ekikan_kyori "営団成増" "和光市" global_ekikan_list;;
+let () = Printf.printf "営団成増 和光市 距離: %f\n" test2;;
+print_endline (string_of_bool (test2 = 2.1));;
+
+let test3 = get_ekikan_kyori "代々木上原" "代々木公園" global_ekikan_list;;
+let () = Printf.printf "代々木上原 代々木公園 距離: %f\n" test3;;
+print_endline (string_of_bool (test3 = 1.2));;
+
+let test4 = get_ekikan_kyori "営団成増" "代々木公園" global_ekikan_list;;
+let () = Printf.printf "繋がっていない時の距離: %f\n" test4;;
+print_endline (string_of_bool (test4 = 1.2));;
