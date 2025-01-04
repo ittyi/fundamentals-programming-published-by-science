@@ -373,4 +373,10 @@ let rec romaji_to_kanji ekimei global_ekimei_list = match global_ekimei_list wit
   shozoku = s; (* 所属線名 *) 
 } :: rest -> if r = ekimei
   then ""
-  else romaji_to_kanji ekimei rest
+  else romaji_to_kanji ekimei rest ;;
+
+
+print_endline "func romaji_to_kanji";;
+let test1 = romaji_to_kanji "" global_ekimei_list;;
+let () = Printf.printf "駅名（漢字表記）: %s\n" test1;;
+print_endline (string_of_bool (test1 = ""));;
