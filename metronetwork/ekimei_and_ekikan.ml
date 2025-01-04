@@ -407,7 +407,7 @@ print_endline (string_of_bool (test2 = 2.1));;
 
 let test3 = get_ekikan_kyori "代々木上原" "代々木公園" global_ekikan_list;;
 let () = Printf.printf "代々木上原 代々木公園 距離: %f\n" test3;;
-print_endline (string_of_bool (test3 = 1.2));;
+print_endline (string_of_bool (test3 = 1.0));;
 
 let test4 = get_ekikan_kyori "営団成増" "代々木公園" global_ekikan_list;;
 let () = Printf.printf "繋がっていない時の距離: %f\n" test4;;
