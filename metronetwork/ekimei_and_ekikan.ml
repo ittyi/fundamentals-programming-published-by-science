@@ -380,3 +380,11 @@ print_endline "func romaji_to_kanji";;
 let test1 = romaji_to_kanji "" global_ekimei_list;;
 let () = Printf.printf "駅名（漢字表記）: %s\n" test1;;
 print_endline (string_of_bool (test1 = ""));;
+
+let test2 = romaji_to_kanji "yoyogiuehara" global_ekimei_list;;
+let () = Printf.printf "駅名（漢字表記）: %s\n" test2;;
+print_endline (string_of_bool (test2 = "代々木上原"));;
+
+let test3 = romaji_to_kanji "wakousi" global_ekimei_list;;
+let () = Printf.printf "駅名（漢字表記）: %s\n" test3;;
+print_endline (string_of_bool (test3 = "和光市"));;
