@@ -388,3 +388,8 @@ print_endline (string_of_bool (test2 = "代々木上原"));;
 let test3 = romaji_to_kanji "wakousi" global_ekimei_list;;
 let () = Printf.printf "駅名（漢字表記）: %s\n" test3;;
 print_endline (string_of_bool (test3 = "和光市"));;
+
+
+(* get_ekikan_kyori : 起点と終点を受け取ったら、その距離を返す。繋がってなかったら infinity を返す *)
+(* string -> string -> ekikan_t list -> float *)
+let get_ekikan_kyori kiten shuten global_ekikan_list = 0.0 ;;
