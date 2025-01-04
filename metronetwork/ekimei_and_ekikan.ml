@@ -372,7 +372,7 @@ let rec romaji_to_kanji ekimei global_ekimei_list = match global_ekimei_list wit
   romaji  = r; (* ローマ字 *) 
   shozoku = s; (* 所属線名 *) 
 } :: rest -> if r = ekimei
-  then ""
+  then k
   else romaji_to_kanji ekimei rest ;;
 
 
