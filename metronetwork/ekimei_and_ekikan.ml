@@ -364,4 +364,11 @@ let global_ekikan_list = [
 
 (* romaji_to_kanji : ローマ字の駅名から、漢字表記を取り出す *)
 (* string -> ekimei_t list -> string *)
-let romaji_to_kanji ekimei global_ekimei_list = ""
+let romaji_to_kanji ekimei global_ekimei_list = match global_ekimei_list with
+| [] -> ""
+| {
+  kanji   = k; (* 駅名 *) 
+  kana    = ka; (* 読み *) 
+  romaji  = r; (* ローマ字 *) 
+  shozoku = s; (* 所属線名 *) 
+} :: rest -> r
