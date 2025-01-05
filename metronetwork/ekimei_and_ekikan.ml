@@ -361,3 +361,107 @@ let global_ekikan_list = [
 {kiten="営団赤塚"; shuten="営団成増"; keiyu="有楽町線"; kyori=1.5; jikan=2}; 
 {kiten="営団成増"; shuten="和光市"; keiyu="有楽町線"; kyori=2.1; jikan=3}; 
 ] 
+
+(* romaji_to_kanji : ローマ字の駅名から、漢字表記を取り出す *)
+(* string -> ekimei_t list -> string *)
+let rec romaji_to_kanji ekimei global_ekimei_list = match global_ekimei_list with
+| [] -> ""
+| {
+  kanji   = k; (* 駅名 *) 
+  kana    = ka; (* 読み *) 
+  romaji  = r; (* ローマ字 *) 
+  shozoku = s; (* 所属線名 *) 
+} :: rest -> if r = ekimei
+  then k
+  else romaji_to_kanji ekimei rest ;;
+
+
+print_endline "func romaji_to_kanji";;
+let test1 = romaji_to_kanji "" global_ekimei_list;;
+let () = Printf.printf "駅名（漢字表記）: %s\n" test1;;
+print_endline (string_of_bool (test1 = ""));;
+
+let test2 = romaji_to_kanji "yoyogiuehara" global_ekimei_list;;
+let () = Printf.printf "駅名（漢字表記）: %s\n" test2;;
+print_endline (string_of_bool (test2 = "代々木上原"));;
+
+let test3 = romaji_to_kanji "wakousi" global_ekimei_list;;
+let () = Printf.printf "駅名（漢字表記）: %s\n" test3;;
+print_endline (string_of_bool (test3 = "和光市"));;
+
+
+(* get_ekikan_kyori : 起点と終点を受け取ったら、その距離を返す。繋がってなかったら infinity を返す *)
+(* string -> string -> ekikan_t list -> float *)
+let rec get_ekikan_kyori kiten shuten global_ekikan_list = match global_ekikan_list with
+| [] -> infinity
+| {
+  kiten  = k; (* 起点 *) 
+  shuten = s; (* 終点 *) 
+  keiyu  = ke; (* 経由線名 *) 
+  kyori  = ky;  (* 距離 *) 
+  jikan  = j;    (* 時間 *) 
+} :: rest -> if (k = kiten && s = shuten) || (k = shuten && s = kiten)
+  then ky
+  else get_ekikan_kyori kiten shuten rest ;;
+
+print_endline "func get_ekikan_kyori";;
+let test1 = get_ekikan_kyori "営団成増" "和光市" [];;
+let () = Printf.printf "空配列: %f\n" test1;;
+print_endline (string_of_bool (test1 = infinity));;
+
+let test2 = get_ekikan_kyori "営団成増" "和光市" global_ekikan_list;;
+let () = Printf.printf "営団成増 和光市 距離: %f\n" test2;;
+print_endline (string_of_bool (test2 = 2.1));;
+
+let test3 = get_ekikan_kyori "代々木上原" "代々木公園" global_ekikan_list;;
+let () = Printf.printf "代々木上原 代々木公園 距離: %f\n" test3;;
+print_endline (string_of_bool (test3 = 1.0));;
+
+let test4 = get_ekikan_kyori "代々木公園" "代々木上原" global_ekikan_list;;
+let () = Printf.printf "代々木上原 代々木公園 距離: %f\n" test4;;
+print_endline (string_of_bool (test4 = 1.0));;
+
+let test5 = get_ekikan_kyori "営団成増" "代々木公園" global_ekikan_list;;
+let () = Printf.printf "繋がっていない時の距離: %f\n" test5;;
+print_endline (string_of_bool (test5 = infinity));;
+
+
+(* 目的：ローマ字で駅名を二つ受け取ったら、その間の距離を調べて、文字列として表示する関数。
+  つながっていなかったらつながっていない旨を表示。
+  そもそもローマ字の駅名が存在しない場合は、ない旨を表示する。
+*)
+(* string -> string -> string *)
+let kyori_wo_hyoji romaji1 romaji2 = 
+  let ekimei1 = romaji_to_kanji romaji1 global_ekimei_list in
+    if ekimei1 = "" then romaji1 ^ "という駅は存在しません"
+    else let ekimei2 = romaji_to_kanji romaji2 global_ekimei_list in
+      if ekimei2 = "" then romaji2 ^ "という駅は存在しません"
+      else 
+        let kyori = get_ekikan_kyori ekimei1 ekimei2 global_ekikan_list in
+          if kyori = infinity then ekimei1 ^ "駅と" ^ ekimei2 ^ "駅は繋がっていません"
+          else ekimei1 ^ "駅から" ^ ekimei2 ^ "駅までは" ^ string_of_float kyori  ^ "kmです";;
+
+print_endline "func kyori_wo_hyoji";;
+let test1 = kyori_wo_hyoji "eidannarimasu" "wakousi";;
+let () = Printf.printf "kyori_wo_hyoji: %s\n" test1;;
+print_endline (string_of_bool (test1 = "営団成増駅から和光市駅までは2.1kmです"));;
+
+let test2 = kyori_wo_hyoji "wakousi" "eidannarimasu";;
+let () = Printf.printf "kyori_wo_hyoji: %s\n" test2;;
+print_endline (string_of_bool (test2 = "和光市駅から営団成増駅までは2.1kmです"));;
+
+let test3 = kyori_wo_hyoji "eidannarimasu" "yoyogikouen";;
+let () = Printf.printf "kyori_wo_hyoji 繋がっていない時: %s\n" test3;;
+print_endline (string_of_bool (test3 = "営団成増駅と代々木公園駅は繋がっていません"));;
+
+let test4 = kyori_wo_hyoji "test1" "yoyogikouen";;
+let () = Printf.printf "kyori_wo_hyoji ローマ字の駅が存在しない時: %s\n" test4;;
+print_endline (string_of_bool (test4 = "test1という駅は存在しません"));;
+
+let test5 = kyori_wo_hyoji "yoyogikouen" "test2";;
+let () = Printf.printf "kyori_wo_hyoji ローマ字の駅が存在しない時: %s\n" test5;;
+print_endline (string_of_bool (test5 = "test2という駅は存在しません"));;
+
+let test6 = kyori_wo_hyoji "営団成増" "和光市";;
+let () = Printf.printf "kyori_wo_hyoji 漢字は対応しない: %s\n" test6;;
+print_endline (string_of_bool (test6 = "営団成増という駅は存在しません"));;
