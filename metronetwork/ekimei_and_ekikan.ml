@@ -436,7 +436,10 @@ let kyori_wo_hyoji romaji1 romaji2 =
     if ekimei1 = "" then romaji1 ^ "という駅は存在しません"
     else let ekimei2 = romaji_to_kanji romaji2 global_ekimei_list in
       if ekimei2 = "" then romaji2 ^ "という駅は存在しません"
-      else "" ;;
+      else 
+        let kyori = get_ekikan_kyori ekimei1 ekimei2 global_ekikan_list in
+          if kyori = infinity then ekimei1 ^ "駅と" ^ ekimei2 ^ "駅は繋がっていません"
+          else "";;
 
 print_endline "func kyori_wo_hyoji";;
 let test1 = kyori_wo_hyoji "eidannarimasu" "wakousi";;
@@ -449,7 +452,7 @@ print_endline (string_of_bool (test2 = "営団成増駅から和光市駅まで�
 
 let test3 = kyori_wo_hyoji "eidannarimasu" "yoyogikouen";;
 let () = Printf.printf "kyori_wo_hyoji 繋がっていない時: %s\n" test3;;
-print_endline (string_of_bool (test3 = "営団成増駅と和光市駅は繋がっていません"));;
+print_endline (string_of_bool (test3 = "営団成増駅と代々木公園駅は繋がっていません"));;
 
 let test4 = kyori_wo_hyoji "test1" "yoyogikouen";;
 let () = Printf.printf "kyori_wo_hyoji ローマ字の駅が存在しない時: %s\n" test4;;
