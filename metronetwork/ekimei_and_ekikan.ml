@@ -400,7 +400,7 @@ let rec get_ekikan_kyori kiten shuten global_ekikan_list = match global_ekikan_l
   keiyu  = ke; (* 経由線名 *) 
   kyori  = ky;  (* 距離 *) 
   jikan  = j;    (* 時間 *) 
-} :: rest -> if k = kiten && s = shuten
+} :: rest -> if (k = kiten && s = shuten) || (k = shuten && s = kiten)
   then ky
   else get_ekikan_kyori kiten shuten rest ;;
 
@@ -417,6 +417,10 @@ let test3 = get_ekikan_kyori "代々木上原" "代々木公園" global_ekikan_l
 let () = Printf.printf "代々木上原 代々木公園 距離: %f\n" test3;;
 print_endline (string_of_bool (test3 = 1.0));;
 
-let test4 = get_ekikan_kyori "営団成増" "代々木公園" global_ekikan_list;;
-let () = Printf.printf "繋がっていない時の距離: %f\n" test4;;
-print_endline (string_of_bool (test4 = infinity));;
+let test4 = get_ekikan_kyori "代々木公園" "代々木上原" global_ekikan_list;;
+let () = Printf.printf "代々木上原 代々木公園 距離: %f\n" test4;;
+print_endline (string_of_bool (test4 = 1.0));;
+
+let test5 = get_ekikan_kyori "営団成増" "代々木公園" global_ekikan_list;;
+let () = Printf.printf "繋がっていない時の距離: %f\n" test5;;
+print_endline (string_of_bool (test5 = infinity));;
