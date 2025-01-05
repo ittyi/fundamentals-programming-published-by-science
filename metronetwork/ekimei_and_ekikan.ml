@@ -431,8 +431,12 @@ print_endline (string_of_bool (test5 = infinity));;
   そもそもローマ字の駅名が存在しない場合は、ない旨を表示する。
 *)
 (* string -> string -> string *)
-let kyori_wo_hyoji romaji1 romaji12 = 
-  let ekimei1 = romaji_to_kanji romaji1 global_ekimei_list in ekimei1 ;;
+let kyori_wo_hyoji romaji1 romaji2 = 
+  let ekimei1 = romaji_to_kanji romaji1 global_ekimei_list in
+    if ekimei1 = "" then "test1という駅は存在しません"
+    else 
+      let ekimei2 = romaji_to_kanji romaji2 global_ekimei_list in
+        if ekimei2 = "" then "" ;;
 
 
 print_endline "func kyori_wo_hyoji";;
