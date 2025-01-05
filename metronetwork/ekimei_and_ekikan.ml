@@ -431,25 +431,31 @@ print_endline (string_of_bool (test5 = infinity));;
   そもそもローマ字の駅名が存在しない場合は、ない旨を表示する。
 *)
 (* string -> string -> string *)
-let kyori_wo_hyoji romaji1 romaji12 = "";;
+let kyori_wo_hyoji romaji1 romaji12 = 
+  let ekimei1 = romaji_to_kanji romaji1 global_ekimei_list in ekimei1 ;;
+
 
 print_endline "func kyori_wo_hyoji";;
-let test1 = kyori_wo_hyoji "営団成増" "和光市";;
+let test1 = kyori_wo_hyoji "eidannarimasu" "wakousi";;
 let () = Printf.printf "kyori_wo_hyoji: %s\n" test1;;
 print_endline (string_of_bool (test1 = "営団成増駅から和光市駅までは1.0kmです"));;
 
-let test2 = kyori_wo_hyoji "和光市" "営団成増";;
+let test2 = kyori_wo_hyoji "wakousi" "eidannarimasu";;
 let () = Printf.printf "kyori_wo_hyoji: %s\n" test2;;
 print_endline (string_of_bool (test2 = "営団成増駅から和光市駅までは1.0kmです"));;
 
-let test3 = kyori_wo_hyoji "営団成増" "代々木公園";;
+let test3 = kyori_wo_hyoji "eidannarimasu" "yoyogikouen";;
 let () = Printf.printf "kyori_wo_hyoji 繋がっていない時: %s\n" test3;;
 print_endline (string_of_bool (test3 = "営団成増駅と和光市駅は繋がっていません"));;
 
-let test4 = kyori_wo_hyoji "test1" "代々木公園";;
+let test4 = kyori_wo_hyoji "test1" "yoyogikouen";;
 let () = Printf.printf "kyori_wo_hyoji ローマ字の駅が存在しない時: %s\n" test4;;
 print_endline (string_of_bool (test4 = "test1という駅は存在しません"));;
 
-let test5 = kyori_wo_hyoji "代々木公園" "test2";;
+let test5 = kyori_wo_hyoji "yoyogikouen" "test2";;
 let () = Printf.printf "kyori_wo_hyoji ローマ字の駅が存在しない時: %s\n" test5;;
 print_endline (string_of_bool (test5 = "test2という駅は存在しません"));;
+
+let test6 = kyori_wo_hyoji "営団成増" "和光市";;
+let () = Printf.printf "kyori_wo_hyoji 漢字は対応しない: %s\n" test6;;
+print_endline (string_of_bool (test6 = ""));;
