@@ -424,3 +424,16 @@ print_endline (string_of_bool (test4 = 1.0));;
 let test5 = get_ekikan_kyori "営団成増" "代々木公園" global_ekikan_list;;
 let () = Printf.printf "繋がっていない時の距離: %f\n" test5;;
 print_endline (string_of_bool (test5 = infinity));;
+
+
+(* 目的：ローマ字で駅名を二つ受け取ったら、その間の距離を調べて、文字列として表示する関数。
+  つながっていなかったらつながっていない旨を表示。
+  そもそもローマ字の駅名が存在しない場合は、ない旨を表示する。
+*)
+(* string -> string -> string *)
+let kyori_wo_hyoji romaji1 romaji12 = "";;
+
+print_endline "func kyori_wo_hyoji";;
+let test1 = kyori_wo_hyoji "営団成増" "和光市";;
+let () = Printf.printf "kyori_wo_hyoji: %s\n" test1;;
+print_endline (string_of_bool (test1 = ""));;
