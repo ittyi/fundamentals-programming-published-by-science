@@ -436,4 +436,20 @@ let kyori_wo_hyoji romaji1 romaji12 = "";;
 print_endline "func kyori_wo_hyoji";;
 let test1 = kyori_wo_hyoji "営団成増" "和光市";;
 let () = Printf.printf "kyori_wo_hyoji: %s\n" test1;;
-print_endline (string_of_bool (test1 = ""));;
+print_endline (string_of_bool (test1 = "営団成増駅から和光市駅までは1.0kmです"));;
+
+let test2 = kyori_wo_hyoji "和光市" "営団成増";;
+let () = Printf.printf "kyori_wo_hyoji: %s\n" test2;;
+print_endline (string_of_bool (test2 = "営団成増駅から和光市駅までは1.0kmです"));;
+
+let test3 = kyori_wo_hyoji "営団成増" "代々木公園";;
+let () = Printf.printf "kyori_wo_hyoji 繋がっていない時: %s\n" test3;;
+print_endline (string_of_bool (test3 = "営団成増駅と和光市駅は繋がっていません"));;
+
+let test4 = kyori_wo_hyoji "test1" "代々木公園";;
+let () = Printf.printf "kyori_wo_hyoji ローマ字の駅が存在しない時: %s\n" test4;;
+print_endline (string_of_bool (test4 = "test1という駅は存在しません"));;
+
+let test5 = kyori_wo_hyoji "代々木公園" "test2";;
+let () = Printf.printf "kyori_wo_hyoji ローマ字の駅が存在しない時: %s\n" test5;;
+print_endline (string_of_bool (test5 = "test2という駅は存在しません"));;
