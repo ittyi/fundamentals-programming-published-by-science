@@ -3,17 +3,18 @@
 (* 最短距離が確定した点の集合 *)
 type shortest_distance_t = {
   name  : string;
+  routes: string list;
   value : int;
 } ;;
 
 let u =[
-  {name = "a"; value=0};
+  {name = "a"; routes=[]; value=0};
 ];;  
 
 
 (* 最短距離がまだ確定していない点の集合 v *)
 let v =[
-  {name = "a"; value=0};
+  {name = "a"; routes=[]; value=0};
 ];;  
 
 
