@@ -14,7 +14,7 @@ let u =[
 (* 最短距離がまだ確定していない点の集合 *)
 
 
-(* 最短距離がまだ確定していない点の集合 *)
+(* メトロネックワーク *)
 type metro_network_t = {
   start  : string;
   destination : string;
