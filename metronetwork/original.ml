@@ -26,3 +26,10 @@ let u =[
   {start = "c"; destination="e"; value=1};
   {start = "d"; destination="e"; value=3};
 ];;
+
+(* 開始地点と終了地点を受け取って、一旦文字列を返す *)
+let shortest_distance start destination = "";;
+
+let test1 = shortest_distance "" "";;
+let () = Printf.printf "test1: %s\n" test1;;
+print_endline (string_of_bool (test1 = ""));;
