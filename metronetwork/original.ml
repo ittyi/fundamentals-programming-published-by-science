@@ -358,11 +358,53 @@ let () =
     {name = "b"; routes=["b"; "a"]; value=10};
   ]) );;
 
-  let calc_shortest_distance_test2 = calc_shortest_distance {name = "a"; routes=["a"]; value=0} [];;
-  let () = 
-    print_endline (string_of_shortest_distance_list calc_shortest_distance_test2);;
-    Printf.printf "calc_shortest_distance_test2: ";;
-    print_endline (string_of_bool (calc_shortest_distance_test2 = []) );;
+let calc_shortest_distance_test2 = calc_shortest_distance {name = "a"; routes=["a"]; value=0} [];;
+let () = 
+  print_endline (string_of_shortest_distance_list calc_shortest_distance_test2);;
+  Printf.printf "calc_shortest_distance_test2: ";;
+  print_endline (string_of_bool (calc_shortest_distance_test2 = []) );;
+
+(* v から一個の値と計算したリストを受け取り、一致するものを引っ張る関数 *)
+let rec contain_calc_shortest_distances calc_shortest_distances shortest_distance = match calc_shortest_distances with
+| [] -> shortest_distance
+| f :: r -> if f.name = shortest_distance.name
+    then f
+    else contain_calc_shortest_distances r shortest_distance;;
+
+let contain_calc_shortest_distances_test1 = contain_calc_shortest_distances [
+  {name = "d"; routes=["d"; "a"]; value=4};
+  {name = "b"; routes=["b"]; value=max_int};
+] {name = "d"; routes=["d"]; value=max_int};;
+let () = 
+  Printf.printf "\n v から一個の値と計算したリストを受け取り、一致するものを引っ張る関数\n";;
+  print_endline (string_of_shortest_distance contain_calc_shortest_distances_test1);;
+  Printf.printf "contain_calc_shortest_distances_test1: ";;
+  print_endline (string_of_bool (contain_calc_shortest_distances_test1 ={name = "d"; routes=["d"; "a"]; value=4}) );;
+
+(* calc_shortest_distance で求めた点のlistをvにマージする関数 *)
+let rec merge_v_list v calc_shortest_distances = match v with
+| [] -> []
+| f :: r -> (contain_calc_shortest_distances calc_shortest_distances f) :: (merge_v_list r calc_shortest_distances);;
+
+let merge_v_list_test1 = merge_v_list [
+  {name = "d"; routes=["d"]; value=max_int};
+  {name = "e"; routes=["e"]; value=max_int};
+  {name = "c"; routes=["c"]; value=max_int};
+  {name = "b"; routes=["b"]; value=max_int};
+] [
+  {name = "d"; routes=["d"; "a"]; value=4};
+  {name = "b"; routes=["b"; "a"]; value=10};
+];;
+let () = 
+  Printf.printf "\n calc_shortest_distance で求めた点のlistをvにマージする関数\n";;
+  print_endline (string_of_shortest_distance_list merge_v_list_test1);;
+  Printf.printf "merge_v_list_test1: ";;
+  print_endline (string_of_bool (merge_v_list_test1 =[
+    {name = "d"; routes=["d"; "a"]; value=4};
+    {name = "e"; routes=["e"]; value=max_int};
+    {name = "c"; routes=["c"]; value=max_int};
+    {name = "b"; routes=["b"; "a"]; value=10};
+  ]) );;
 
 (* 直前につながっている点を一つ一つ最短経路と最短距離を求め、v から u に移動していく関数 *)
 let dijkstra u v station_decided_just_before = match v with
