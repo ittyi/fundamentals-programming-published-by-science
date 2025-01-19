@@ -1,3 +1,10 @@
+(* debug Utility 関数: リストを文字列に変換する補助関数 *)
+let rec string_of_list lst =
+  match lst with
+  | [] -> "[]"
+  | [x] -> "\"" ^ x ^ "\""
+  | x :: xs -> "\"" ^ x ^ "\", " ^ string_of_list xs
+
 (* ダイクストラのアルゴリズムを踏まえて、今の自分の知識で作る方法を考えてみたくなった。 *)
 
 (* 最短距離が確定した点の集合 *)
@@ -7,9 +14,35 @@ type shortest_distance_t = {
   value : int;
 } ;;
 
+(* debug Utility 関数: shortest_distance_t を文字列化する関数 *)
+let string_of_shortest_distance record =
+  Printf.sprintf
+    "{ name = \"%s\"; routes = %s; value = %d }"
+    record.name
+    (string_of_list record.routes)
+    record.value
+
+(* shortest_distance_t のリストを文字列化する関数 *)
+let string_of_shortest_distance_list records =
+  let rec aux lst =
+    match lst with
+    | [] -> "[]"
+    | [x] -> string_of_shortest_distance x
+    | x :: xs -> (string_of_shortest_distance x) ^ "; " ^ aux xs
+  in
+  "[" ^ aux records ^ "]"
+
+(* shortest_distance_t をデバッグ用に出力する関数 *)
+let print_shortest_distance record =
+  print_endline (string_of_shortest_distance record)
+
+(* shortest_distance_t のリストをデバッグ用に出力する関数 *)
+let print_shortest_distance_list records =
+  print_endline (string_of_shortest_distance_list records)
+
 let u =[
   {name = "a"; routes=[]; value=0};
-];;  
+];; 
 
 (* 最短距離がまだ確定していない点の集合 v *)
 (* ["d"; "e"; "c"; "b"; "a"] *)
@@ -37,12 +70,6 @@ let metro_network =[
   {start = "d"; destination="e"; value=3};
 ];;
 
-(* 開始地点と終了地点を受け取って、一旦文字列を返す *)
-let shortest_distance start destination = "";;
-
-let test1 = shortest_distance "" "";;
-let () = Printf.printf "test1: %s\n" test1;;
-print_endline (string_of_bool (test1 = ""));;
 
 
 (* 開始地点を受け取って、u を初期化する関数 *)
@@ -89,13 +116,6 @@ let contain_test4 = contain ["b"; "a"] "a";;
 let () = Printf.printf "contain_test4: ";;
 print_endline (string_of_bool (contain_test4 = true));;
 
-(* リストを文字列に変換する補助関数 *)
-let rec string_of_list lst =
-  match lst with
-  | [] -> "[]"
-  | [x] -> "\"" ^ x ^ "\""
-  | x :: xs -> "\"" ^ x ^ "\", " ^ string_of_list xs
-
 (* 重複を排除する関数 *)
 let rec deduplication_list list dest = match list with
 | [] -> dest
@@ -138,13 +158,13 @@ let () =
   Printf.printf "get_metro_network_pattern result: [%s]\n" (string_of_list result)
 
 (* metro_network の重複なし全パターンを受け取ったら、 shortest_distance_t list の形に初期化する関数 *)
-let rec init_shortest_distance_list metro_network_pattern = match metro_network_pattern with
+let rec init_v metro_network_pattern = match metro_network_pattern with
 | [] -> []
-| f :: r -> {name = f; routes=[]; value=max_int} :: init_shortest_distance_list r;;
+| f :: r -> {name = f; routes=[]; value=max_int} :: init_v r;;
 
-let init_shortest_distance_list_test1 = let result = get_metro_network_pattern metro_network in init_shortest_distance_list result;;
-let () = Printf.printf "init_shortest_distance_list_test1: ";;
-print_endline (string_of_bool (init_shortest_distance_list_test1 = v));;
+let init_v_test1 = let result = get_metro_network_pattern metro_network in init_v result;;
+let () = Printf.printf "init_v_test1: ";;
+print_endline (string_of_bool (init_v_test1 = v));;
 
 (* 開始地点を受け取って、最短距離がまだ確定していない点の集合 v を初期化する関数 *)
 (* let set_init_v start metro_network = match metro_network with
@@ -204,3 +224,23 @@ Step 5.
 
 次に、
 *)
+
+
+(* 開始地点と終了地点を受け取って、一旦 u, v を作成するところまでやる関数 *)
+let shortest_distance start destination = 
+let u = init_u start metro_network in
+let v = init_v (get_metro_network_pattern metro_network) in
+print_shortest_distance_list u;
+print_shortest_distance_list v;
+;;
+
+let () =
+  print_endline "Single record:";
+  print_shortest_distance { name = "a"; routes = ["b"; "c"]; value = 10 };
+
+  print_endline "\nList of records:";
+  shortest_distance "a" "b";
+
+(* let test1 = shortest_distance "" "";;
+let () = Printf.printf "test1: %s\n" test1;;
+print_endline (string_of_bool (test1 = ""));; *)
