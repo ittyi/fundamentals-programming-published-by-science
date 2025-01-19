@@ -406,11 +406,58 @@ let () =
     {name = "b"; routes=["b"; "a"]; value=10};
   ]) );;
 
+
+(* v の中で現時点で最小の点Pを取得する関数 *)
+let rec get_smallest_point_in_v (shortest_distance_list: shortest_distance_t list) : shortest_distance_t = match shortest_distance_list with
+| [] -> {name = "d"; routes=["d"; "a"]; value=4};
+| f :: r -> let min = get_smallest_point_in_v r in
+    if f.value <= min.value
+      then f
+      else min ;;
+
+let get_smallest_point_in_v_test1 = get_smallest_point_in_v [
+  {name = "d"; routes=["d"; "a"]; value=4};
+  {name = "e"; routes=["e"]; value=max_int};
+  {name = "c"; routes=["c"]; value=max_int};
+  {name = "b"; routes=["b"; "a"]; value=10};
+];; 
+let () = 
+  Printf.printf "\n v の中で現時点で最小の点Pを取得する関数\n";;
+  print_endline (string_of_shortest_distance get_smallest_point_in_v_test1);;
+  Printf.printf "get_smallest_point_in_v_test1: ";;
+  print_endline (string_of_bool (get_smallest_point_in_v_test1 = {name = "d"; routes=["d"; "a"]; value=4}));;
+
+(* u に新しい値を追加する関数 *)
+let moving_from_v_to_u u min_v = u :: min_v;;
+
+(* v から u に移動した不要なレコードを削除する関数 *)
+let rec remove_smallest_value_in_v v min_v = match v with
+| [] -> []
+| f :: r -> if f = min_v
+    then r
+    else f :: (remove_smallest_value_in_v r min_v);;
+
+let remove_smallest_value_in_v_test1 = remove_smallest_value_in_v [
+  {name = "d"; routes=["d"; "a"]; value=4};
+  {name = "e"; routes=["e"]; value=max_int};
+  {name = "c"; routes=["c"]; value=max_int};
+  {name = "b"; routes=["b"; "a"]; value=10};
+] {name = "d"; routes=["d"; "a"]; value=4};; 
+let () = 
+  Printf.printf "\n v から u に移動した不要なレコードを削除する関数\n";;
+  print_endline (string_of_shortest_distance_list remove_smallest_value_in_v_test1);;
+  Printf.printf "remove_smallest_value_in_v_test1: ";;
+  print_endline (string_of_bool (remove_smallest_value_in_v_test1 = [
+    {name = "e"; routes=["e"]; value=max_int};
+    {name = "c"; routes=["c"]; value=max_int};
+    {name = "b"; routes=["b"; "a"]; value=10};
+  ]));;
+
 (* 直前につながっている点を一つ一つ最短経路と最短距離を求め、v から u に移動していく関数 *)
 let dijkstra u v station_decided_just_before = match v with
 | [] -> u
 | f :: r -> [
-  {name = "a"; routes=[]; value=0};
+  {name = "a"; routes=["a"]; value=0};
   {name = "d"; routes=["d"; "a"]; value=4};
   {name = "e"; routes=["e"; "d"; "a"]; value=7};
   {name = "c"; routes=["c"; "e"; "d"; "a"]; value=8};
