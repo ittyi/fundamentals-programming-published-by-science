@@ -312,9 +312,7 @@ let rec get_distance_between_two_points station_decided_just_before_name previou
 let rec helper_calc_shortest_distance station_decided_just_before previous_connected_point metro_network = match metro_network with
 | [] -> previous_connected_point
 | f :: r -> if f.start = station_decided_just_before.name && f.destination = previous_connected_point.name
-    then let value = get_distance_between_two_points station_decided_just_before.name previous_connected_point.name metro_network in
-      
-      {
+    then let value = get_distance_between_two_points station_decided_just_before.name previous_connected_point.name metro_network in {
       name = previous_connected_point.name;
       routes=(append previous_connected_point.routes station_decided_just_before);
       value=if f.value > value
@@ -325,7 +323,6 @@ let rec helper_calc_shortest_distance station_decided_just_before previous_conne
 
 let helper_calc_shortest_distance_test1 = helper_calc_shortest_distance {name = "a"; routes=["a"]; value=0} {name = "d"; routes=["d"]; value=max_int} metro_network;;
 let () = 
-  Printf.printf "\nかなり重要な、新しく v から uに持っていくために隣接した点の最短距離を計算する関数\n";;
   print_endline (string_of_shortest_distance helper_calc_shortest_distance_test1);;
   Printf.printf "helper_calc_shortest_distance_test1: ";;
   print_endline (string_of_bool (helper_calc_shortest_distance_test1 = {name = "d"; routes=["d"; "a"]; value=4}) );;
@@ -343,13 +340,14 @@ let () =
   print_endline (string_of_bool (helper_calc_shortest_distance_test3 = {name = "b"; routes=["b"; "a"]; value=10}) );;
 
 (*直前に確定した点とつながっている点のリストを走査し、それぞれの今時点での最短距離を求める*)
-let calc_shortest_distance station_decided_just_before previous_connected_points = match previous_connected_points with
+let rec calc_shortest_distance station_decided_just_before previous_connected_points = match previous_connected_points with
 | [] -> []
-| f :: r -> [];;
+| f :: r -> let t = (helper_calc_shortest_distance station_decided_just_before f metro_network) in
+    t :: (calc_shortest_distance station_decided_just_before r);;
 
 let calc_shortest_distance_test1 = calc_shortest_distance {name = "a"; routes=[]; value=0} [
-  {name = "d"; routes=[]; value=max_int};
-  {name = "b"; routes=[]; value=max_int};
+  {name = "d"; routes=["d"]; value=max_int};
+  {name = "b"; routes=["b"]; value=max_int};
 ];;
 let () = 
   Printf.printf "\nかなり重要な、新しく v から uに持っていくために隣接した点の最短距離を計算する関数\n";;
@@ -360,7 +358,7 @@ let () =
     {name = "b"; routes=["b"; "a"]; value=10};
   ]) );;
 
-  let calc_shortest_distance_test2 = calc_shortest_distance {name = "a"; routes=[]; value=0} [];;
+  let calc_shortest_distance_test2 = calc_shortest_distance {name = "a"; routes=["a"]; value=0} [];;
   let () = 
     print_endline (string_of_shortest_distance_list calc_shortest_distance_test2);;
     Printf.printf "calc_shortest_distance_test2: ";;
