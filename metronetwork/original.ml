@@ -191,7 +191,8 @@ let () =
 step 1: 
 *)
 
-(* v が空集合になったら、全ての点の最短距離が確定したため、その時点で u の中でstart destinationを含むものを抽出し、最短経路と最短距離を出力する *)
+(* v が空集合になったら、全ての点の最短距離が確定したため、最短経路と最短距離を出力する *)
+(* routes の順番で、必ず狙った順番（配列の先頭にnameと同じものが入る）で揃っていないとうまく動かない。 *)
 let rec result_shortest_distance start destination u = match u with
 | [] -> "最短距離を求めることができませんでした。"
 | f :: r -> match f.routes with
