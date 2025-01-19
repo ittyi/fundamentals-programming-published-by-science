@@ -39,6 +39,7 @@ let test1 = shortest_distance "" "";;
 let () = Printf.printf "test1: %s\n" test1;;
 print_endline (string_of_bool (test1 = ""));;
 
+
 (* 開始地点を受け取って、u を初期化する関数 *)
 let rec init_u start metro_network = match metro_network with
 | [] -> []
@@ -60,8 +61,65 @@ let init_u_test3 = init_u "b" metro_network;;
 let () = Printf.printf "init_u_test3: ";;
 print_endline (string_of_bool (init_u_test3 = [{name = "b"; routes=[]; value=0}]));;
 
+(* 文字列配列の中に既に入っているかを確認する関数 *)
+let rec string_contant list chech_str = match list with
+| [] -> false
+| f :: r -> if f = chech_str
+    then true
+    else string_contant r chech_str ;;
+
+let string_contant_test1 = string_contant [] "";;
+let () = Printf.printf "string_contant_test1: ";;
+print_endline (string_of_bool (string_contant_test1 = false));;
+
+let string_contant_test2 = string_contant ["a"] "";;
+let () = Printf.printf "string_contant_test2: ";;
+print_endline (string_of_bool (string_contant_test2 = false));;
+
+let string_contant_test3 = string_contant ["b"; "a"] "a";;
+let () = Printf.printf "string_contant_test3: ";;
+print_endline (string_of_bool (string_contant_test3 = true));;
+
+(* 文字列の重複を排除する関数 *)
+(* let deduplication_string_list list dest = match list with
+| [] -> []
+| f :: r -> if string_contant dest f
+  then deduplication_string_list dest
+  else [];;
+
+let deduplication_string_list_test1 = deduplication_string_list [] [];;
+let () = Printf.printf "deduplication_string_list_test1: ";;
+print_endline (string_of_bool (deduplication_string_list_test1 = []));;
+
+let deduplication_string_list_test2 = deduplication_string_list [] [];;
+let () = Printf.printf "deduplication_string_list_test2: ";;
+print_endline (string_of_bool (deduplication_string_list_test2 = []));; *)
+
+(* metro_network の中にある全パターンの文字列を抽出する関数 *)
+let rec get_metro_network_pattern metro_network = match metro_network with
+| [] -> []
+| f :: r -> f.start :: f.destination :: get_metro_network_pattern r;;
+
+let get_metro_network_pattern_test1 = get_metro_network_pattern metro_network;;
+let () = Printf.printf "get_metro_network_pattern_test1: ";;
+print_endline (string_of_bool (get_metro_network_pattern_test1 = ["a"; "b"; "a"; "d"; "b"; "c"; "b"; "e"; "c"; "e"; "d"; "e"]));;
+
+(* リストを文字列に変換する補助関数 *)
+let rec string_of_list lst =
+  match lst with
+  | [] -> "[]"
+  | [x] -> "\"" ^ x ^ "\""
+  | x :: xs -> "\"" ^ x ^ "\", " ^ string_of_list xs
+
+(* 実行と標準出力 *)
+let () =
+  let result = get_metro_network_pattern metro_network in
+  Printf.printf "get_metro_network_pattern result: [%s]\n" (string_of_list result)
+
 (* metro_network を受け取ったら、 shortest_distance_t list の形に初期化する関数 *)
-let init_shortest_distance_list metro_network = [];;
+let init_shortest_distance_list metro_network = match metro_network with
+| [] -> []
+| f :: r -> [];;
 
 let init_shortest_distance_list_test1 = init_shortest_distance_list metro_network;;
 let () = Printf.printf "init_shortest_distance_list_test1: ";;
