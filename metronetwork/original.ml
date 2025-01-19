@@ -61,6 +61,13 @@ let () = Printf.printf "set_init_u_test3: ";;
 print_endline (string_of_bool (set_init_u_test3 = [{name = "b"; routes=[]; value=0}]));;
 
 
+(* 開始地点を受け取って、最短距離がまだ確定していない点の集合 v を初期化する関数 *)
+let set_init_v start metro_network = v;;
+
+let set_init_v_test1 = set_init_v "" metro_network;;
+let () = Printf.printf "set_init_v_test1: ";;
+print_endline (string_of_bool (set_init_v_test1 = v));;
+
 (* さてさて。
 ここからどうやっていくか考える。
 
