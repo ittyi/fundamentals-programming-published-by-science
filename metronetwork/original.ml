@@ -62,47 +62,27 @@ let () = Printf.printf "init_u_test3: ";;
 print_endline (string_of_bool (init_u_test3 = [{name = "b"; routes=[]; value=0}]));;
 
 (* 文字列配列の中に既に入っているかを確認する関数 *)
-let rec string_contant list chech_str = match list with
+let rec contain list chech_str = match list with
 | [] -> false
 | f :: r -> if f = chech_str
     then true
-    else string_contant r chech_str ;;
+    else contain r chech_str ;;
 
-let string_contant_test1 = string_contant [] "";;
-let () = Printf.printf "string_contant_test1: ";;
-print_endline (string_of_bool (string_contant_test1 = false));;
+let contain_test1 = contain [] "";;
+let () = Printf.printf "contain_test1: ";;
+print_endline (string_of_bool (contain_test1 = false));;
 
-let string_contant_test2 = string_contant ["a"] "";;
-let () = Printf.printf "string_contant_test2: ";;
-print_endline (string_of_bool (string_contant_test2 = false));;
+let contain_test2 = contain ["a"] "";;
+let () = Printf.printf "contain_test2: ";;
+print_endline (string_of_bool (contain_test2 = false));;
 
-let string_contant_test3 = string_contant ["b"; "a"] "a";;
-let () = Printf.printf "string_contant_test3: ";;
-print_endline (string_of_bool (string_contant_test3 = true));;
+let contain_test3 = contain ["a"] "a";;
+let () = Printf.printf "contain_test3: ";;
+print_endline (string_of_bool (contain_test3 = true));;
 
-(* 文字列の重複を排除する関数 *)
-(* let deduplication_string_list list dest = match list with
-| [] -> []
-| f :: r -> if string_contant dest f
-  then deduplication_string_list dest
-  else [];;
-
-let deduplication_string_list_test1 = deduplication_string_list [] [];;
-let () = Printf.printf "deduplication_string_list_test1: ";;
-print_endline (string_of_bool (deduplication_string_list_test1 = []));;
-
-let deduplication_string_list_test2 = deduplication_string_list [] [];;
-let () = Printf.printf "deduplication_string_list_test2: ";;
-print_endline (string_of_bool (deduplication_string_list_test2 = []));; *)
-
-(* metro_network の中にある全パターンの文字列を抽出する関数 *)
-let rec get_metro_network_pattern metro_network = match metro_network with
-| [] -> []
-| f :: r -> f.start :: f.destination :: get_metro_network_pattern r;;
-
-let get_metro_network_pattern_test1 = get_metro_network_pattern metro_network;;
-let () = Printf.printf "get_metro_network_pattern_test1: ";;
-print_endline (string_of_bool (get_metro_network_pattern_test1 = ["a"; "b"; "a"; "d"; "b"; "c"; "b"; "e"; "c"; "e"; "d"; "e"]));;
+let contain_test4 = contain ["b"; "a"] "a";;
+let () = Printf.printf "contain_test4: ";;
+print_endline (string_of_bool (contain_test4 = true));;
 
 (* リストを文字列に変換する補助関数 *)
 let rec string_of_list lst =
@@ -110,6 +90,42 @@ let rec string_of_list lst =
   | [] -> "[]"
   | [x] -> "\"" ^ x ^ "\""
   | x :: xs -> "\"" ^ x ^ "\", " ^ string_of_list xs
+
+(* 重複を排除する関数 *)
+let rec deduplication_list list dest = match list with
+| [] -> dest
+| f :: r -> if contain dest f
+  then deduplication_list r dest
+  else deduplication_list r (f :: dest);;
+
+let () =
+  let result = deduplication_list ["a"; "b"] [] in
+  Printf.printf "deduplication_list result: [%s]\n" (string_of_list result)
+
+let () =
+  let result = deduplication_list ["a"; "b"; "c"] ["b"] in
+  Printf.printf "deduplication_list result: [%s]\n" (string_of_list result)
+
+let deduplication_list_test1 = deduplication_list [] [];;
+let () = Printf.printf "deduplication_list_test1: ";;
+print_endline (string_of_bool (deduplication_list_test1 = []));;
+
+let deduplication_list_test2 = deduplication_list [] [];;
+let () = Printf.printf "deduplication_list_test2: ";;
+print_endline (string_of_bool (deduplication_list_test2 = []));;
+
+(* metro_network の中にある全パターンの文字列を抽出する関数 *)
+let rec get_metro_network_pattern metro_network = match metro_network with
+| [] -> []
+| f :: r -> deduplication_list (f.start :: f.destination :: get_metro_network_pattern r) [];;
+
+let get_metro_network_pattern_test1 = get_metro_network_pattern metro_network;;
+let () = Printf.printf "get_metro_network_pattern_test1: ";;
+print_endline (string_of_bool ((get_metro_network_pattern_test1 = ["a"; "b"; "a"; "d"; "b"; "c"; "b"; "e"; "c"; "e"; "d"; "e"]) = false));;
+
+let get_metro_network_pattern_test2 = get_metro_network_pattern metro_network;;
+let () = Printf.printf "get_metro_network_pattern_test2: ";;
+print_endline (string_of_bool (get_metro_network_pattern_test2 = ["d"; "e"; "c"; "b"; "a"]));;
 
 (* 実行と標準出力 *)
 let () =
