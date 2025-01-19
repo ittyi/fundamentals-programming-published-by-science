@@ -75,9 +75,9 @@ let metro_network =[
 let rec init_u start metro_network = match metro_network with
 | [] -> []
 | f :: r -> if start = f.start
-  then [{name = f.start; routes=[]; value=0}]
+  then [{name = f.start; routes=f.start :: []; value=0}]
   else if start = f.destination 
-    then [{name = f.destination; routes=[]; value=0}]
+    then [{name = f.destination; routes=f.destination :: []; value=0}]
     else init_u start r ;;
 
 let init_u_test1 = init_u "" metro_network;;
@@ -180,10 +180,37 @@ print_shortest_distance_list v;
 ;;
 
 let () =
-  print_endline "Single record:";
-  print_shortest_distance { name = "a"; routes = ["b"; "c"]; value = 10 };
-
   print_endline "\nList of records:";
-  shortest_distance "a" "b";
+  shortest_distance "a" "b";;
 
 (* u, v はできたので次 *)
+(* 
+上記までで、書籍でいうところのステップ1, ステップ2、まで完了。
+ではステップ3 v が空集合になったら、全ての点の最短距離が確定したため、その時点で u の中でstart destinationを含むものを抽出し、最短経路と最短距離を出力する を作成する！！
+
+step 1: 
+*)
+
+(* v が空集合になったら、全ての点の最短距離が確定したため、その時点で u の中でstart destinationを含むものを抽出し、最短経路と最短距離を出力する *)
+let rec result_shortest_distance start destination u = match u with
+| [] -> "最短距離を求めることができませんでした。"
+| f :: r -> match f.routes with
+  | [] -> result_shortest_distance start destination r
+  | routes_f :: routes_r -> if routes_f = destination
+      then "最短経路は" ^ string_of_list f.routes ^ "で、最短距離は" ^ string_of_int f.value ^ "です。"
+      else result_shortest_distance start destination r;;
+
+(* 最終的に u にできて欲しいデータ *)
+let test_v =[
+  {name = "a"; routes=[]; value=0};
+  {name = "d"; routes=["d"; "a"]; value=4};
+  {name = "e"; routes=["e"; "d"; "a"]; value=7};
+  {name = "c"; routes=["c"; "e"; "d"; "a"]; value=8};
+  {name = "b"; routes=["b"; "e"; "d"; "a"]; value=9};
+];;
+
+let result_shortest_distance_test1 = result_shortest_distance "a" "b" test_v
+let () = 
+  Printf.printf "result: %s\n" result_shortest_distance_test1;;
+  Printf.printf "result_shortest_distance_test1: " ;;
+print_endline (string_of_bool (result_shortest_distance_test1 = "") );;
