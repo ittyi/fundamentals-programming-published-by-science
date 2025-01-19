@@ -40,13 +40,25 @@ let () = Printf.printf "test1: %s\n" test1;;
 print_endline (string_of_bool (test1 = ""));;
 
 (* 開始地点を受け取って、u を初期化する関数 *)
-let set_init_u start metro_network = match metro_network with
+let rec set_init_u start metro_network = match metro_network with
 | [] -> []
-| f :: r -> [{name = "a"; routes=[]; value=0}];;
+| f :: r -> if start = f.start
+  then [{name = f.start; routes=[]; value=0}]
+  else if start = f.destination 
+    then [{name = f.destination; routes=[]; value=0}]
+    else set_init_u start r ;;
 
 let set_init_u_test1 = set_init_u "" metro_network;;
-let () = Printf.printf "set_init_u_test1\n";;
-print_endline (string_of_bool (set_init_u_test1 = u));;
+let () = Printf.printf "set_init_u_test1: ";;
+print_endline (string_of_bool (set_init_u_test1 = []));;
+
+let set_init_u_test2 = set_init_u "a" metro_network;;
+let () = Printf.printf "set_init_u_test2: ";;
+print_endline (string_of_bool (set_init_u_test2 = u));;
+
+let set_init_u_test3 = set_init_u "b" metro_network;;
+let () = Printf.printf "set_init_u_test3: ";;
+print_endline (string_of_bool (set_init_u_test3 = [{name = "b"; routes=[]; value=0}]));;
 
 
 (* さてさて。
