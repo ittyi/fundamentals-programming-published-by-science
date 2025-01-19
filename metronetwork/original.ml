@@ -219,10 +219,27 @@ print_endline (string_of_bool (result_shortest_distance_test1 = "") );;
 u, v を渡したら、上記の test_v を出力する関数ができれば勝ち。
 そのために、直前につながっている点取得する必要がある。
 
-あー再帰で受け取れば良いのか。 
+あー再帰で受け取れば良いのか。
+let dijkstra u v station_decided_just_before で定義完了。
+新しく最短経路が求め終わるたびにその点を station_decidedjust_before に入れて呼び出す。
+
+書籍にあるstep 4: 直前に確定した点につながっている点について、その最短距離を更新する。
+具体的には、「その点が既に持っている最短距離」と「直前に確定した点経由でその先にいった場合の最短距離」を比べ、短い方をその点への最短距離とする。
+
+【step 4で必要なこと】
+１.metro_network から、直前に確定した点につながっている点を取得する。
+  →なので、まずは a が決定し、metro_network を走査して隣接する点が b と d であることを取得する関数を作る。
+  →この時、start と destinationの順番は気にしないようにする。
+2. 点 b と d はまだどちらも最短距離を持っていないため、b を [b; 直前に確定した点]にして、d を[d; 直前に確定した点] にする
+3. vを 2 でやった値に更新する
+4. v を全て走査し、最短距離が最短の点 p (今回は d)を u に移す
+5. 更新したu, v と直前に確定した点を d を使い、もう一度 dijkstra を呼び出す
+
 *)
 (* 直前につながっている点を一つ一つ最短経路と最短距離を求め、v から u に移動していく関数 *)
-let dijkstra u v station_decidedjust_before = [
+let dijkstra u v station_decided_just_before = match v with
+| [] -> u
+| f :: r -> [
   {name = "a"; routes=[]; value=0};
   {name = "d"; routes=["d"; "a"]; value=4};
   {name = "e"; routes=["e"; "d"; "a"]; value=7};
@@ -235,7 +252,7 @@ let rec sum_list list count = match list with
 | [] -> count
 | f :: r -> sum_list r (count + 1)
 
-let dijkstra_test1 = dijkstra u v test_u
+let dijkstra_test1 = dijkstra u v "a";;
 let () =
   Printf.printf "\ndijkstraのメイン。 v から u に移動していく処理:\n";
   print_shortest_distance_list dijkstra_test1;
@@ -245,3 +262,12 @@ let () =
   print_endline (string_of_bool (dijkstra_test1 = test_u) );;
 
 
+let dijkstra_test2 = dijkstra u [] "a";;
+let () =
+  print_shortest_distance_list dijkstra_test2;
+  Printf.printf "dijkstra_test2 配列の数:";
+  print_endline (string_of_int (sum_list dijkstra_test2 0) );;
+  Printf.printf "dijkstra_test2: ";
+  print_endline (string_of_bool (dijkstra_test2 = [
+    {name = "a"; routes=[]; value=0};
+  ]) );;
