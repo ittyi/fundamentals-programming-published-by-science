@@ -40,11 +40,11 @@ let () = Printf.printf "test1: %s\n" test1;;
 print_endline (string_of_bool (test1 = ""));;
 
 (* 開始地点を受け取って、u を初期化する関数 *)
-let set_init_u start = [{name = "a"; routes=[]; value=0}];;
+let set_init_u start metro_network = [];;
 
-let set_init_u_test1 = set_init_u "";;
+let set_init_u_test1 = set_init_u "" metro_network;;
 let () = Printf.printf "set_init_u_test1\n";;
-print_endline (string_of_bool (set_init_u_test1 = u));;
+print_endline (string_of_bool (set_init_u_test1 = []));;
 
 
 (* さてさて。
