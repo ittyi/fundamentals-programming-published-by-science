@@ -1,4 +1,4 @@
-(* ダイクストラのアルゴリズムを踏まえて、今の自分の知識で作る方法。 *)
+(* ダイクストラのアルゴリズムを踏まえて、今の自分の知識で作る方法を考えてみたくなった。 *)
 
 (* 最短距離が確定した点の集合 *)
 type shortest_distance_t = {
@@ -11,12 +11,10 @@ let u =[
   {name = "a"; routes=[]; value=0};
 ];;  
 
-
 (* 最短距離がまだ確定していない点の集合 v *)
 let v =[
   {name = "a"; routes=[]; value=0};
-];;  
-
+];;
 
 (* メトロネックワーク *)
 type metro_network_t = {
@@ -40,6 +38,14 @@ let shortest_distance start destination = "";;
 let test1 = shortest_distance "" "";;
 let () = Printf.printf "test1: %s\n" test1;;
 print_endline (string_of_bool (test1 = ""));;
+
+(* 開始地点を受け取って、u を初期化する関数 *)
+let set_init_u start = [{name = "a"; routes=[]; value=0}];;
+
+let set_init_u_test1 = set_init_u "";;
+let () = Printf.printf "set_init_u_test1\n";;
+print_endline (string_of_bool (set_init_u_test1 = u));;
+
 
 (* さてさて。
 ここからどうやっていくか考える。
