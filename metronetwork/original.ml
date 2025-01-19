@@ -172,7 +172,7 @@ print_endline (string_of_bool (init_v_test1 = v) );;
 
 
 (* 開始地点と終了地点を受け取って、一旦 u, v を作成するところまでやる関数 *)
-let shortest_distance start destination = 
+let checkpoint_shortest_distance start destination = 
 let u = init_u start metro_network in
 let v = init_v start (get_metro_network_pattern metro_network) in
 print_shortest_distance_list u;
@@ -181,14 +181,12 @@ print_shortest_distance_list v;
 
 let () =
   print_endline "\nList of records:";
-  shortest_distance "a" "b";;
+  checkpoint_shortest_distance "a" "b";;
 
 (* u, v はできたので次 *)
 (* 
 上記までで、書籍でいうところのステップ1, ステップ2、まで完了。
 ではステップ3 v が空集合になったら、全ての点の最短距離が確定したため、その時点で u の中でstart destinationを含むものを抽出し、最短経路と最短距離を出力する を作成する！！
-
-step 1: 
 *)
 
 (* v が空集合になったら、全ての点の最短距離が確定したため、最短経路と最短距離を出力する *)
@@ -202,7 +200,7 @@ let rec result_shortest_distance start destination u = match u with
       else result_shortest_distance start destination r;;
 
 (* 最終的に u にできて欲しいデータ *)
-let test_v =[
+let test_u =[
   {name = "a"; routes=[]; value=0};
   {name = "d"; routes=["d"; "a"]; value=4};
   {name = "e"; routes=["e"; "d"; "a"]; value=7};
@@ -210,8 +208,29 @@ let test_v =[
   {name = "b"; routes=["b"; "e"; "d"; "a"]; value=9};
 ];;
 
-let result_shortest_distance_test1 = result_shortest_distance "a" "b" test_v
+let result_shortest_distance_test1 = result_shortest_distance "a" "b" test_u
 let () = 
   Printf.printf "result: %s\n" result_shortest_distance_test1;;
   Printf.printf "result_shortest_distance_test1: " ;;
 print_endline (string_of_bool (result_shortest_distance_test1 = "") );;
+
+(* 次。
+直前につながっている点をどうやって取得しようか。。
+u, v を渡したら、上記の test_v を出力する関数ができれば勝ち。
+そのために、直前につながっている点取得する必要がある。
+
+あー再帰で受け取れば良いのか。 
+*)
+(* 直前につながっている点を一つ一つ最短経路と最短距離を求め、v から u に移動していく関数 *)
+let dijkstra u v station_decidedjust_before = [
+  {name = "a"; routes=[]; value=0};
+  {name = "d"; routes=["d"; "a"]; value=4};
+  {name = "e"; routes=["e"; "d"; "a"]; value=7};
+  {name = "c"; routes=["c"; "e"; "d"; "a"]; value=8};
+  {name = "b"; routes=["b"; "e"; "d"; "a"]; value=9};
+];;
+
+let dijkstra_test1 = dijkstra u v test_u
+let () = 
+  Printf.printf "dijkstra_test1: " ;;
+print_endline (string_of_bool (dijkstra_test1 = test_u) );;
