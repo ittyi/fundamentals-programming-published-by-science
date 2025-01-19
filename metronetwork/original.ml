@@ -230,7 +230,18 @@ let dijkstra u v station_decidedjust_before = [
   {name = "b"; routes=["b"; "e"; "d"; "a"]; value=9};
 ];;
 
+(* 下のデバッグ用に配列の数を数える関数を定義 *)
+let rec sum_list list count = match list with
+| [] -> count
+| f :: r -> sum_list r (count + 1)
+
 let dijkstra_test1 = dijkstra u v test_u
-let () = 
-  Printf.printf "dijkstra_test1: " ;;
-print_endline (string_of_bool (dijkstra_test1 = test_u) );;
+let () =
+  Printf.printf "\ndijkstraのメイン。 v から u に移動していく処理:\n";
+  print_shortest_distance_list dijkstra_test1;
+  Printf.printf "dijkstra_test1 配列の数:";
+  print_endline (string_of_int (sum_list dijkstra_test1 0) );;
+  Printf.printf "dijkstra_test1: ";
+  print_endline (string_of_bool (dijkstra_test1 = test_u) );;
+
+
