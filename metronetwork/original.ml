@@ -7,7 +7,7 @@ let rec string_of_list lst =
 
 (* ダイクストラのアルゴリズムを踏まえて、今の自分の知識で作る方法を考えてみたくなった。 *)
 
-(* 最短距離が確定した点の集合 *)
+(* 最短距離を記録する点の集合 *)
 type shortest_distance_t = {
   name  : string;
   routes: string list;
@@ -212,7 +212,7 @@ let result_shortest_distance_test1 = result_shortest_distance "a" "b" test_u
 let () = 
   Printf.printf "result: %s\n" result_shortest_distance_test1;;
   Printf.printf "result_shortest_distance_test1: " ;;
-print_endline (string_of_bool (result_shortest_distance_test1 = "") );;
+print_endline (string_of_bool (result_shortest_distance_test1 = ""));;
 
 (* 次。
 直前につながっている点をどうやって取得しようか。。
@@ -234,8 +234,71 @@ let dijkstra u v station_decided_just_before で定義完了。
 3. vを 2 でやった値に更新する
 4. v を全て走査し、最短距離が最短の点 p (今回は d)を u に移す
 5. 更新したu, v と直前に確定した点を d を使い、もう一度 dijkstra を呼び出す
-
 *)
+
+(* station_decided_just_before 単体を受け取り、metro_network の中から隣接する点を取得する関数*)
+let rec helper_get_previous_connected_point station_decided_just_before metro_network = match metro_network with
+| [] -> []
+| f :: r -> if f.start = station_decided_just_before
+    then f.destination :: (helper_get_previous_connected_point station_decided_just_before r)
+    else if f.destination = station_decided_just_before
+      then f.start :: (helper_get_previous_connected_point station_decided_just_before r)
+      else helper_get_previous_connected_point station_decided_just_before r;;
+
+let helper_get_previous_connected_point_test1 = helper_get_previous_connected_point "a" metro_network
+let () = 
+  Printf.printf "\n点を文字列で受け取り、metro_network の中から隣接する点を取得する関数\n";;
+  print_endline (string_of_list helper_get_previous_connected_point_test1);
+  Printf.printf "helper_get_previous_connected_point_test1: ";;
+  print_endline (string_of_bool (helper_get_previous_connected_point_test1 = ["b"; "d"]) );;
+
+let helper_get_previous_connected_point_test2 = helper_get_previous_connected_point "b" metro_network
+let () = 
+  print_endline (string_of_list helper_get_previous_connected_point_test2);
+  Printf.printf "helper_get_previous_connected_point_test2: ";;
+  print_endline (string_of_bool (helper_get_previous_connected_point_test2 = ["a"; "c"; "e"]) );;
+
+
+let rec helper_get_v_adjacent_points v adjacent_points = match v with
+| [] -> []
+| f :: r -> if contain adjacent_points f.name
+  then f :: helper_get_v_adjacent_points r adjacent_points
+  else helper_get_v_adjacent_points r adjacent_points;;
+
+let helper_get_v_adjacent_points_test2 = helper_get_v_adjacent_points v ["b"; "d"]
+let () = 
+  print_endline (string_of_shortest_distance_list helper_get_v_adjacent_points_test2);
+  Printf.printf "helper_get_v_adjacent_points_test2: ";;
+  print_endline (string_of_bool (helper_get_v_adjacent_points_test2 = [
+    { name = "d"; routes = []; value = 4611686018427387903 };
+    { name = "b"; routes = []; value = 4611686018427387903 };
+  ]) );;
+
+(* v の中で直前につながっている点を list 取得する関数*)
+let get_previous_connected_point v station_decided_just_before = 
+  let adjacent_points = helper_get_previous_connected_point station_decided_just_before metro_network in 
+  helper_get_v_adjacent_points v adjacent_points
+
+let get_previous_connected_point_test1 = get_previous_connected_point v "a"
+let () = 
+  Printf.printf "\n";;
+  print_endline (string_of_shortest_distance_list get_previous_connected_point_test1);;
+  Printf.printf "get_previous_connected_point_test1: ";;
+  print_endline (string_of_bool (get_previous_connected_point_test1 = [
+    {name = "d"; routes=[]; value=max_int};
+    {name = "b"; routes=[]; value=max_int};
+  ]) );;
+
+let get_previous_connected_point_test2 = get_previous_connected_point v "b"
+let () = 
+  print_endline (string_of_shortest_distance_list get_previous_connected_point_test2);;
+  Printf.printf "get_previous_connected_point_test2: ";;
+  print_endline (string_of_bool (get_previous_connected_point_test2 = [
+    {name = "e"; routes=[]; value=max_int};
+    {name = "c"; routes=[]; value=max_int};
+  ]) );;
+
+
 (* 直前につながっている点を一つ一つ最短経路と最短距離を求め、v から u に移動していく関数 *)
 let dijkstra u v station_decided_just_before = match v with
 | [] -> u
