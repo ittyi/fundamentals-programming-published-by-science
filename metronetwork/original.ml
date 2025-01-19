@@ -40,33 +40,41 @@ let () = Printf.printf "test1: %s\n" test1;;
 print_endline (string_of_bool (test1 = ""));;
 
 (* 開始地点を受け取って、u を初期化する関数 *)
-let rec set_init_u start metro_network = match metro_network with
+let rec init_u start metro_network = match metro_network with
 | [] -> []
 | f :: r -> if start = f.start
   then [{name = f.start; routes=[]; value=0}]
   else if start = f.destination 
     then [{name = f.destination; routes=[]; value=0}]
-    else set_init_u start r ;;
+    else init_u start r ;;
 
-let set_init_u_test1 = set_init_u "" metro_network;;
-let () = Printf.printf "set_init_u_test1: ";;
-print_endline (string_of_bool (set_init_u_test1 = []));;
+let init_u_test1 = init_u "" metro_network;;
+let () = Printf.printf "init_u_test1: ";;
+print_endline (string_of_bool (init_u_test1 = []));;
 
-let set_init_u_test2 = set_init_u "a" metro_network;;
-let () = Printf.printf "set_init_u_test2: ";;
-print_endline (string_of_bool (set_init_u_test2 = u));;
+let init_u_test2 = init_u "a" metro_network;;
+let () = Printf.printf "init_u_test2: ";;
+print_endline (string_of_bool (init_u_test2 = u));;
 
-let set_init_u_test3 = set_init_u "b" metro_network;;
-let () = Printf.printf "set_init_u_test3: ";;
-print_endline (string_of_bool (set_init_u_test3 = [{name = "b"; routes=[]; value=0}]));;
+let init_u_test3 = init_u "b" metro_network;;
+let () = Printf.printf "init_u_test3: ";;
+print_endline (string_of_bool (init_u_test3 = [{name = "b"; routes=[]; value=0}]));;
 
+(* metro_network を受け取ったら、 shortest_distance_t list の形に初期化する関数 *)
+let init_shortest_distance_list metro_network = [];;
+
+let init_shortest_distance_list_test1 = init_shortest_distance_list metro_network;;
+let () = Printf.printf "init_shortest_distance_list_test1: ";;
+print_endline (string_of_bool (init_shortest_distance_list_test1 = []));;
 
 (* 開始地点を受け取って、最短距離がまだ確定していない点の集合 v を初期化する関数 *)
-let set_init_v start metro_network = v;;
+(* let set_init_v start metro_network = match metro_network with
+| [] -> []
+| f :: r -> if start = ;;
 
 let set_init_v_test1 = set_init_v "" metro_network;;
 let () = Printf.printf "set_init_v_test1: ";;
-print_endline (string_of_bool (set_init_v_test1 = v));;
+print_endline (string_of_bool (set_init_v_test1 = v));; *)
 
 (* さてさて。
 ここからどうやっていくか考える。
