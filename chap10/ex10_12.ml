@@ -389,6 +389,7 @@ let kyori_wo_hyoji str1 str2 =
             then
               str2 ^ " という駅は存在しません"
             else 
+              (* 未来の私より：なんでここ↓2回目のstation2を取得してるんだ？？ *)
               let station2 = romaji_to_kanji str2 global_ekimei_list in
   let tmp = get_ekikan_kyori station1 station2 global_ekikan_list in
   let kyori = string_of_float tmp in
