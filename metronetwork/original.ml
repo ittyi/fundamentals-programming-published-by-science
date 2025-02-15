@@ -460,14 +460,16 @@ let () =
   Printf.printf "\n";;
 
 (* 直前につながっている点を一つ一つ最短経路と最短距離を求め、v から u に移動していく関数 *)
+(* station_decided_just_before = 直前に決定した駅*)
 let rec dijkstra u v station_decided_just_before = 
   Printf.printf "~~入力~~\n";
   Printf.printf "u:";
   print_shortest_distance_list u;
   Printf.printf "v1:";
   print_shortest_distance_list v;;
-  (* let previous_connected_poins = get_previous_connected_point v station_decided_just_before.name in
-  let calc_shortest_distance_list = calc_shortest_distance station_decided_just_before previous_connected_poins in
+  (* get_previous_connected_point v station_decided_just_before.name;; *)
+  (* let previous_connected_poins = get_previous_connected_point v station_decided_just_before.name in *)
+  (* let calc_shortest_distance_list = calc_shortest_distance station_decided_just_before previous_connected_poins in
   let update_v = merge_v_list v calc_shortest_distance_list in
   Printf.printf "\nupdate_v:";
   print_shortest_distance_list update_v;
