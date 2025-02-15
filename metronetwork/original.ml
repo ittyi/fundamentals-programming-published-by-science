@@ -466,7 +466,7 @@ let rec dijkstra u v station_decided_just_before =
   print_shortest_distance_list u;
   Printf.printf "v1:";
   print_shortest_distance_list v;
-  let previous_connected_poins = get_previous_connected_point v station_decided_just_before.name in
+  (* let previous_connected_poins = get_previous_connected_point v station_decided_just_before.name in
   let calc_shortest_distance_list = calc_shortest_distance station_decided_just_before previous_connected_poins in
   let update_v = merge_v_list v calc_shortest_distance_list in
   Printf.printf "\nupdate_v:";
@@ -480,7 +480,7 @@ let rec dijkstra u v station_decided_just_before =
   print_shortest_distance_list update_u;
   Printf.printf "remove_v:";
   print_shortest_distance_list remove_v;
-  remove_v;;
+  remove_v;; *)
   (* if (sum_list remove_v) > 0
     then dijkstra update_u remove_v min_v
     else remove_v *)
@@ -500,11 +500,11 @@ let () =
   Printf.printf "dijkstra_test1: ";
   print_endline (string_of_bool (dijkstra_test1 = test_u) );;
 
-let dijkstra_test2 = dijkstra u [
+(* let dijkstra_test2 = dijkstra u [
   {name = "e"; routes=["e"]; value=max_int};
   {name = "c"; routes=["c"]; value=max_int};
   {name = "b"; routes=["b"; "a"]; value=10};
-] {name = "d"; routes=["d"; "a"]; value=4};;
+] {name = "d"; routes=["d"; "a"]; value=4};; *)
 
 
 (* let dijkstra_test2 = dijkstra u [] {name = "a"; routes=[]; value=0};;
@@ -516,3 +516,4 @@ let () =
   print_endline (string_of_bool (dijkstra_test2 = [
     {name = "a"; routes=[]; value=0};
   ]) );; *)
+
