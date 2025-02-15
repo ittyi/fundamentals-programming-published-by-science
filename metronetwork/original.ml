@@ -465,7 +465,7 @@ let rec dijkstra u v station_decided_just_before =
   Printf.printf "u:";
   print_shortest_distance_list u;
   Printf.printf "v1:";
-  print_shortest_distance_list v;
+  print_shortest_distance_list v;;
   (* let previous_connected_poins = get_previous_connected_point v station_decided_just_before.name in
   let calc_shortest_distance_list = calc_shortest_distance station_decided_just_before previous_connected_poins in
   let update_v = merge_v_list v calc_shortest_distance_list in
@@ -484,7 +484,7 @@ let rec dijkstra u v station_decided_just_before =
   (* if (sum_list remove_v) > 0
     then dijkstra update_u remove_v min_v
     else remove_v *)
-;;
+(* ;; *)
 
 let dijkstra_test1 = dijkstra u [
   {name = "d"; routes=["d"]; value=max_int};
@@ -492,13 +492,13 @@ let dijkstra_test1 = dijkstra u [
   {name = "c"; routes=["c"]; value=max_int};
   {name = "b"; routes=["b"]; value=max_int};
 ] {name = "a"; routes=[]; value=0};;
-let () =
+(* let () =
   Printf.printf "\ndijkstraのメイン。 v から u に移動していく処理:\n";
-  print_shortest_distance_list dijkstra_test1;
+  (* print_shortest_distance_list dijkstra_test1; *)
   Printf.printf "dijkstra_test1 配列の数:";
   print_endline (string_of_int (sum_list dijkstra_test1) );;
   Printf.printf "dijkstra_test1: ";
-  print_endline (string_of_bool (dijkstra_test1 = test_u) );;
+  print_endline (string_of_bool (dijkstra_test1 = test_u) );; *)
 
 (* let dijkstra_test2 = dijkstra u [
   {name = "e"; routes=["e"]; value=max_int};
