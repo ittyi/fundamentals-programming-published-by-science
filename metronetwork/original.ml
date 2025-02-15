@@ -5,6 +5,11 @@ let rec string_of_list lst =
   | [x] -> "\"" ^ x ^ "\""
   | x :: xs -> "\"" ^ x ^ "\", " ^ string_of_list xs
 
+(* Utility 関数: リストの数を数える *)
+let rec sum_list list = match list with
+| [] -> 0
+| f :: r -> 1 + sum_list r
+
 (* ダイクストラのアルゴリズムを踏まえて、今の自分の知識で作る方法を考えてみたくなった。 *)
 
 (* 最短距離を記録する点の集合 *)
@@ -428,7 +433,7 @@ let () =
   print_endline (string_of_bool (get_smallest_point_in_v_test1 = {name = "d"; routes=["d"; "a"]; value=4}));;
 
 (* u に新しい値を追加する関数 *)
-let moving_from_v_to_u u min_v = u :: min_v;;
+let moving_from_v_to_u min_v u = min_v :: u;;
 
 (* v から u に移動した不要なレコードを削除する関数 *)
 let rec remove_smallest_value_in_v v min_v = match v with
@@ -451,35 +456,58 @@ let () =
     {name = "e"; routes=["e"]; value=max_int};
     {name = "c"; routes=["c"]; value=max_int};
     {name = "b"; routes=["b"; "a"]; value=10};
-  ]));;
+  ]));
+  Printf.printf "\n";;
 
 (* 直前につながっている点を一つ一つ最短経路と最短距離を求め、v から u に移動していく関数 *)
-let dijkstra u v station_decided_just_before = match v with
-| [] -> u
-| f :: r -> [
-  {name = "a"; routes=["a"]; value=0};
-  {name = "d"; routes=["d"; "a"]; value=4};
-  {name = "e"; routes=["e"; "d"; "a"]; value=7};
-  {name = "c"; routes=["c"; "e"; "d"; "a"]; value=8};
-  {name = "b"; routes=["b"; "e"; "d"; "a"]; value=9};
-];;
+let rec dijkstra u v station_decided_just_before = 
+  Printf.printf "~~入力~~\n";
+  Printf.printf "u:";
+  print_shortest_distance_list u;
+  Printf.printf "v1:";
+  print_shortest_distance_list v;
+  let previous_connected_poins = get_previous_connected_point v station_decided_just_before.name in
+  let calc_shortest_distance_list = calc_shortest_distance station_decided_just_before previous_connected_poins in
+  let update_v = merge_v_list v calc_shortest_distance_list in
+  Printf.printf "\nupdate_v:";
+  print_shortest_distance_list update_v;
+  let min_v = get_smallest_point_in_v update_v in
+  Printf.printf "min_v:";
+  print_shortest_distance min_v;
+  let update_u = moving_from_v_to_u min_v u in
+  let remove_v = remove_smallest_value_in_v update_v min_v in
+  Printf.printf "update_u:";
+  print_shortest_distance_list update_u;
+  Printf.printf "remove_v:";
+  print_shortest_distance_list remove_v;
+  remove_v;;
+  (* if (sum_list remove_v) > 0
+    then dijkstra update_u remove_v min_v
+    else remove_v *)
+;;
 
-(* 下のデバッグ用に配列の数を数える関数を定義 *)
-let rec sum_list list count = match list with
-| [] -> count
-| f :: r -> sum_list r (count + 1)
-
-let dijkstra_test1 = dijkstra u v "a";;
+let dijkstra_test1 = dijkstra u [
+  {name = "d"; routes=["d"]; value=max_int};
+  {name = "e"; routes=["e"]; value=max_int};
+  {name = "c"; routes=["c"]; value=max_int};
+  {name = "b"; routes=["b"]; value=max_int};
+] {name = "a"; routes=[]; value=0};;
 let () =
   Printf.printf "\ndijkstraのメイン。 v から u に移動していく処理:\n";
   print_shortest_distance_list dijkstra_test1;
   Printf.printf "dijkstra_test1 配列の数:";
-  print_endline (string_of_int (sum_list dijkstra_test1 0) );;
+  print_endline (string_of_int (sum_list dijkstra_test1) );;
   Printf.printf "dijkstra_test1: ";
   print_endline (string_of_bool (dijkstra_test1 = test_u) );;
 
+let dijkstra_test2 = dijkstra u [
+  {name = "e"; routes=["e"]; value=max_int};
+  {name = "c"; routes=["c"]; value=max_int};
+  {name = "b"; routes=["b"; "a"]; value=10};
+] {name = "d"; routes=["d"; "a"]; value=4};;
 
-let dijkstra_test2 = dijkstra u [] "a";;
+
+(* let dijkstra_test2 = dijkstra u [] {name = "a"; routes=[]; value=0};;
 let () =
   print_shortest_distance_list dijkstra_test2;
   Printf.printf "dijkstra_test2 配列の数:";
@@ -487,4 +515,4 @@ let () =
   Printf.printf "dijkstra_test2: ";
   print_endline (string_of_bool (dijkstra_test2 = [
     {name = "a"; routes=[]; value=0};
-  ]) );;
+  ]) );; *)
