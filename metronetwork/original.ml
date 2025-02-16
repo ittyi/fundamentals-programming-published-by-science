@@ -590,7 +590,7 @@ let rec get_shortest_path shortest_distance_list destination =
     then f
     else get_shortest_path r destination;;
 
-(* 開始地点と終了地点を受け取って、一旦 u, v を作成するところまでやる関数 *)
+(* メトロネットワーク最短経路問題を一通り解く関数 *)
 let metro_network_shortest_path_problem start destination = 
   let u = init_u start metro_network in
   let v = init_v start (get_metro_network_pattern metro_network) in
