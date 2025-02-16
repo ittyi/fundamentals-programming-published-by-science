@@ -15,7 +15,6 @@ let rec sum_list list = match list with
 | [] -> 0
 | f :: r -> 1 + sum_list r
 
-(* ダイクストラのアルゴリズムを踏まえて、今の自分の知識で作る方法を考えてみたくなった。 *)
 
 (* 最短距離を記録する点の集合 *)
 type shortest_distance_t = {
@@ -195,12 +194,6 @@ let v = init_v start (get_metro_network_pattern metro_network) in
 let () =
   print_endline "\nList of records:";
   checkpoint_shortest_distance "a" "b";;
-
-(* u, v はできたので次 *)
-(* 
-上記までで、書籍でいうところのステップ1, ステップ2、まで完了。
-ではステップ3 v が空集合になったら、全ての点の最短距離が確定したため、その時点で u の中でstart destinationを含むものを抽出し、最短経路と最短距離を出力する を作成する！！
-*)
 
 (* v が空集合になったら、全ての点の最短距離が確定したため、最短経路と最短距離を出力する *)
 (* routes の順番で、必ず狙った順番（配列の先頭にnameと同じものが入る）で揃っていないとうまく動かない。 *)
