@@ -622,54 +622,32 @@ let () =
 
 (* 直前につながっている点を一つ一つ最短経路と最短距離を求め、v から u に移動していく関数 *)
 (* station_decided_just_before = 直前に決定した駅*)
-let dijkstra u v station_decided_just_before = 
-  Printf.printf "\n\n~~入力~~\n";
-  Printf.printf "u:";
-  print_shortest_distance_list u;
-  Printf.printf "v1:";
-  print_shortest_distance_list v;
-
-  Printf.printf "\n直前に決定した駅と隣接した点を v から取得する previous_connected_poins:\n";
+let rec dijkstra u v station_decided_just_before = 
   let previous_connected_poins = get_previous_connected_point v station_decided_just_before.name in
-  print_endline (string_of_shortest_distance_list previous_connected_poins);
 
   let calc_shortest_distance_list = calc_shortest_distance station_decided_just_before previous_connected_poins in
-  Printf.printf "\n[かなり重要] 新しく v から u に持っていくために隣接した点の最短距離を計算する関数\n";
-  print_endline (string_of_shortest_distance_list (calc_shortest_distance_list));
 
   let update_v = merge_v_list v calc_shortest_distance_list in
-  Printf.printf "\n calc_shortest_distance で求めた点のlistをvにマージする関数 update_v:\n";
-  print_shortest_distance_list update_v;
 
   let min_v = get_smallest_point_in_v update_v in
-  Printf.printf "\n 最短距離がまだ確定していない点の集合 v の中で一番小さい点を取得する min_v:\n";
-  print_shortest_distance min_v;
 
   let update_u = moving_from_v_to_u min_v u in
-  Printf.printf "\n v から u に移動する update_u:\n";
-  print_shortest_distance_list update_u;
   
   let remove_v = remove_smallest_value_in_v update_v min_v in
-  Printf.printf "\n u に移動した 点を v から削除 remove_v:\n";
-  print_shortest_distance_list remove_v;
 
-  Printf.printf "\n  sum_list:";
-  print_endline (string_of_int (sum_list remove_v) );
-
-  (* 最終的にここから再帰にする *)
-  (* if (sum_list remove_v) > 0
-    then dijkstra update_u remove_v min_v
-    else remove_v *)
+  if (sum_list remove_v) = 0
+    then update_u
+    else dijkstra update_u remove_v min_v
   
-  Printf.printf "\n\n~~入力 2回目~~\n";
+  (* Printf.printf "\n\n~~入力 2回目~~\n";
   Printf.printf "u:";
   print_shortest_distance_list update_u;
   Printf.printf "v:";
   print_shortest_distance_list remove_v;
   Printf.printf "station_decided_just_before:";
-  print_shortest_distance min_v;
+  print_shortest_distance min_v; *)
 
-  Printf.printf "\n直前に決定した駅と隣接した点を v から取得する previous_connected_poins:\n";
+  (* Printf.printf "\n直前に決定した駅と隣接した点を v から取得する previous_connected_poins:\n";
   let previous_connected_poins = get_previous_connected_point remove_v min_v.name in
   print_endline (string_of_shortest_distance_list previous_connected_poins);
 
@@ -764,9 +742,9 @@ let dijkstra u v station_decided_just_before =
   print_shortest_distance_list remove_v;
 
   Printf.printf "\n  sum_list:";
-  print_endline (string_of_int (sum_list remove_v) );;
+  print_endline (string_of_int (sum_list remove_v) );
 
-(* ;; *)
+  update_u;; *)
 
 let dijkstra_test1 = dijkstra u [
   {name = "d"; routes=["d"]; value=max_int};
@@ -774,16 +752,15 @@ let dijkstra_test1 = dijkstra u [
   {name = "c"; routes=["c"]; value=max_int};
   {name = "b"; routes=["b"]; value=max_int};
 ] {name = "a"; routes=["a"]; value=0};;
-(* let () =
+let () =
   Printf.printf "\ndijkstraのメイン。 v から u に移動していく処理:\n";
-  (* print_shortest_distance_list dijkstra_test1; *)
-  Printf.printf "dijkstra_test1 配列の数:";
-  print_endline (string_of_int (sum_list dijkstra_test1) );;
-  Printf.printf "dijkstra_test1: ";
-  print_endline (string_of_bool (dijkstra_test1 = test_u) );; *)
+  Printf.printf "dijkstra_test1:";
+  print_endline (string_of_shortest_distance_list dijkstra_test1);
+  print_endline (string_of_bool (dijkstra_test1 = [
+    { name = "b"; routes = ["b"; "e"; "d"; "a"]; value = 9 };
+    { name = "c"; routes = ["c"; "e"; "d"; "a"]; value = 8 };
+    { name = "e"; routes = ["e"; "d"; "a"]; value = 7 };
+    { name = "d"; routes = ["d"; "a"]; value = 4 };
+    { name = "a"; routes = ["a"]; value = 0 };
+  ]) );;
 
-(* let dijkstra_test2 = dijkstra u [
-  {name = "e"; routes=["e"]; value=max_int};
-  {name = "c"; routes=["c"]; value=max_int};
-  {name = "b"; routes=["b"; "a"]; value=10};
-] {name = "d"; routes=["d"; "a"]; value=4};; *)
