@@ -610,4 +610,5 @@ let metro_network_shortest_path_problem start destination =
 
 let () =
   print_endline "\n最終結果:";
-  metro_network_shortest_path_problem "a" "b";;
+  metro_network_shortest_path_problem "a" "b";
+  metro_network_shortest_path_problem "a" "c";
