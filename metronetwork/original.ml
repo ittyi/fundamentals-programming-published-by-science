@@ -180,8 +180,8 @@ print_endline (string_of_bool (init_v_test1 = v) );;
 let checkpoint_shortest_distance start destination = 
 let u = init_u start metro_network in
 let v = init_v start (get_metro_network_pattern metro_network) in
-print_shortest_distance_list u;
-print_shortest_distance_list v;
+  print_shortest_distance_list u;
+  print_shortest_distance_list v;
 ;;
 
 let () =
@@ -281,19 +281,40 @@ let () =
   Printf.printf "helper_get_previous_connected_point_test5: ";;
   print_endline (string_of_bool (helper_get_previous_connected_point_test5 = ["b"; "c"; "d"]) );;
 
+
+(* ある点のリストを渡すと、最短距離がまだ確定していない点の集合 v からデータを取得してリストで返す関数 *)
 let rec helper_get_v_adjacent_points v adjacent_points = match v with
 | [] -> []
 | f :: r -> if contain adjacent_points f.name
   then f :: helper_get_v_adjacent_points r adjacent_points
   else helper_get_v_adjacent_points r adjacent_points;;
 
-let helper_get_v_adjacent_points_test2 = helper_get_v_adjacent_points v ["b"; "d"]
+let helper_get_v_adjacent_points_test1 = helper_get_v_adjacent_points v ["b"; "d"]
+let () = 
+  Printf.printf "\nある点のリストを渡すと、最短距離がまだ確定していない点の集合 v からデータを取得してリストで返す\n";;
+  print_endline (string_of_shortest_distance_list helper_get_v_adjacent_points_test1);
+  Printf.printf "helper_get_v_adjacent_points_test1: ";;
+  print_endline (string_of_bool (helper_get_v_adjacent_points_test1 = [
+    { name = "d"; routes = ["d"]; value = 4611686018427387903 };
+    { name = "b"; routes = ["b"]; value = 4611686018427387903 };
+  ]) );;
+
+let helper_get_v_adjacent_points_test2 = helper_get_v_adjacent_points v ["a"; "c"; "e"]
 let () = 
   print_endline (string_of_shortest_distance_list helper_get_v_adjacent_points_test2);
   Printf.printf "helper_get_v_adjacent_points_test2: ";;
   print_endline (string_of_bool (helper_get_v_adjacent_points_test2 = [
-    { name = "d"; routes = ["d"]; value = 4611686018427387903 };
-    { name = "b"; routes = ["b"]; value = 4611686018427387903 };
+    { name = "e"; routes = ["e"]; value = 4611686018427387903 };
+    { name = "c"; routes = ["c"]; value = 4611686018427387903 };
+  ]) );;
+
+  let helper_get_v_adjacent_points_test3 = helper_get_v_adjacent_points v ["a"; "c"; "e"]
+let () = 
+  print_endline (string_of_shortest_distance_list helper_get_v_adjacent_points_test3);
+  Printf.printf "helper_get_v_adjacent_points_test3: ";;
+  print_endline (string_of_bool (helper_get_v_adjacent_points_test3 = [
+    { name = "e"; routes = ["e"]; value = 4611686018427387903 };
+    { name = "c"; routes = ["c"]; value = 4611686018427387903 };
   ]) );;
 
 (* v の中で直前につながっている点を list 取得する関数*)
@@ -483,9 +504,11 @@ let rec dijkstra u v station_decided_just_before =
   Printf.printf "u:";
   print_shortest_distance_list u;
   Printf.printf "v1:";
-  print_shortest_distance_list v;;
-  (* get_previous_connected_point v station_decided_just_before.name;; *)
+  print_shortest_distance_list v;
   (* let previous_connected_poins = get_previous_connected_point v station_decided_just_before.name in *)
+  Printf.printf "previous_connected_poins:";
+  print_endline (string_of_shortest_distance_list (get_previous_connected_point v station_decided_just_before.name));;
+  (* print_endline (string_of_list previous_connected_poins);; *)
   (* let calc_shortest_distance_list = calc_shortest_distance station_decided_just_before previous_connected_poins in
   let update_v = merge_v_list v calc_shortest_distance_list in
   Printf.printf "\nupdate_v:";
