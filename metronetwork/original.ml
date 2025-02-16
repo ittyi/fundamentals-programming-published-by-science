@@ -403,16 +403,22 @@ let rec helper_calc_shortest_distance station_decided_just_before previous_conne
       print_endline (string_of_int f.value);
       Printf.printf "value:";
       print_endline (string_of_int value);
-
-      {
-        name = previous_connected_point.name;
-        routes=if (List.length previous_connected_point.routes) = 1
-          then append previous_connected_point.routes station_decided_just_before.routes
-          else append (string_list_first previous_connected_point.routes) station_decided_just_before.routes;
-        value=if f.value > value
-          then station_decided_just_before.value + value
-          else station_decided_just_before.value + f.value;
-      };
+      Printf.printf "test:";
+      print_endline (string_of_int (value + station_decided_just_before.value));
+      Printf.printf "test:";
+      print_endline (string_of_int (previous_connected_point.value));
+      let station_decided_just_before_value = value + station_decided_just_before.value in
+      if station_decided_just_before_value > previous_connected_point.value 
+        then 
+          previous_connected_point
+        else
+          {
+            name = previous_connected_point.name;
+            routes=if (List.length previous_connected_point.routes) = 1
+              then append previous_connected_point.routes station_decided_just_before.routes
+              else append (string_list_first previous_connected_point.routes) station_decided_just_before.routes;
+            value=station_decided_just_before_value;
+          };
     else
       let test = "test" in 
       print_endline "🌸";
