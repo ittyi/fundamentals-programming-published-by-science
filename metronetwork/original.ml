@@ -263,6 +263,23 @@ let () =
   Printf.printf "helper_get_previous_connected_point_test2: ";;
   print_endline (string_of_bool (helper_get_previous_connected_point_test2 = ["a"; "c"; "e"]) );;
 
+let helper_get_previous_connected_point_test3 = helper_get_previous_connected_point "c" metro_network
+let () = 
+  print_endline (string_of_list helper_get_previous_connected_point_test3);
+  Printf.printf "helper_get_previous_connected_point_test3: ";;
+  print_endline (string_of_bool (helper_get_previous_connected_point_test3 = ["b"; "e"]) );;
+
+let helper_get_previous_connected_point_test4 = helper_get_previous_connected_point "d" metro_network
+let () = 
+  print_endline (string_of_list helper_get_previous_connected_point_test4);
+  Printf.printf "helper_get_previous_connected_point_test4: ";;
+  print_endline (string_of_bool (helper_get_previous_connected_point_test4 = ["a"; "e"]) );;
+
+let helper_get_previous_connected_point_test5 = helper_get_previous_connected_point "e" metro_network
+let () = 
+  print_endline (string_of_list helper_get_previous_connected_point_test5);
+  Printf.printf "helper_get_previous_connected_point_test5: ";;
+  print_endline (string_of_bool (helper_get_previous_connected_point_test5 = ["b"; "c"; "d"]) );;
 
 let rec helper_get_v_adjacent_points v adjacent_points = match v with
 | [] -> []
