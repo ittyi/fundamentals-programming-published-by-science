@@ -421,11 +421,11 @@ let () =
 
 (*直前に確定した点とつながっている点のリストを走査し、それぞれの今時点での最短距離を求める*)
 let rec calc_shortest_distance station_decided_just_before previous_connected_points = 
-  Printf.printf "\n\n~~入力 calc_shortest_distance~~\n";
+  (* Printf.printf "\n\n~~入力 calc_shortest_distance~~\n";
   Printf.printf "station_decided_just_before:";
   print_shortest_distance station_decided_just_before;
   Printf.printf "previous_connected_points: ";
-  print_endline (string_of_shortest_distance_list previous_connected_points);
+  print_endline (string_of_shortest_distance_list previous_connected_points); *)
   (* Printf.printf "station_decided_just_before:";
   print_shortest_distance_list station_decided_just_before;
   Printf.printf "v:";
@@ -435,8 +435,8 @@ let rec calc_shortest_distance station_decided_just_before previous_connected_po
   match previous_connected_points with
 | [] -> []
 | f :: r -> let t = (helper_calc_shortest_distance station_decided_just_before f metro_network) in
-    Printf.printf "f: ";
-    print_endline (string_of_shortest_distance f);
+    (* Printf.printf "f: ";
+    print_endline (string_of_shortest_distance f); *)
     t :: (calc_shortest_distance station_decided_just_before r);;
 
 let calc_shortest_distance_test3 = calc_shortest_distance { name = "d"; routes = ["d"; "a"]; value = 4 } [{ name = "e"; routes = ["e"]; value = max_int }];;
@@ -464,32 +464,6 @@ Printf.printf "calc_shortest_distance_test2: ";;
   print_endline (string_of_shortest_distance_list calc_shortest_distance_test2);;
   print_endline (string_of_bool (calc_shortest_distance_test2 = []) );; *)
 
-(* このケースがおかしいのでテストする
-~~入力 2回目~~
-u:[{ name = "d"; routes = "d", "a"; value = 4 }; { name = "a"; routes = "a"; value = 0 }]
-v:[{ name = "e"; routes = "e"; value = 4611686018427387903 }; { name = "c"; routes = "c"; value = 4611686018427387903 }; { name = "b"; routes = "b", "a"; value = 10 }]
-station_decided_just_before:{ name = "d"; routes = "d", "a"; value = 4 }
-
-直前に決定した駅と隣接した点を v から取得する previous_connected_poins:
-[{ name = "e"; routes = "e"; value = 4611686018427387903 }]
-
-[かなり重要] 新しく v から u に持っていくために隣接した点の最短距離を計算する関数 あ、ここの挙動怪しい！
-[{ name = "e"; routes = "e", "d"; value = 3 }] 
-
-コードメモ：previous_connected_poinsまでは一応OK。calc_shortest_distance がおかしい。
-  Printf.printf "\n直前に決定した駅と隣接した点を v から取得する previous_connected_poins:\n";
-  let previous_connected_poins = get_previous_connected_point remove_v min_v.name in
-  print_endline (string_of_shortest_distance_list previous_connected_poins);
-
-  let calc_shortest_distance_list = calc_shortest_distance min_v previous_connected_poins in
-  Printf.printf "\n[かなり重要] 新しく v から u に持っていくために隣接した点の最短距離を計算する関数 あ、ここの挙動怪しい！\n";
-  print_endline (string_of_shortest_distance_list (calc_shortest_distance_list));
-*)
-(* let calc_shortest_distance_test3 = calc_shortest_distance { name = "d"; routes = ["d"; "a"]; value = 4 } [{ name = "e"; routes = ["e"]; value = 4611686018427387903 }];;
-let () = 
-Printf.printf "🥺 calc_shortest_distance_test3: ";;
-  print_endline (string_of_shortest_distance_list calc_shortest_distance_test3);;
-  print_endline (string_of_bool (calc_shortest_distance_test3 = []) );; *)
 
 (* v から一個の値と計算したリストを受け取り、一致するものを引っ張る関数 *)
 let rec contain_calc_shortest_distances calc_shortest_distances shortest_distance = match calc_shortest_distances with
@@ -533,10 +507,17 @@ let () =
     {name = "b"; routes=["b"; "a"]; value=10};
   ]) );;
 
+(* 目的：受け取った lst の中の最小値を返す *) 
+(* minimum : int list -> int *) 
+let rec minimum lst = match lst with 
+    [] -> max_int
+  | first :: rest -> if first < (minimum rest)
+    then first
+    else (minimum rest)
 
-(* v の中で現時点で最小の点Pを取得する関数 *)
+  (* v の中で現時点で最小の点Pを取得する関数 *)
 let rec get_smallest_point_in_v (shortest_distance_list: shortest_distance_t list) : shortest_distance_t = match shortest_distance_list with
-| [] -> {name = "d"; routes=["d"; "a"]; value=4};
+| [] -> {name = ""; routes=[]; value=max_int};
 | f :: r -> let min = get_smallest_point_in_v r in
     if f.value <= min.value
       then f
@@ -713,15 +694,3 @@ let dijkstra_test1 = dijkstra u [
   {name = "c"; routes=["c"]; value=max_int};
   {name = "b"; routes=["b"; "a"]; value=10};
 ] {name = "d"; routes=["d"; "a"]; value=4};; *)
-
-
-(* let dijkstra_test2 = dijkstra u [] {name = "a"; routes=[]; value=0};;
-let () =
-  print_shortest_distance_list dijkstra_test2;
-  Printf.printf "dijkstra_test2 配列の数:";
-  print_endline (string_of_int (sum_list dijkstra_test2 0) );;
-  Printf.printf "dijkstra_test2: ";
-  print_endline (string_of_bool (dijkstra_test2 = [
-    {name = "a"; routes=[]; value=0};
-  ]) );; *)
-
