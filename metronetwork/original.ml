@@ -5,6 +5,11 @@ let rec string_of_list lst =
   | [x] -> "\"" ^ x ^ "\""
   | x :: xs -> "\"" ^ x ^ "\", " ^ string_of_list xs
 
+let string_list_first lst =
+  match lst with
+  | [] -> raise Not_found
+  | f :: r -> [f]
+
 (* Utility 関数: リストの数を数える *)
 let rec sum_list list = match list with
 | [] -> 0
@@ -69,7 +74,9 @@ let metro_network =[
   {start = "a"; destination="b"; value=10};
   {start = "a"; destination="d"; value=4};
   {start = "b"; destination="c"; value=2};
+  {start = "c"; destination="b"; value=2};
   {start = "b"; destination="e"; value=2};
+  {start = "e"; destination="b"; value=2};
   {start = "c"; destination="e"; value=1};
   {start = "e"; destination="c"; value=1};
   {start = "d"; destination="e"; value=3};
@@ -371,36 +378,43 @@ let rec get_distance_between_two_points station_decided_just_before_name previou
 
 (* 直前に確定した点とつながっている点をそれぞれの今時点での最短距離を求める*)
 let rec helper_calc_shortest_distance station_decided_just_before previous_connected_point metro_network =
-  print_endline "🥶";
+  (* print_endline "🥶";
   Printf.printf "station_decided_just_before:";
   print_shortest_distance station_decided_just_before;
   Printf.printf "previous_connected_point:";
-  print_shortest_distance previous_connected_point;
+  print_shortest_distance previous_connected_point; *)
   match metro_network with
 | [] -> previous_connected_point
 | f :: r -> if f.start = station_decided_just_before.name && f.destination = previous_connected_point.name
     then 
       let value = get_distance_between_two_points station_decided_just_before.name previous_connected_point.name metro_network in 
-      (* print_endline "🥶🥶🥶🥶";
+      print_endline "🥶🥶🥶🥶";
       print_endline f.start;
       print_endline station_decided_just_before.name;
       print_endline f.destination;
       print_endline previous_connected_point.name;
       Printf.printf "station_decided_just_before:";
       print_shortest_distance station_decided_just_before;
+      Printf.printf "previous_connected_point:";
+      print_shortest_distance previous_connected_point;
+      Printf.printf "previous_connected_point.routes:";
+      print_endline (string_of_list previous_connected_point.routes);
       Printf.printf "f.value:";
       print_endline (string_of_int f.value);
       Printf.printf "value:";
-      print_endline (string_of_int value); *)
+      print_endline (string_of_int value);
+
       {
         name = previous_connected_point.name;
-        routes=(append previous_connected_point.routes station_decided_just_before.routes);
+        routes=if (List.length previous_connected_point.routes) = 1
+          then append previous_connected_point.routes station_decided_just_before.routes
+          else append (string_list_first previous_connected_point.routes) station_decided_just_before.routes;
         value=if f.value > value
           then station_decided_just_before.value + value
           else station_decided_just_before.value + f.value;
       };
     else
-      (* let test = "test" in 
+      let test = "test" in 
       print_endline "🌸";
       print_endline f.start;
       print_endline station_decided_just_before.name;
@@ -409,10 +423,20 @@ let rec helper_calc_shortest_distance station_decided_just_before previous_conne
       Printf.printf "station_decided_just_before:";
       print_shortest_distance station_decided_just_before;
       Printf.printf "f.value:";
-      print_endline (string_of_int f.value); *)
+      print_endline (string_of_int f.value);
       helper_calc_shortest_distance station_decided_just_before previous_connected_point r;;
 
 let helper_calc_shortest_distance_test1 = helper_calc_shortest_distance 
+  { name = "e"; routes = ["e"; "d"; "a"]; value = 7 }
+  { name = "b"; routes = ["b"; "a"]; value = 10 }
+  metro_network;;
+let () =
+  Printf.printf "\n😭(* 直前に確定した点とつながっている点をそれぞれの今時点での最短距離を求める*)\n";;
+  print_endline (string_of_shortest_distance helper_calc_shortest_distance_test1);;
+  Printf.printf "😡 helper_calc_shortest_distance_test1: ";;
+  print_endline (string_of_bool (helper_calc_shortest_distance_test1 = {name = "b"; routes=["b"; "e"; "d"; "a"]; value=9}) );;
+
+(* let helper_calc_shortest_distance_test1 = helper_calc_shortest_distance 
   { name = "e"; routes = ["e"; "d"; "a"]; value = 7 }
   { name = "c"; routes = ["c"]; value = max_int }
   metro_network;;
@@ -420,7 +444,7 @@ let () =
   Printf.printf "\n😭(* 直前に確定した点とつながっている点をそれぞれの今時点での最短距離を求める*)\n";;
   print_endline (string_of_shortest_distance helper_calc_shortest_distance_test1);;
   Printf.printf "😡 helper_calc_shortest_distance_test1: ";;
-  print_endline (string_of_bool (helper_calc_shortest_distance_test1 = {name = "c"; routes=["c"; "e"; "d"; "a"]; value=8}) );;
+  print_endline (string_of_bool (helper_calc_shortest_distance_test1 = {name = "c"; routes=["c"; "e"; "d"; "a"]; value=8}) );; *)
 
 (* let helper_calc_shortest_distance_test1 = helper_calc_shortest_distance { name = "d"; routes = ["d"; "a"]; value = 4 } { name = "e"; routes = ["e"]; value = max_int } metro_network;;
 let () =
@@ -679,7 +703,7 @@ let dijkstra u v station_decided_just_before =
   print_endline (string_of_shortest_distance_list previous_connected_poins);
 
   let calc_shortest_distance_list = calc_shortest_distance min_v previous_connected_poins in
-  Printf.printf "\n[かなり重要] 新しく v から u に持っていくために隣接した点の最短距離を計算する関数 あ、ここの挙動怪しい！\n";
+  Printf.printf "\n[かなり重要] 新しく v から u に持っていくために隣接した点の最短距離を計算する関数\n";
   print_endline (string_of_shortest_distance_list (calc_shortest_distance_list));
 
   let update_v = merge_v_list remove_v calc_shortest_distance_list in
