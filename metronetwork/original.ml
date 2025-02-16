@@ -229,6 +229,7 @@ print_endline (string_of_bool (result_shortest_distance_test1 = "最短経路は
 
 
 
+
 (* station_decided_just_before 単体を受け取り、metro_network の中から隣接する点を取得する関数*)
 let rec helper_get_previous_connected_point station_decided_just_before metro_network = match metro_network with
 | [] -> []
@@ -348,7 +349,6 @@ let () =
   print_endline (string_of_list append_test2);;
   Printf.printf "append_test2 append [\"e\"] [\"d\"; \"a\"]: ";;
   print_endline (string_of_bool (append_test2 = ["e"; "d"; "a"]) );;
-
 
 let rec get_distance_between_two_points station_decided_just_before_name previous_connected_point_name metro_network = match metro_network with
 | [] -> max_int
@@ -590,3 +590,24 @@ let () =
     { name = "a"; routes = ["a"]; value = 0 };
   ]) );;
 
+let rec get_shortest_path shortest_distance_list destination =
+  match shortest_distance_list with
+  | [] -> raise Not_found
+  | f :: r -> if f.name = destination
+    then f
+    else get_shortest_path r destination;;
+
+(* 開始地点と終了地点を受け取って、一旦 u, v を作成するところまでやる関数 *)
+let metro_network_shortest_path_problem start destination = 
+  let u = init_u start metro_network in
+  let v = init_v start (get_metro_network_pattern metro_network) in
+    print_shortest_distance_list u;
+    print_shortest_distance_list v;
+  let dijkstra_result = dijkstra u v (List.hd u) in
+    print_shortest_distance_list dijkstra_result;
+  let result = get_shortest_path dijkstra_result destination in
+    print_endline (string_of_shortest_distance result);;
+
+let () =
+  print_endline "\n最終結果:";
+  metro_network_shortest_path_problem "a" "b";;
