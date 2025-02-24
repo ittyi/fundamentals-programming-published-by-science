@@ -15,8 +15,16 @@ let rec count_A lst = match lst with
 
 (* テストデータ *)
 let lst1 = []
-let lst2 = [{namae = "asai"; tensuu = 70; seiseki = "B"}]
+let lst2 = [{namae = "asai"; tensuu = 70; seiseki = "A"}; {namae = "asai"; tensuu = 70; seiseki = "A"}]
 
 (* テスト *)
 let test1 = count_A lst1 = 0
 let test2 = count_A lst2 = 1
+
+let test1 = count_A lst1 = 0;;
+let () = Printf.printf "test1: ";;
+print_endline (string_of_bool test1);;
+
+let test2 = count_A lst2 = 2;;
+let () = Printf.printf "test2: ";;
+print_endline (string_of_bool test2);;
