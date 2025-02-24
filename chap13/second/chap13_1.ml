@@ -37,7 +37,7 @@ print_endline (string_of_bool count_evaluation_test3);;
 | {namae = n; tensuu = t; seiseki = s} :: rest ->
     if s = "A" then 1 + count_A rest
                else count_A rest *)
-let rec count_A lst = count_evaluation lst "A"
+let count_A lst = count_evaluation lst "A"
 
 (* テスト *)
 let test1 = count_A lst1 = 0
