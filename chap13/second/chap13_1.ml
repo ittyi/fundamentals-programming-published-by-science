@@ -37,3 +37,11 @@ let rec count_evaluation lst eval = match lst with
     if s = eval
         then 1 + count_evaluation rest eval
         else count_evaluation rest eval
+
+let count_evaluation_test1 = count_evaluation lst1 "A" = 0;;
+let () = Printf.printf "count_evaluation_test1: ";;
+print_endline (string_of_bool count_evaluation_test1);;
+
+let count_evaluation_test2 = count_evaluation lst2 "A" = 2;;
+let () = Printf.printf "count_evaluation_test2: ";;
+print_endline (string_of_bool count_evaluation_test2);;
