@@ -28,3 +28,12 @@ print_endline (string_of_bool test1);;
 let test2 = count_A lst2 = 2;;
 let () = Printf.printf "test2: ";;
 print_endline (string_of_bool test2);;
+
+(* 目的: 学生リスト lst のうち、与えられた入力と成績が一致する人の数を返す *)
+(* count_evaluation : gakusei_t list -> int *)
+let rec count_evaluation lst eval = match lst with
+| [] -> 0
+| {namae = n; tensuu = t; seiseki = s} :: rest ->
+    if s = eval
+        then 1 + count_evaluation rest eval
+        else count_evaluation rest eval
