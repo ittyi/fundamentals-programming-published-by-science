@@ -29,3 +29,11 @@ let rec count_ketsueki lst blood_type = match lst with
 | f :: r -> if blood_type = f.blood_type
     then 1 + count_ketsueki r blood_type
     else count_ketsueki r blood_type
+
+let test1 = count_ketsueki list "a" = 0;;
+let () = Printf.printf "test1: ";;
+print_endline (string_of_bool test1);;
+
+let test2 = count_ketsueki list "o" = 2;;
+let () = Printf.printf "test2: ";;
+print_endline (string_of_bool test2);;
