@@ -23,3 +23,9 @@ let test2 = {
 }
 
 let list = [test; test2]
+
+let rec count_ketsueki lst blood_type = match lst with
+| [] -> 0
+| f :: r -> if blood_type = f.blood_type
+    then 0
+    else 0
