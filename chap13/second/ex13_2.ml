@@ -78,3 +78,24 @@ print_endline (string_of_bool test1);;
 let test2 = person_namae list2 [] = ["int"; "string"];;
 let () = Printf.printf "test2: ";;
 print_endline (string_of_bool test2);;
+
+
+(* 目的：person_t 型のデータから名前を返す *) 
+(* take_name : person_t -> string *) 
+let take_name person = match person with 
+  {name = n; height = h; body_weight = bw; birthday = bi; blood_type = bt} -> n 
+
+(* 目的：lst に含まれる人の名前のリストを返す *) 
+(* person_name : person_t list -> string list *) 
+let person_name lst = List.map take_name lst 
+
+let () = Printf.printf "〜〜〜\n";;
+let test1 = (person_name list1) = ["string"];;
+let () = Printf.printf "test1: ";;
+print_endline (string_of_bool test1);;
+
+let test2 = person_name list2 = ["int"; "string"];;
+let () = Printf.printf "test2: ";;
+print_endline (string_of_bool test2);;
+
+(* あ、、重複は排除しなくていいのか。。とほほ。。。 *)
