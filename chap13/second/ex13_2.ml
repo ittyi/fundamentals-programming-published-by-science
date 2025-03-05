@@ -65,22 +65,16 @@ let () = Printf.printf "contain_test4: ";;
 print_endline (string_of_bool (contain_test4 = true));;
 
 let rec person_namae lst dest = match lst with
-| [] -> []
-| f :: r -> 
-  let tmp = contain dest f.name in
-  print_endline (f.name);
-  print_endline (string_of_bool tmp);
-  print_endline (string_of_list dest);
-
-  if tmp
+| [] -> dest
+| f :: r -> if contain dest f.name
     then person_namae r dest
     else person_namae r (f.name :: dest)
 
-    let () = Printf.printf "〜〜〜\n";;
+let () = Printf.printf "〜〜〜\n";;
 let test1 = (person_namae list1 []) = ["string"];;
 let () = Printf.printf "test1: ";;
 print_endline (string_of_bool test1);;
 
-let test2 = person_namae list2 [] = ["string"; "int"];;
+let test2 = person_namae list2 [] = ["int"; "string"];;
 let () = Printf.printf "test2: ";;
 print_endline (string_of_bool test2);;
