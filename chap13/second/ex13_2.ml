@@ -1,3 +1,10 @@
+(* debug Utility 関数: リストを文字列に変換する補助関数 *)
+let rec string_of_list lst =
+  match lst with
+  | [] -> "[]"
+  | [x] -> "\"" ^ x ^ "\""
+  | x :: xs -> "\"" ^ x ^ "\", " ^ string_of_list xs
+  
 type parson_t = {
   name: string;
   height: int;
@@ -59,11 +66,18 @@ print_endline (string_of_bool (contain_test4 = true));;
 
 let rec person_namae lst dest = match lst with
 | [] -> []
-| f :: r -> if f.height = 0
-    then []
-    else []
+| f :: r -> 
+  let tmp = contain dest f.name in
+  print_endline (f.name);
+  print_endline (string_of_bool tmp);
+  print_endline (string_of_list dest);
 
-let test1 = person_namae list1 [] = ["string"];;
+  if tmp
+    then person_namae r dest
+    else person_namae r (f.name :: dest)
+
+    let () = Printf.printf "〜〜〜\n";;
+let test1 = (person_namae list1 []) = ["string"];;
 let () = Printf.printf "test1: ";;
 print_endline (string_of_bool test1);;
 
