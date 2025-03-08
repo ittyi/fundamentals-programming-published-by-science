@@ -90,11 +90,11 @@ let take_name person = match person with
 let person_name lst = List.map take_name lst 
 
 let () = Printf.printf "〜〜〜\n";;
-let test1 = (person_name list1) = ["string"];;
+let test1 = (person_name list1) = ["string"; "string"];;
 let () = Printf.printf "test1: ";;
 print_endline (string_of_bool test1);;
 
-let test2 = person_name list2 = ["int"; "string"];;
+let test2 = person_name list2 = ["string"; "string"; "int"];;
 let () = Printf.printf "test2: ";;
 print_endline (string_of_bool test2);;
 
