@@ -308,11 +308,10 @@ let test2 = koushin {
 ] 
 
 let () = print_eki_list test2
-(* = [
-  {namae="代々木公園"; saitan_kyori=1.0; temae_list=["代々木上原"; "代々木公園"]};
-  {namae="明治神宮前"; saitan_kyori=2.2; temae_list=["代々木上原"; "代々木公園"; "明治神宮前"]};
-  {namae="表参道"; saitan_kyori=infinity; temae_list=[]};
-  {namae="乃木坂"; saitan_kyori=infinity; temae_list=[]}; 
-];;
-let () = Printf.printf "test2: ";;
-print_endline (string_of_bool test2);; *)
+
+(* 目的：未確定の駅のリスト v を必要に応じて更新したリストを返す *) 
+(* koushin : eki_t -> eki_t list -> eki_t list *) 
+let koushin p v = 
+  let f q = koushin1 p q in 
+  List.map f v 
+(* あーー〜ーーそういうことか。。 *)

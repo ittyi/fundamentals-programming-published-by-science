@@ -261,3 +261,19 @@ let test2 = koushin1 {
 } {namae="明治神宮前"; saitan_kyori=infinity; temae_list=[]} = {namae="明治神宮前"; saitan_kyori=infinity; temae_list=[]};;
 let () = Printf.printf "test2: ";;
 print_endline (string_of_bool test2);;
+
+
+(* 模範解答 *)
+(* 目的：未確定の駅 q を必要に応じて更新した駅を返す *) 
+(* koushin1 : eki_t -> eki_t -> eki_t *) 
+let koushin1 p q = match (p, q) with 
+  ({namae = pn; saitan_kyori = ps; temae_list = pt}, 
+   {namae = qn; saitan_kyori = qs; temae_list = qt}) -> 
+    let kyori = get_ekikan_kyori pn qn global_ekikan_list in 
+    if kyori = infinity 
+    then q 
+    else if ps +. kyori < qs 
+    then {namae = qn; saitan_kyori = ps +. kyori; temae_list = qn :: pt} 
+    else q 
+
+    (* やっていることはほぼ同じだが、私の方はif ps +. kyori < qsのあたりのロジックが抜けていた。。 *)
