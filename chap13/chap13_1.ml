@@ -1,7 +1,14 @@
+(* 学生ひとり分のデータ（名前、点数、成績）を表す型 *) 
+type gakusei_t = { 
+  namae : string;       (* 名前 *) 
+  tensuu : int;         (* 点数 *) 
+  seiseki : string;     (* 成績 *) 
+} 
+
 (* 目的: 学生リスト lst のうち成績が A の人の数を返す *)
 (* count_A : gakusei_t list -> int *)
 let rec count_A lst = match lst with
-| [] -> []
+| [] -> 0
 | {namae = n; tensuu = t; seiseki = s} :: rest ->
     if s = "A" then 1 + count_A rest
                else count_A rest
