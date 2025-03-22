@@ -35,3 +35,19 @@ print_endline (string_of_bool test1);;
 この場合、直前に確定した点は 代々木上原 
 未定の駅はそれら以外よな。
 *)
+
+let koushin1 p q = q;;
+
+(* test: ocaml ex13_6.ml *)
+let () = Printf.printf "\nkoushin1\n";;
+let test1 = koushin1 {
+  namae="代々木上原";
+  saitan_kyori=0.0;
+  temae_list=[];
+} {
+  namae="代々木公園";
+  saitan_kyori=infinity;
+  temae_list=[];
+} = {namae="代々木公園"; saitan_kyori=1.0; temae_list=[]};;
+let () = Printf.printf "test1: ";;
+print_endline (string_of_bool test1);;
