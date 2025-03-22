@@ -231,7 +231,6 @@ let rec get_ekikan_kyori kiten shuten global_ekikan_list = match global_ekikan_l
 
 let koushin1 p q = 
   let kyori = (get_ekikan_kyori p.namae q.namae global_ekikan_list) in
-  print_endline (string_of_list (List.append p.temae_list [q.namae]));
   if kyori = infinity
       then q
       else {
@@ -254,3 +253,11 @@ let test1 = koushin1 {
 } = {namae="代々木公園"; saitan_kyori=1.0; temae_list=["代々木上原"; "代々木公園"]};;
 let () = Printf.printf "test1: ";;
 print_endline (string_of_bool test1);;
+
+let test2 = koushin1 {
+  namae="代々木上原";
+  saitan_kyori=0.0;
+  temae_list=["代々木上原"];
+} {namae="明治神宮前"; saitan_kyori=infinity; temae_list=[]} = {namae="明治神宮前"; saitan_kyori=infinity; temae_list=[]};;
+let () = Printf.printf "test2: ";;
+print_endline (string_of_bool test2);;
