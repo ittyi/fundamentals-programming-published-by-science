@@ -41,7 +41,9 @@ let rec count_A lst = match lst with
         then 1 + count_A rest
         else count_A rest
 
+        
 (* test: #use "chap9_6.ml";; *) 
+let () = Printf.printf "~~ let rec count_A test ~~ \n";;
 let test1 = count_A lst1 = 0;;
 let () = Printf.printf "test1: ";;
 print_endline (string_of_bool (test1 = true));;
