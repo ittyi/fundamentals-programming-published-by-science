@@ -35,3 +35,13 @@ val test1 : bool = true
 val test2 : bool = true
 val test3 : bool = true
 val test2 : bool = true *)
+
+let isEven n = n mod 2 == 0
+
+let () = Printf.printf "\n~~let isEven test ~~\n";;
+let test1 = isEven 1
+let () = Printf.printf "test1: ";;
+print_endline (string_of_bool (test1 = false));;
+let test2 = isEven 2
+let () = Printf.printf "test2: ";;
+print_endline (string_of_bool (test2 = true));;
