@@ -57,4 +57,9 @@ let test4 = count_A lst4 = 2
 let () = Printf.printf "test4: ";;
 print_endline (string_of_bool (test4 = true));; 
 
+(* 関数 count_A を filter と length を使って書き直し *)
 let isCountA gakusei = gakusei.seiseki = "A"
+
+let count_A gakusei_list =
+  let tmp = List.filter isCountA gakusei_list in
+  List.length tmp ;;
