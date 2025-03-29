@@ -56,3 +56,5 @@ print_endline (string_of_bool (test3 = true));;
 let test4 = count_A lst4 = 2
 let () = Printf.printf "test4: ";;
 print_endline (string_of_bool (test4 = true));; 
+
+let isCountA gakusei = gakusei.seiseki = "A"
