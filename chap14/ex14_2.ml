@@ -1,5 +1,3 @@
-let () = Printf.printf "hello\n\n";;
-
 (* 学生ひとり分のデータ（名前、点数、成績）を表す型 *) 
 type gakusei_t = { 
   namae : string;       (* 名前 *) 
@@ -42,7 +40,7 @@ let rec count_A lst = match lst with
         else count_A rest
 
         
-(* test: #use "chap9_6.ml";; *) 
+(* test: #use "chap9_6.ml";; or ocaml ex14_2.ml *) 
 let () = Printf.printf "~~ let rec count_A test ~~ \n";;
 let test1 = count_A lst1 = 0;;
 let () = Printf.printf "test1: ";;
