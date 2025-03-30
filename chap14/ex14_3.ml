@@ -19,3 +19,9 @@ print_endline (string_of_bool (test1 = true));;
 let test2 = concat ["春"; "夏"; "秋"; "冬"] = "春夏秋冬"
 let () = Printf.printf "test2: ";;
 print_endline (string_of_bool (test2 = true));;
+
+(* fold_right を使って書き直す。 *)
+(* 
+init -> ""
+*)
+let add_string first rest_result = first ^ rest_result;;
