@@ -25,3 +25,5 @@ print_endline (string_of_bool (test2 = true));;
 init -> ""
 *)
 let add_string first rest_result = first ^ rest_result;;
+
+let concat lst = List.fold_right add_string lst "";;
