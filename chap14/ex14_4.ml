@@ -10,3 +10,8 @@ type gakusei_t = {
 (* 目的：gakusei_t 型のリストから、全員の得点合計を返す関数 *)
 (* gakusei_t list -> int *)
 let total_points lst = 0
+
+let () = Printf.printf "\n~~ let total_points test ~~ \n";;
+let test1 = total_points [] = 0
+let () = Printf.printf "test1: ";;
+print_endline (string_of_bool (test1 = true));;
