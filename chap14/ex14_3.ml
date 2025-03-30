@@ -1,8 +1,8 @@
 let () = Printf.printf "Hello\n";;
 
 (* データ定義
-   [] : 空リスト
-   first :: rest　-> 最初の要素が first で残りのリストが rest
+  [] : 空リスト
+  first :: rest -> 最初の要素が first で残りのリストが rest
     ( rest が自己参照のケース) *)
 
 (* 目的: string のリストのうち、全要素を結合して返す *)
@@ -11,7 +11,7 @@ let rec concat lst = match lst with
 | [] -> ""
 | first :: rest -> first ^ concat rest
 
-(* test: #use "ex9_6.ml";; *)
+(* test: #use "ex9_6.ml";; or ocaml ex14_3.ml *)
 let () = Printf.printf "~~ let rec concat test ~~ \n";;
 let test1 = concat [] = ""
 let () = Printf.printf "test1: ";;
