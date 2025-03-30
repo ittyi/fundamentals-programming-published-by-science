@@ -10,7 +10,7 @@ type gakusei_t = {
 (* 
 init -> 0
 *)
-let tmp first rest_result = first.tensuu + rest_result
+let add_point first rest_result = first.tensuu + rest_result
 
 (* 目的：gakusei_t 型のリストから、全員の得点合計を返す関数 *)
 (* gakusei_t list -> int *)
