@@ -226,20 +226,18 @@ let rec get_ekikan_kyori kiten shuten global_ekikan_list = match global_ekikan_l
     | [x] -> "\"" ^ x ^ "\""
     | x :: xs -> "\"" ^ x ^ "\", " ^ string_of_list xs
 
-let koushin1 p q = 
-  let kyori = (get_ekikan_kyori p.namae q.namae global_ekikan_list) in
-  if kyori = infinity
-      then q
-      else {
-        namae="代々木公園";
-        saitan_kyori=(p.saitan_kyori +. kyori);
-        temae_list=(List.append p.temae_list [q.namae]);
-      }
-;;
-
 (* 目的：未確定の駅のリスト v を必要に応じて更新したリストを返す *) 
 (* koushin : eki_t -> eki_t list -> eki_t list *) 
 let koushin p v = 
+  let koushin1 p q = 
+    let kyori = (get_ekikan_kyori p.namae q.namae global_ekikan_list) in
+    if kyori = infinity
+        then q
+        else {
+          namae="代々木公園";
+          saitan_kyori=(p.saitan_kyori +. kyori);
+          temae_list=(List.append p.temae_list [q.namae]);
+        } in
   let f q = koushin1 p q in 
   List.map f v 
 
@@ -263,11 +261,3 @@ let test1 = koushin {
 ];;
 let () = Printf.printf "test1: ";;
 print_endline (string_of_bool test1);;
-
-let test2 = koushin {
-  namae="代々木公園"; saitan_kyori=1.0; temae_list=["代々木上原"; "代々木公園"];
-} [
-  {namae="明治神宮前"; saitan_kyori=infinity; temae_list=[]};
-  {namae="表参道"; saitan_kyori=infinity; temae_list=[]};
-  {namae="乃木坂"; saitan_kyori=infinity; temae_list=[]}; 
-] 
