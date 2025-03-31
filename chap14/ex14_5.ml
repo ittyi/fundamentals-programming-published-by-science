@@ -54,3 +54,16 @@ print_endline (string_of_bool (test3 = true));;
 let test4 = count_A lst4 = 2
 let () = Printf.printf "test4: ";;
 print_endline (string_of_bool (test4 = true));; 
+
+(* 文字の配列を連結する関数 *)
+let concat lst = 
+  let add_string first rest_result = first ^ rest_result in
+  List.fold_right add_string lst "";;
+
+let () = Printf.printf "\n~~ let concat test ~~ \n";;
+let test1 = concat [] = ""
+let () = Printf.printf "test1: ";;
+print_endline (string_of_bool (test1 = true));;
+let test2 = concat ["春"; "夏"; "秋"; "冬"] = "春夏秋冬"
+let () = Printf.printf "test2: ";;
+print_endline (string_of_bool (test2 = true));;
