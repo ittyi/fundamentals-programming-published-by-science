@@ -35,10 +35,9 @@ let lst4 = [{namae = "yoshida"; tensuu = 80; seiseki = "A"};
             {namae = "asai"; tensuu = 70; seiseki = "B"}; 
             {namae = "kaneko"; tensuu = 85; seiseki = "A"}] 
 
-(* 関数 count_A を filter と length を使って書き直し *)
-let isCountA gakusei = gakusei.seiseki = "A"
 
 let count_A gakusei_list =
+  let isCountA gakusei = gakusei.seiseki = "A" in
   let tmp = List.filter isCountA gakusei_list in
   List.length tmp ;;
 
