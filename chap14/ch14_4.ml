@@ -62,3 +62,8 @@ print_endline (string_of_bool (test3 = true));;
 let test4 = sum [1; 2] = 3
 let () = Printf.printf "test4: ";;
 print_endline (string_of_bool (test4 = true));;
+
+(* 受け取ったリスト lst の長さを求める *)
+(* length : a` list -> int *)
+let length lst = 
+  List.fold_right (fun first rest_result -> 1 + rest_result) lst 0
