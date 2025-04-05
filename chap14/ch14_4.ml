@@ -44,7 +44,7 @@ print_endline (string_of_bool (test4 = true));;
 
 (* 模範解答 *)
 let sum lst = 
-  List.fold_right (fun first rest_result -> first  + rest_result) lst 0;;
+  List.fold_right (fun first rest_result -> first + rest_result) lst 0;;
 
 let () = Printf.printf "\n~~模範解答 sum test ~~\n";;
 let test1 = sum [] = 0
