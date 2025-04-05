@@ -41,3 +41,24 @@ print_endline (string_of_bool (test3 = true));;
 let test4 = sum [1; 2] = 3
 let () = Printf.printf "test4: ";;
 print_endline (string_of_bool (test4 = true));;
+
+(* 模範解答 *)
+let sum lst = 
+  List.fold_right (fun first rest_result -> first  + rest_result) lst 0;;
+
+let () = Printf.printf "\n~~模範解答 sum test ~~\n";;
+let test1 = sum [] = 0
+let () = Printf.printf "test1: ";;
+print_endline (string_of_bool (test1 = true));;
+
+let test2 = sum [1] = 1
+let () = Printf.printf "test2: ";;
+print_endline (string_of_bool (test2 = true));;
+
+let test3 = sum [1; 1] = 2
+let () = Printf.printf "test3: ";;
+print_endline (string_of_bool (test3 = true));;
+
+let test4 = sum [1; 2] = 3
+let () = Printf.printf "test4: ";;
+print_endline (string_of_bool (test4 = true));;
