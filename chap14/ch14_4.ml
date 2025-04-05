@@ -67,3 +67,16 @@ print_endline (string_of_bool (test4 = true));;
 (* length : a` list -> int *)
 let length lst = 
   List.fold_right (fun first rest_result -> 1 + rest_result) lst 0
+
+let () = Printf.printf "\n~~length test ~~\n";;
+let test1 = length [] = 0
+let () = Printf.printf "test1: ";;
+print_endline (string_of_bool (test1 = true));;
+
+let test2 = length [1] = 1
+let () = Printf.printf "test2: ";;
+print_endline (string_of_bool (test2 = true));;
+
+let test3 = length [1; 1] = 2
+let () = Printf.printf "test3: ";;
+print_endline (string_of_bool (test3 = true));;
