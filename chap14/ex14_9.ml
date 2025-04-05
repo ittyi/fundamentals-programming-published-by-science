@@ -7,3 +7,5 @@ type parson_t = {
   birthday: string;
   blood_type: string;
 }
+
+(* fun parson -> parson.name;; *)
