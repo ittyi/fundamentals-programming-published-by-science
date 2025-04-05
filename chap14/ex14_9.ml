@@ -29,4 +29,3 @@ let test2 = (fun parson -> parson.name) {
 } = "string2"
 let () = Printf.printf "test2: ";;
 print_endline (string_of_bool (test2 = true));;
-
