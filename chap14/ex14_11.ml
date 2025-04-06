@@ -27,13 +27,14 @@ type eki_t = {
 (* 目的: ekimei_t list を受け取り、 eki_t の list を作成する関数 *)
 (* 仕様: saitan_kyori は無限大、 temae_list は空のリスト *)
 (* make_eki_list : ekimei_t list -> eki_t list *)
-let rec make_eki_list lst = match lst with
-| [] -> []
-| first :: rest -> {
-  namae=first.kanji;
-  saitan_kyori=infinity;
-  temae_list=[]
-  } :: make_eki_list rest
+let rec make_eki_list lst = 
+    List.map (
+        fun tmp -> {
+            namae=tmp.kanji;
+            saitan_kyori=infinity;
+            temae_list=[]
+        }
+    ) lst
 
 (* test: #use "ex12_2.ml";; *)
 let () = Printf.printf "\n~~ make_eki_list test ~~ \n";;
