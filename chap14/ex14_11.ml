@@ -82,7 +82,7 @@ let shokika eki_list kiten =
     ) eki_list
 
 (* テスト *) 
-let () = Printf.printf "\n~~ make_eki_list test ~~ \n"
+let () = Printf.printf "\n~~ shokika test ~~ \n"
 let test1 = shokika [] "茗荷谷" = []
 let () = Printf.printf "test1: ";;
 print_endline (string_of_bool (test1 = true));;
