@@ -99,4 +99,41 @@ let test2 = shokika eki_list "茗荷谷" = [
 let () = Printf.printf "test2: ";;
 print_endline (string_of_bool (test2 = true));;
 
-let make_initial_eki_ist eki_list kiten = []
+let make_initial_eki_ist ekimei_list kiten = 
+  let eki_list = List.map (
+        fun tmp -> {
+            namae=tmp.kanji;
+            saitan_kyori=infinity;
+            temae_list=[]
+        }
+    ) ekimei_list in
+  List.map (fun eki -> 
+      if eki.namae = kiten 
+          then {namae = eki.namae; saitan_kyori = 0.; temae_list = [eki.namae]}
+          else eki
+  ) eki_list
+
+(* テスト *) 
+let () = Printf.printf "\n~~ make_initial_eki_ist test ~~ \n"
+let test1 = make_initial_eki_ist [] "茗荷谷" = []
+let () = Printf.printf "test1: ";;
+print_endline (string_of_bool (test1 = true));;
+
+let test2 = make_initial_eki_ist  [
+  {kanji="池袋"; kana="よよぎうえはら"; romaji="yoyogiuehara"; shozoku="千代田線"}; 
+  {kanji="新大塚"; kana="よよぎこうえん"; romaji="yoyogikouen"; shozoku="千代田線"}; 
+  {kanji="茗荷谷"; kana="めいじじんぐうまえ"; romaji="meijijinguumae"; shozoku="千代田線"}; 
+  {kanji="後楽園"; kana="おもてさんどう"; romaji="omotesandou"; shozoku="千代田線"}; 
+  {kanji="本郷三丁目"; kana="のぎざか"; romaji="nogizaka"; shozoku="千代田線"}; 
+  {kanji="御茶ノ水"; kana="のぎざか"; romaji="nogizaka"; shozoku="千代田線"}; 
+] "茗荷谷" = [
+{namae="池袋"; saitan_kyori = infinity; temae_list = []}; 
+{namae="新大塚"; saitan_kyori = infinity; temae_list = []}; 
+{namae="茗荷谷"; saitan_kyori = 0.; temae_list = ["茗荷谷"]}; 
+{namae="後楽園"; saitan_kyori = infinity; temae_list = []}; 
+{namae="本郷三丁目"; saitan_kyori = infinity; temae_list = []}; 
+{namae="御茶ノ水"; saitan_kyori = infinity; temae_list = []};
+]
+
+let () = Printf.printf "test2: ";;
+print_endline (string_of_bool (test2 = true));;
