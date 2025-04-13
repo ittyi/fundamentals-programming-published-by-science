@@ -98,3 +98,5 @@ let test2 = shokika eki_list "茗荷谷" = [
 
 let () = Printf.printf "test2: ";;
 print_endline (string_of_bool (test2 = true));;
+
+let make_initial_eki_ist eki_list kiten = []
