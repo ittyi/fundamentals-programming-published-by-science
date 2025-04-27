@@ -2,10 +2,9 @@ let () = Printf.printf "helolo\n";;
 
 (* 目的：受け取った lst をクイックソートを使って昇順に整列する *)
 (* quick_sort : int list -> int list *)
-let rec quick_sort lst = 
-  if lst = []
-    then [] (* 自明に答えが出るケース *)
-    else [] (* それ以外のケース *)
+let rec quick_sort lst = match lst with
+| [] -> [] (* 自明に答えが出るケース *)
+| f :: r -> [] (* それ以外のケース *)
 
 (* テスト *) 
 let () = Printf.printf "\n~~ quick_sort test ~~ \n"
