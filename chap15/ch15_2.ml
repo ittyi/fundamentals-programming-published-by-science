@@ -19,6 +19,8 @@ let take_greater border lst = [] (* 未完成 *)
 let rec quick_sort lst = match lst with
 | [] -> [] (* 自明に答えが出るケース *)
 | f :: r -> [] (* それ以外のケース *)
+                (* take_less f r *)
+                (* take_greater f r *)
 
 (* テスト *) 
 let () = Printf.printf "\n~~ quick_sort test ~~ \n"
