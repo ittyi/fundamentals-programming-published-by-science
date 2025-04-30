@@ -5,10 +5,14 @@ let () = Printf.printf "helolo\n";;
 let take_less border lst =
     List.filter ( fun first -> first < border ) lst
 
+let take_less border lst = [] (* 未完成 *)
+
 (* 目的：lst の中から n より大きい要素のみを取り出す *)
 (* take_greater : int -> int list -> int list *)
 let take_greater border lst =
     List.filter ( fun first -> first > border ) lst
+
+let take_greater border lst = [] (* 未完成 *)
 
 (* 目的：受け取った lst をクイックソートを使って昇順に整列する *)
 (* quick_sort : int list -> int list *)
