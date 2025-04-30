@@ -16,11 +16,19 @@ let take_greater border lst = [] (* 未完成 *)
 
 (* 目的：受け取った lst をクイックソートを使って昇順に整列する *)
 (* quick_sort : int list -> int list *)
+(* 部分問題の生成が完了した状態が以下
 let rec quick_sort lst = match lst with
 | [] -> [] (* 自明に答えが出るケース *)
 | f :: r -> [] (* それ以外のケース *)
                 (* take_less f r *)
                 (* take_greater f r *)
+*)
+
+let rec quick_sort lst = match lst with
+| [] -> [] (* 自明に答えが出るケース *)
+| f :: r -> [] (* それ以外のケース *)
+                (* quick_sort (* take_less f r *)*)
+                (* quick_sort (* take_greater f r *)*)
 
 (* テスト *) 
 let () = Printf.printf "\n~~ quick_sort test ~~ \n"
