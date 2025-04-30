@@ -57,3 +57,13 @@ print_endline (string_of_bool (test4 = true));;
 let test5 = quick_sort [5; 4; 9; 8; 2; 3] = [2; 3; 4; 5; 8; 9]
 let () = Printf.printf "test5: ";;
 print_endline (string_of_bool (test5 = true));;
+
+(* ex15.1 上記のままだと入力によってバグがある。それは何か *)
+(* これじゃね？ *)
+let test6 = quick_sort [9; 8; 7; 6; 6] = [6; 6; 7; 8; 9]
+let () = Printf.printf "test6: ";;
+print_endline (string_of_bool (test6 = true));;
+
+(* 模範解答
+quick_sort [1; 1] = [1] のように、重複した要素が取り除かれてしまう *) 
+(* (<) を (<=) に変更するか、 *) 
