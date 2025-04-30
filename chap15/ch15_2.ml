@@ -1,5 +1,15 @@
 let () = Printf.printf "helolo\n";;
 
+(* 目的：lst の中から n より小さい要素のみを取り出す *)
+(* take_less : int -> int list -> int list *)
+let take_less border lst =
+    List.filter ( fun first -> first < border ) lst
+
+(* 目的：lst の中から n より大きい要素のみを取り出す *)
+(* take_greater : int -> int list -> int list *)
+let take_greater border lst =
+    List.filter ( fun first -> first > border ) lst
+
 (* 目的：受け取った lst をクイックソートを使って昇順に整列する *)
 (* quick_sort : int list -> int list *)
 let rec quick_sort lst = match lst with
