@@ -24,11 +24,21 @@ let rec quick_sort lst = match lst with
                 (* take_greater f r *)
 *)
 
+(* 部分問題のを解いた状態が以下
 let rec quick_sort lst = match lst with
 | [] -> [] (* 自明に答えが出るケース *)
 | f :: r -> [] (* それ以外のケース *)
                 (* quick_sort (* take_less f r *)*)
                 (* quick_sort (* take_greater f r *)*)
+*)
+
+(* 全体の解が以下 *)
+let rec quick_sort lst = match lst with
+| [] -> [] (* 自明に答えが出るケース *)
+| f :: r -> quick_sort (take_less f r)
+    @ [first]
+    @ quick_sort (take_greater f r)
+
 
 (* テスト *) 
 let () = Printf.printf "\n~~ quick_sort test ~~ \n"
