@@ -21,3 +21,10 @@ let rec e n =
         then dai_n_kou n
         else dai_n_kou n +. e (n + 1)
 (* この上記の 0.00001 が、0.0 だといつまでも到達しないので停止性がなくなる。 *)
+
+(* 局所変数を使うとより簡潔 *)
+let rec e n = 
+    let d = dai_n_kou n in
+    if d < 0.00001
+        then d
+        else d +. e (n + 1)
