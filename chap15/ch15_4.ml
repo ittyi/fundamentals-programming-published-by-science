@@ -9,8 +9,14 @@ let rec dai_n_kou n =
 
 (* 目的： e の近似値を求める *)
 (* e : int -> float *)
+(* テンプレートがこんな感じ
 let rec e n = 
     if dai_n_kou n < 0.00001
         then 0.0 (* 自明なケース *)
         else 0.0 (* それ以外のケース *)
+*)
 
+let rec e n = 
+    if dai_n_kou n < 0.00001
+        then dai_n_kou n
+        else dai_n_kou n +. e (n + 1)
