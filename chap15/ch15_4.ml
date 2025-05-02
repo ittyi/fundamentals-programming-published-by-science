@@ -20,3 +20,4 @@ let rec e n =
     if dai_n_kou n < 0.00001
         then dai_n_kou n
         else dai_n_kou n +. e (n + 1)
+(* この上記の 0.00001 が、0.0 だといつまでも到達しないので停止性がなくなる。 *)
