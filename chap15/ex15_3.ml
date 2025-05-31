@@ -1,21 +1,27 @@
 let () = Printf.printf "hello\n";;
 
+let rec string_of_list lst =
+  match lst with
+  | [] -> "[]"
+  | [x] -> "\"" ^ x ^ "\""
+  | x :: xs -> "\"" ^ x ^ "\", " ^ string_of_list xs
+
 (* 目的：自然数 n 以下の素数を全て求める関数 sieve をエラトステネスのふるいを使って書く *)
 (* int list -> int list *)
-let sieve lst = 
-  if lst = []
-    then  []
-    else  []
+let rec sieve lst = match lst with
+| [] -> []
+| f :: r -> f :: sieve (List.filter ( fun first -> first mod f <> 0 ) r)
 
 (* テスト *) 
 let () = Printf.printf "\n~~ sieve test ~~ \n"
-let test1 = sieve [2] = []
+let test1 = sieve [2] = [2]
 let () = Printf.printf "test1: ";;
 print_endline (string_of_bool (test1 = true));;
 
-let test2 = sieve [2, 3, 4, 5, 6, 7, 8, 9, 10] = [2, 3, 5, 7]
+let test2 = sieve [2; 3; 4; 5; 6; 7; 8; 9; 10] = [2; 3; 5; 7]
 let () = Printf.printf "test2: ";;
 print_endline (string_of_bool (test2 = true));;
+print_endline (string_of_list (List.map string_of_int (sieve [2; 3; 4; 5; 6; 7; 8; 9; 10])));;
 
 let expected_primes_up_to_1000 =
   [2; 3; 5; 7; 11; 13; 17; 19; 23; 29; 31; 37; 41; 43; 47; 53; 59; 61; 67; 71; 73; 79; 83; 89; 97;
