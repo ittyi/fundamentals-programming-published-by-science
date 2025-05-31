@@ -5,11 +5,10 @@ let () = Printf.printf "hello\n";;
 let rec gcd m n =
   if n = 0
     then  m
-    else  let tmp = m mod n in
-      if tmp = 0 
+    else let remainder = m mod n in
+      if remainder = 0 
         then n
-        else
-          gcd n tmp
+        else gcd n remainder
 
 
 (* テスト *) 
