@@ -12,7 +12,7 @@ let rec gcd m n =
 
 
 (* テスト *) 
-let () = Printf.printf "\n~~ let gcd test ~~ \n"
+let () = Printf.printf "\n~~ gcd test ~~ \n"
 let test1 = gcd 0 0 = 0
 let () = Printf.printf "test1: ";;
 print_endline (string_of_bool (test1 = true));;
