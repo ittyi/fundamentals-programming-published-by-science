@@ -5,7 +5,12 @@ let () = Printf.printf "hello\n";;
 let gcd m n =
   if n = 0
     then  m
-    else  0
+    else  let tmp = m mod n in
+      if tmp = 0 
+        then n
+        else
+          tmp
+
 
 (* テスト *) 
 let () = Printf.printf "\n~~ let gcd test ~~ \n"
@@ -17,10 +22,11 @@ let test2 = gcd 1 0 = 1
 let () = Printf.printf "test2: ";;
 print_endline (string_of_bool (test2 = true));;
 
-let test3 = gcd 2 1 = 2
+let test3 = gcd 2 1 = 1
 let () = Printf.printf "test3: ";;
 print_endline (string_of_bool (test3 = true));;
 
 let test4 = gcd 8177 3315 = 221
 let () = Printf.printf "test4: ";;
 print_endline (string_of_bool (test4 = true));;
+print_endline (string_of_int (gcd 8177 3315));;
