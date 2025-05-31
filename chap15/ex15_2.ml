@@ -4,7 +4,7 @@ let () = Printf.printf "hello\n";;
 (* int -> int -> float *)
 let gcd m n =
   if n = 0
-    then  0
+    then  m
     else  0
 
 (* テスト *) 
