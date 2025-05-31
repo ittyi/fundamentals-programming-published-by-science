@@ -2,14 +2,14 @@ let () = Printf.printf "hello\n";;
 
 (* 目的：二つの自然数 m と n の最大公約数を求める関数 gcd をユークリッドの互除法を使って書く *)
 (* int -> int -> float *)
-let gcd m n =
+let rec gcd m n =
   if n = 0
     then  m
     else  let tmp = m mod n in
       if tmp = 0 
         then n
         else
-          tmp
+          gcd n tmp
 
 
 (* テスト *) 
@@ -29,4 +29,7 @@ print_endline (string_of_bool (test3 = true));;
 let test4 = gcd 8177 3315 = 221
 let () = Printf.printf "test4: ";;
 print_endline (string_of_bool (test4 = true));;
-print_endline (string_of_int (gcd 8177 3315));;
+
+let test5 = gcd 390 273 = 39
+let () = Printf.printf "test5: ";;
+print_endline (string_of_bool (test5 = true));;
